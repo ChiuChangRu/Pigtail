@@ -3,245 +3,272 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>親水塗層文獻資料庫｜動態樹枝圖</title>
+<title>親水塗層文獻資料庫｜多維篩選</title>
 <style>
 :root{
-  --bg:#f5f4f0; --card:#fff; --border:#dcd8d0; --text:#1c1c1a; --muted:#6b6860;
-  --blue-bg:#e8f0fb;--blue-bd:#3478d4;--blue-tx:#0d4a9e;
-  --green-bg:#e6f4ea;--green-bd:#2e9e58;--green-tx:#145c2e;
-  --amber-bg:#fef3db;--amber-bd:#c9880a;--amber-tx:#7a4f00;
-  --purple-bg:#ede9fb;--purple-bd:#7057d4;--purple-tx:#3a2185;
-  --red-bg:#fceaea;--red-bd:#d94040;--red-tx:#8b1a1a;
-  --teal-bg:#e2f4f1;--teal-bd:#1a9e8a;--teal-tx:#0a5c52;
-  --gray-bg:#f0eee8;--gray-bd:#8a8880;--gray-tx:#3c3b38;
+  --bg:#f4f3ef;--card:#fff;--border:#dcd8d0;--text:#1c1c1a;--muted:#6b6860;--accent:#0d4a9e;
+  --blue-bg:#e8f0fb;--blue-tx:#0d4a9e;--green-bg:#e6f4ea;--green-tx:#145c2e;
+  --amber-bg:#fef3db;--amber-tx:#7a4f00;--purple-bg:#ede9fb;--purple-tx:#3a2185;
+  --teal-bg:#e2f4f1;--teal-tx:#0a5c52;--red-bg:#fceaea;--red-tx:#8b1a1a;--gray-bg:#efede7;--gray-tx:#3c3b38;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.6;padding:28px 20px 60px;max-width:1280px;margin:0 auto}
-h1{font-size:23px;font-weight:600;margin-bottom:4px}
-.subtitle{color:var(--muted);font-size:13px;margin-bottom:18px}
+body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.6}
+.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.sidebar{position:static!important;height:auto!important}}
 
-/* 統計列 */
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;min-width:90px}
-.stat .num{font-size:20px;font-weight:600}
-.stat .lbl{font-size:11px;color:var(--muted)}
+/* 側邊欄 */
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:20px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar h2{font-size:16px;font-weight:600;margin-bottom:2px}
+.sidebar .sub{font-size:11px;color:var(--muted);margin-bottom:16px}
+.facet-group{margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.facet-group:last-child{border-bottom:none}
+.facet-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.facet-title .arrow{font-size:10px;color:var(--muted);transition:transform .2s}
+.facet-title.collapsed .arrow{transform:rotate(-90deg)}
+.facet-opts{display:flex;flex-direction:column;gap:5px}
+.facet-opts.hidden{display:none}
+.opt{display:flex;align-items:center;gap:7px;font-size:12.5px;cursor:pointer;padding:2px 4px;border-radius:5px}
+.opt:hover{background:var(--gray-bg)}
+.opt input{cursor:pointer;width:15px;height:15px;accent-color:var(--accent)}
+.opt .cnt{margin-left:auto;font-size:11px;color:var(--muted);background:var(--gray-bg);padding:0 6px;border-radius:999px;min-width:20px;text-align:center}
+.opt.disabled{opacity:.38;cursor:not-allowed}
+.clear-all{width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-size:12px;margin-bottom:14px;color:var(--red-tx)}
+.clear-all:hover{background:var(--red-bg)}
 
-/* 控制列 */
-.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center}
-.controls input[type=text]{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px}
-.filter-btn{padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);cursor:pointer;font-size:12px;color:var(--text);transition:all .15s}
-.filter-btn:hover{background:var(--gray-bg)}
-.filter-btn.active{background:var(--blue-tx);color:#fff;border-color:var(--blue-tx)}
-.view-toggle{margin-left:auto;display:flex;gap:4px}
+/* 主區 */
+.main{padding:22px 26px 60px}
+.head-row{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+h1{font-size:22px;font-weight:600}
+.count-info{font-size:13px;color:var(--muted)}
+.count-info b{color:var(--accent);font-size:16px}
+.search{width:100%;padding:9px 13px;border:1px solid var(--border);border-radius:9px;font-size:14px;margin:12px 0 6px}
+.active-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;min-height:4px}
+.chip{font-size:11px;padding:3px 9px 3px 11px;border-radius:999px;background:var(--blue-bg);color:var(--blue-tx);display:flex;align-items:center;gap:6px}
+.chip b{cursor:pointer;font-size:13px;line-height:1}
+.sort-row{display:flex;gap:6px;align-items:center;margin-bottom:14px;font-size:12px;color:var(--muted)}
+.sort-row select{padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px}
 
-/* 區塊標題 */
-.sec{margin-bottom:14px}
-.sec-head{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin:24px 0 12px;padding-left:9px;border-left:3px solid var(--gray-bd)}
-
-/* 卡片網格 */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 15px;border-left-width:4px;transition:box-shadow .15s}
-.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.card.blue{border-left-color:var(--blue-bd)}
-.card.green{border-left-color:var(--green-bd)}
-.card.amber{border-left-color:var(--amber-bd)}
-.card.purple{border-left-color:var(--purple-bd)}
-.card.red{border-left-color:var(--red-bd)}
-.card.teal{border-left-color:var(--teal-bd)}
-.card.gray{border-left-color:var(--gray-bd)}
-
-.card-id{font-size:11px;font-weight:700;color:var(--muted)}
-.card-type{display:inline-block;font-size:10px;padding:1px 7px;border-radius:999px;margin-left:6px;font-weight:600}
-.t-專利{background:var(--amber-bg);color:var(--amber-tx)}
-.t-期刊論文{background:var(--blue-bg);color:var(--blue-tx)}
-.t-綜述review{background:var(--purple-bg);color:var(--purple-tx)}
-.t-商用產品{background:var(--green-bg);color:var(--green-tx)}
-.t-會議論文{background:var(--gray-bg);color:var(--gray-tx)}
-.card-title{font-size:14px;font-weight:600;margin:5px 0 4px;line-height:1.4}
-.card-meta{font-size:12px;color:var(--muted);margin-bottom:7px}
-.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
-.tag{font-size:10.5px;padding:1px 7px;border-radius:999px;background:var(--gray-bg);color:var(--gray-tx)}
-.card-note{font-size:12px;color:var(--text);background:var(--gray-bg);border-radius:6px;padding:7px 9px;margin-bottom:7px;line-height:1.5}
-.card-value{font-size:12px;color:var(--teal-tx);background:var(--teal-bg);border-radius:6px;padding:6px 9px;margin-bottom:8px}
-.card-links{display:flex;flex-wrap:wrap;gap:5px}
-.card-links a{font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--blue-tx);background:#fff}
-.card-links a:hover{background:var(--blue-bg)}
-
-.access-badge{font-size:10px;padding:1px 6px;border-radius:4px;margin-left:4px}
-.a-open{background:var(--green-bg);color:var(--green-tx)}
-.a-patent{background:var(--amber-bg);color:var(--amber-tx)}
-.a-paid{background:var(--gray-bg);color:var(--muted)}
-
-.loading{text-align:center;padding:40px;color:var(--muted)}
-.error{background:var(--red-bg);border:1px solid var(--red-bd);color:var(--red-tx);border-radius:10px;padding:16px;margin:20px 0}
-.empty{text-align:center;padding:30px;color:var(--muted)}
-.footer{margin-top:30px;font-size:11px;color:var(--muted);text-align:center}
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 15px;border-left-width:4px}
+.card.amber{border-left-color:#c9880a}.card.blue{border-left-color:#3478d4}
+.card.purple{border-left-color:#7057d4}.card.green{border-left-color:#2e9e58}.card.gray{border-left-color:#8a8880}
+.cid{font-size:11px;font-weight:700;color:var(--muted)}
+.ctype{font-size:10px;padding:1px 7px;border-radius:999px;margin-left:6px;font-weight:600}
+.tp-專利{background:var(--amber-bg);color:var(--amber-tx)}.tp-期刊論文{background:var(--blue-bg);color:var(--blue-tx)}
+.tp-綜述review{background:var(--purple-bg);color:var(--purple-tx)}.tp-商用產品{background:var(--green-bg);color:var(--green-tx)}.tp-會議論文{background:var(--gray-bg);color:var(--gray-tx)}
+.ctitle{font-size:14px;font-weight:600;margin:5px 0 4px;line-height:1.4}
+.cmeta{font-size:12px;color:var(--muted);margin-bottom:8px}
+.cfacets{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.fc{font-size:10px;padding:1px 7px;border-radius:5px;background:var(--gray-bg);color:var(--gray-tx)}
+.fc.hl{background:var(--blue-bg);color:var(--blue-tx);font-weight:600}
+.cnote{font-size:12px;background:var(--gray-bg);border-radius:6px;padding:7px 9px;margin-bottom:7px;line-height:1.5}
+.cval{font-size:12px;color:var(--teal-tx);background:var(--teal-bg);border-radius:6px;padding:6px 9px;margin-bottom:8px}
+.clinks{display:flex;flex-wrap:wrap;gap:5px}
+.clinks a{font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--blue-tx);background:#fff}
+.clinks a:hover{background:var(--blue-bg)}
+.loading,.empty{text-align:center;padding:50px;color:var(--muted)}
+.error{background:var(--red-bg);border:1px solid #d94040;color:var(--red-tx);border-radius:10px;padding:16px;margin:20px}
 </style>
 </head>
 <body>
-
-<h1>親水塗層文獻資料庫</h1>
-<p class="subtitle">動態讀取 papers.json｜TPU・穿刺針・導管・光固化・熱固化｜配方應用導向</p>
-
-<div class="stats" id="stats"></div>
-
-<div class="controls">
-  <input type="text" id="search" placeholder="🔍 搜尋標題、標籤、摘要、價值說明...">
-  <div class="view-toggle">
-    <button class="filter-btn active" data-view="application" onclick="setView('application')">依應用分組</button>
-    <button class="filter-btn" data-view="type" onclick="setView('type')">依類型分組</button>
-    <button class="filter-btn" data-view="flat" onclick="setView('flat')">全部平鋪</button>
-  </div>
+<div class="wrap">
+  <aside class="sidebar">
+    <h2>篩選器</h2>
+    <div class="sub">多條件交集 (AND)</div>
+    <button class="clear-all" onclick="clearAll()">✕ 清除全部篩選</button>
+    <div id="facets"></div>
+  </aside>
+  <main class="main">
+    <div class="head-row">
+      <h1>親水塗層文獻資料庫</h1>
+      <div class="count-info"><b id="shownCount">—</b> / <span id="totalCount">—</span> 篇</div>
+    </div>
+    <input type="text" class="search" id="search" placeholder="🔍 關鍵字搜尋：標題、摘要、價值說明、廠商...">
+    <div class="active-chips" id="chips"></div>
+    <div class="sort-row">
+      排序：
+      <select id="sort" onchange="render()">
+        <option value="id">編號</option>
+        <option value="year-desc">年份(新→舊)</option>
+        <option value="year-asc">年份(舊→新)</option>
+        <option value="type">類型</option>
+      </select>
+    </div>
+    <div id="content"><div class="loading">載入中...</div></div>
+  </main>
 </div>
 
-<div class="controls" id="tagfilters"></div>
-
-<div id="content"><div class="loading">載入文獻資料中...</div></div>
-
-<div class="footer" id="footer"></div>
-
 <script>
-const COLOR_BY_TYPE = {"專利":"amber","期刊論文":"blue","綜述review":"purple","商用產品":"green","會議論文":"gray"};
-const APP_GROUPS = [
-  {key:"穿刺針", label:"穿刺針 / 活檢針 / 外科針", tags:["穿刺針","活檢針","外科針"]},
-  {key:"TPU", label:"TPU 基材專屬", tags:["TPU"]},
-  {key:"導管", label:"導管 / 導線 / Balloon", tags:["導管","導線guidewire","balloon"]},
-  {key:"導尿管", label:"導尿管", tags:["導尿管"]},
-  {key:"stent", label:"支架 Stent", tags:["stent"]},
-  {key:"通用biomaterial", label:"通用 / 其他", tags:["通用biomaterial","stent"]}
-];
+const FACET_ORDER = ["application","substrate","cure","polymer","photoinitiator","primer","function","layers","has_data","doc_type","access"];
+const FACET_LABEL = {application:"應用部位",substrate:"基材種類",cure:"固化/成膜方式",polymer:"親水主成分",photoinitiator:"光起始劑",primer:"Primer策略",function:"功能性",layers:"塗層層數",has_data:"含量化數據",doc_type:"文獻類型",access:"取得方式"};
+const TYPE_COLOR = {"專利":"amber","期刊論文":"blue","綜述review":"purple","商用產品":"green","會議論文":"gray"};
 
-let DATA = null, activeView = "application", activeTag = null, searchTerm = "";
+let DATA=null, selected={}, searchTerm="", collapsed={};
+
+function getFacetVal(p, facet){
+  if(facet==="doc_type") return [p.doc_type];
+  if(facet==="access") return [p.access||"未標"];
+  const v = p.facets ? p.facets[facet] : null;
+  if(v==null) return [];
+  return Array.isArray(v)? v : [v];
+}
 
 async function load(){
   try{
     const r = await fetch('papers.json?_='+Date.now());
     if(!r.ok) throw new Error('HTTP '+r.status);
     DATA = await r.json();
-    renderStats();
-    renderTagFilters();
-    render();
-    renderFooter();
+    FACET_ORDER.forEach(f=>selected[f]=new Set());
+    document.getElementById('totalCount').textContent = DATA.papers.length;
+    buildFacets(); render();
   }catch(e){
-    document.getElementById('content').innerHTML =
-      '<div class="error"><b>無法載入 papers.json</b><br>'+
-      '請確認 papers.json 與本 HTML 在同一資料夾。<br>'+
-      '若在本機直接開啟(file://)，瀏覽器會擋住讀取——請透過 GitHub Pages 或本機伺服器開啟。<br><br>'+
-      '錯誤訊息：'+e.message+'</div>';
+    document.getElementById('content').innerHTML='<div class="error"><b>無法載入 papers.json</b><br>請確認與本檔同資料夾，且透過 GitHub Pages 或本機伺服器開啟(非 file://)。<br>錯誤：'+e.message+'</div>';
   }
 }
 
-function renderStats(){
-  const p = DATA.papers;
-  const patents = p.filter(x=>x.doc_type==='專利').length;
-  const open = p.filter(x=>x.access&&(x.access.includes('開放')||x.access.includes('產品頁'))).length;
-  const html = [
-    ['總文獻', p.length],
-    ['專利', patents+' ('+Math.round(patents*100/p.length)+'%)'],
-    ['可取得全文', open],
-    ['更新', DATA.meta.last_updated]
-  ].map(([l,n])=>`<div class="stat"><div class="num">${n}</div><div class="lbl">${l}</div></div>`).join('');
-  document.getElementById('stats').innerHTML = html;
+// 計算某facet某選項在「其他條件已篩選」下的可用數量
+function countFor(facet, opt){
+  return DATA.papers.filter(p=>{
+    if(!passSearch(p)) return false;
+    for(const f of FACET_ORDER){
+      if(f===facet) continue;
+      if(selected[f].size===0) continue;
+      const vals=getFacetVal(p,f);
+      if(![...selected[f]].every(s=>vals.includes(s))) return false; // AND within... 改OR within facet見下
+    }
+    return getFacetVal(p,facet).includes(opt);
+  }).length;
 }
 
-function renderTagFilters(){
-  const cure = ["UV光固化","熱固化","plasma","photografting"];
-  const html = '<span style="font-size:12px;color:var(--muted)">固化/製程：</span>'+
-    cure.map(t=>`<button class="filter-btn" data-tag="${t}" onclick="toggleTag('${t}')">${t}</button>`).join('')+
-    `<button class="filter-btn" onclick="toggleTag(null)" id="clearTag" style="display:none">✕ 清除篩選</button>`;
-  document.getElementById('tagfilters').innerHTML = html;
-}
-
-function toggleTag(t){
-  activeTag = (activeTag===t)?null:t;
-  document.querySelectorAll('#tagfilters .filter-btn[data-tag]').forEach(b=>{
-    b.classList.toggle('active', b.dataset.tag===activeTag);
+function buildFacets(){
+  const el=document.getElementById('facets');
+  let html='';
+  for(const facet of FACET_ORDER){
+    const counts={};
+    DATA.papers.forEach(p=>getFacetVal(p,facet).forEach(v=>counts[v]=(counts[v]||0)+1));
+    const opts=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+    if(opts.length===0) continue;
+    const isCol=collapsed[facet];
+    html+=`<div class="facet-group">
+      <div class="facet-title ${isCol?'collapsed':''}" onclick="toggleCollapse('${facet}')">
+        ${FACET_LABEL[facet]} <span class="arrow">▼</span>
+      </div>
+      <div class="facet-opts ${isCol?'hidden':''}" id="opts-${facet}">`;
+    for(const o of opts){
+      const checked=selected[facet].has(o)?'checked':'';
+      html+=`<label class="opt" data-facet="${facet}" data-opt="${o}">
+        <input type="checkbox" ${checked} onchange="toggleOpt('${facet}',this.dataset?'':'' )" data-f="${facet}" data-o="${o}">
+        <span>${o}</span><span class="cnt" id="cnt-${facet}-${cssEsc(o)}">${counts[o]}</span>
+      </label>`;
+    }
+    html+=`</div></div>`;
+  }
+  el.innerHTML=html;
+  // 綁定
+  el.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{toggleOpt(cb.dataset.f, cb.dataset.o);});
   });
-  document.getElementById('clearTag').style.display = activeTag?'inline-block':'none';
-  render();
 }
+function cssEsc(s){return s.replace(/[^a-zA-Z0-9]/g,'_');}
 
-function setView(v){
-  activeView = v;
-  document.querySelectorAll('.view-toggle .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
-  render();
+function toggleCollapse(f){collapsed[f]=!collapsed[f];buildFacets();}
+function toggleOpt(facet,opt){
+  if(selected[facet].has(opt)) selected[facet].delete(opt);
+  else selected[facet].add(opt);
+  render(); updateCounts();
 }
+function clearAll(){FACET_ORDER.forEach(f=>selected[f]=new Set());searchTerm='';document.getElementById('search').value='';buildFacets();render();}
 
-function matchesFilter(p){
-  if(activeTag && !p.tags.includes(activeTag)) return false;
-  if(searchTerm){
-    const hay = (p.title+' '+(p.authors||'')+' '+p.tags.join(' ')+' '+(p.abstract_note||'')+' '+(p.value_to_project||'')+' '+(p.purpose||'')).toLowerCase();
-    if(!hay.includes(searchTerm.toLowerCase())) return false;
+function passSearch(p){
+  if(!searchTerm) return true;
+  const hay=(p.title+' '+(p.authors||'')+' '+(p.venue||'')+' '+p.tags.join(' ')+' '+(p.abstract_note||'')+' '+(p.value_to_project||'')+' '+(p.purpose||'')).toLowerCase();
+  return hay.includes(searchTerm.toLowerCase());
+}
+// 篩選邏輯:不同facet間AND,同facet內OR
+function passFilters(p){
+  if(!passSearch(p)) return false;
+  for(const f of FACET_ORDER){
+    if(selected[f].size===0) continue;
+    const vals=getFacetVal(p,f);
+    if(![...selected[f]].some(s=>vals.includes(s))) return false; // OR within facet
   }
   return true;
 }
 
-function cardHTML(p){
-  const color = COLOR_BY_TYPE[p.doc_type]||'gray';
-  let accessCls='a-paid', accessTxt=p.access||'';
-  if(p.access&&p.access.includes('開放')){accessCls='a-open';}
-  else if(p.access&&p.access.includes('專利')){accessCls='a-patent';}
-  else if(p.access&&p.access.includes('產品')){accessCls='a-open';}
-  const tags = p.tags.map(t=>`<span class="tag">${t}</span>`).join('');
-  let links='';
-  if(p.links){
-    for(const [k,v] of Object.entries(p.links)){
-      const label={doi:'DOI',patents:'專利',pubmed:'PubMed',fulltext:'全文',page:'頁面',article:'文章',ref:'來源',scholar:'Scholar',blog:'文章',news:'新聞',product:'產品頁',pdf:'PDF'}[k]||k;
-      links+=`<a href="${v}" target="_blank" rel="noopener">${label}</a>`;
+function updateCounts(){
+  // 動態更新每選項數量(在其他facet已選條件下)
+  for(const facet of FACET_ORDER){
+    const counts={};
+    DATA.papers.forEach(p=>{
+      // 套用除了本facet外的所有篩選
+      if(!passSearch(p)) return;
+      let ok=true;
+      for(const f of FACET_ORDER){
+        if(f===facet) continue;
+        if(selected[f].size===0) continue;
+        const vals=getFacetVal(p,f);
+        if(![...selected[f]].some(s=>vals.includes(s))){ok=false;break;}
+      }
+      if(ok) getFacetVal(p,facet).forEach(v=>counts[v]=(counts[v]||0)+1);
+    });
+    document.querySelectorAll(`#opts-${facet} .opt`).forEach(opt=>{
+      const o=opt.dataset.opt;
+      const c=counts[o]||0;
+      const cntEl=opt.querySelector('.cnt');
+      if(cntEl) cntEl.textContent=c;
+      opt.classList.toggle('disabled', c===0 && !selected[facet].has(o));
+    });
+  }
+}
+
+function renderChips(){
+  const el=document.getElementById('chips');
+  let html='';
+  for(const f of FACET_ORDER){
+    for(const o of selected[f]){
+      html+=`<span class="chip">${o}<b onclick="toggleOpt('${f}','${o}')">×</b></span>`;
     }
   }
+  if(searchTerm) html+=`<span class="chip">🔍 ${searchTerm}<b onclick="document.getElementById('search').value='';searchTerm='';render()">×</b></span>`;
+  el.innerHTML=html;
+}
+
+function cardHTML(p){
+  const color=TYPE_COLOR[p.doc_type]||'gray';
+  const tags=p.tags.map(t=>`<span class="fc">${t}</span>`).join('');
+  let links='';
+  if(p.links) for(const[k,v]of Object.entries(p.links)){
+    const lbl={doi:'DOI',patents:'專利',pubmed:'PubMed',fulltext:'全文',page:'頁面',article:'文章',ref:'來源',scholar:'Scholar',blog:'文章',news:'新聞',product:'產品',pdf:'PDF'}[k]||k;
+    links+=`<a href="${v}" target="_blank" rel="noopener">${lbl}</a>`;
+  }
   return `<div class="card ${color}">
-    <div><span class="card-id">${p.id}</span><span class="card-type t-${p.doc_type}">${p.doc_type}</span><span class="access-badge ${accessCls}">${accessTxt}</span></div>
-    <div class="card-title">${p.title}</div>
-    <div class="card-meta">${p.authors||'—'} · ${p.year||'—'} · ${p.venue||''}</div>
-    <div class="card-tags">${tags}</div>
-    ${p.abstract_note?`<div class="card-note">${p.abstract_note}</div>`:''}
-    ${p.value_to_project?`<div class="card-value">✦ ${p.value_to_project}</div>`:''}
-    <div class="card-links">${links}</div>
+    <div><span class="cid">${p.id}</span><span class="ctype tp-${p.doc_type}">${p.doc_type}</span> <span class="fc">${p.access||''}</span></div>
+    <div class="ctitle">${p.title}</div>
+    <div class="cmeta">${p.authors||'—'} · ${p.year||'—'} · ${p.venue||''}</div>
+    <div class="cfacets">${tags}</div>
+    ${p.abstract_note?`<div class="cnote">${p.abstract_note}</div>`:''}
+    ${p.value_to_project?`<div class="cval">✦ ${p.value_to_project}</div>`:''}
+    <div class="clinks">${links}</div>
   </div>`;
 }
 
 function render(){
-  searchTerm = document.getElementById('search').value;
-  const filtered = DATA.papers.filter(matchesFilter);
-  const el = document.getElementById('content');
-  if(filtered.length===0){el.innerHTML='<div class="empty">沒有符合條件的文獻</div>';return;}
+  searchTerm=document.getElementById('search').value;
+  let list=DATA.papers.filter(passFilters);
+  const sort=document.getElementById('sort').value;
+  if(sort==='year-desc') list.sort((a,b)=>(b.year||0)-(a.year||0));
+  else if(sort==='year-asc') list.sort((a,b)=>(a.year||0)-(b.year||0));
+  else if(sort==='type') list.sort((a,b)=>a.doc_type.localeCompare(b.doc_type));
+  else list.sort((a,b)=>a.id.localeCompare(b.id));
 
-  if(activeView==='flat'){
-    el.innerHTML = `<div class="grid">${filtered.map(cardHTML).join('')}</div>`;
-    return;
-  }
-  if(activeView==='type'){
-    const order=["專利","期刊論文","綜述review","商用產品","會議論文"];
-    let html='';
-    for(const t of order){
-      const items=filtered.filter(p=>p.doc_type===t);
-      if(items.length===0)continue;
-      html+=`<div class="sec-head">${t}（${items.length}）</div><div class="grid">${items.map(cardHTML).join('')}</div>`;
-    }
-    el.innerHTML=html;
-    return;
-  }
-  // application view
-  let html='', used=new Set();
-  for(const g of APP_GROUPS){
-    const items=filtered.filter(p=>!used.has(p.id)&&g.tags.some(t=>p.tags.includes(t)));
-    items.forEach(p=>used.add(p.id));
-    if(items.length===0)continue;
-    html+=`<div class="sec-head">${g.label}（${items.length}）</div><div class="grid">${items.map(cardHTML).join('')}</div>`;
-  }
-  const rest=filtered.filter(p=>!used.has(p.id));
-  if(rest.length) html+=`<div class="sec-head">其他（${rest.length}）</div><div class="grid">${rest.map(cardHTML).join('')}</div>`;
-  el.innerHTML=html;
+  document.getElementById('shownCount').textContent=list.length;
+  const el=document.getElementById('content');
+  el.innerHTML = list.length? `<div class="grid">${list.map(cardHTML).join('')}</div>` : '<div class="empty">沒有符合所有條件的文獻，試著放寬篩選</div>';
+  renderChips();
 }
 
-function renderFooter(){
-  document.getElementById('footer').innerHTML =
-    `資料來源：公開文獻、MDPI Open Access、USPTO/Google Patents 全文、商用產品頁｜共 ${DATA.papers.length} 篇｜`+
-    `本頁自動讀取同資料夾的 papers.json，新增文獻只需編輯該檔`;
-}
-
-document.getElementById('search').addEventListener('input', render);
+document.getElementById('search').addEventListener('input',()=>{render();updateCounts();});
 load();
 </script>
 </body>
