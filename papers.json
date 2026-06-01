@@ -1,0 +1,401 @@
+{
+  "meta": {
+    "project": "親水塗層文獻資料庫",
+    "scope": "TPU / 穿刺針 / 導管 / 光固化 / 熱固化 / PVP-PEG-MPC",
+    "last_updated": "2026-06-01",
+    "schema_version": "1.0",
+    "tag_dictionary": {
+      "substrate": ["TPU", "Pellethane", "PVC", "Pebax", "nitinol", "stainless-steel", "PEEK", "PDMS"],
+      "hydrophilic_polymer": ["PVP", "PEG", "PEGDA", "PVA", "MPC", "PEO", "hyaluronic-acid"],
+      "cure_method": ["UV光固化", "熱固化", "plasma", "self-polymerization"],
+      "anchor_primer": ["benzophenone", "C-H-insertion", "PDA-polydopamine", "PUA", "isocyanate", "photografting"],
+      "application": ["穿刺針", "活檢針", "導尿管", "導管", "導線guidewire", "stent", "通用biomaterial"],
+      "doc_type": ["期刊論文", "專利", "學位論文", "綜述review", "會議論文"],
+      "access": ["開放全文", "開放摘要", "付費", "專利全文"]
+    }
+  },
+  "papers": [
+    {
+      "id": "15",
+      "title": "UV cross-linked polyvinylpyrrolidone electrospun fibres as antibacterial surfaces",
+      "authors": "Maciejewska et al.",
+      "year": 2019,
+      "venue": "Science and Technology of Advanced Materials",
+      "doi": "10.1080/14686996.2019.1667737",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放全文",
+      "tags": ["PVP", "UV光固化", "benzophenone", "通用biomaterial"],
+      "purpose": "判斷 PVP 如何透過 UV crosslink 提升耐水洗與表面穩定性",
+      "abstract_note": "以 benzophenone(BP) 為交聯劑對 PVP 電紡纖維 UV 光交聯，模量從 4.1 提升至 7.2 GPa，並成功固定溶菌酶達抗菌效果。",
+      "value_to_project": "BP + PVP UV 交聯機制可直接用於塗層固化設計",
+      "links": {
+        "doi": "https://doi.org/10.1080/14686996.2019.1667737",
+        "fulltext": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6818115/"
+      }
+    },
+    {
+      "id": "23",
+      "title": "Protein Repellent, Surface-Attached Hydrogels Through Spray Coating",
+      "authors": "Bentley, Scherag, Brandstetter, Rühe",
+      "year": 2022,
+      "venue": "Advanced Materials Interfaces",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["UV光固化", "通用biomaterial"],
+      "purpose": "判斷水凝膠親水層如何以 spray coating 固定於表面並抗蛋白吸附",
+      "abstract_note": null,
+      "value_to_project": "spray coating 固定法的參考",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=Protein+Repellent+Surface-Attached+Hydrogels+Through+Spray+Coating"
+      }
+    },
+    {
+      "id": "24",
+      "title": "Hydrophilic coating comprising a polyelectrolyte",
+      "authors": "Dias et al.",
+      "year": 2013,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": ["PVP", "導尿管", "isocyanate"],
+      "purpose": "親水塗層專利，需看 claims、polyelectrolyte、binder 與交聯架構",
+      "abstract_note": "polyelectrolyte(ionomer) 提升 dry-out time 與吸水速率。",
+      "value_to_project": "polyelectrolyte 對 dry-out time 的貢獻機制",
+      "links": {
+        "patents": "https://patents.google.com/patent/EP1957130B1/en"
+      }
+    },
+    {
+      "id": "32",
+      "title": "Surface-attached hydrogel coatings via C,H-insertion crosslinking for biomedical and bioanalytical applications",
+      "authors": "Prucker, Brandstetter, Rühe",
+      "year": 2018,
+      "venue": "Biointerphases",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["benzophenone", "C-H-insertion", "UV光固化", "TPU"],
+      "purpose": "C-H insertion / benzophenone 類固定化，對 TPU 低反應表面非常關鍵",
+      "abstract_note": null,
+      "value_to_project": "C-H insertion 機制對 TPU 低反應表面固定最關鍵",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=Surface-attached+hydrogel+coatings+via+C%2CH-insertion+crosslinking"
+      }
+    },
+    {
+      "id": "34",
+      "title": "Hydrophilic coating",
+      "authors": "Rooijmans",
+      "year": 2013,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": ["PVP", "導管", "UV光固化"],
+      "purpose": "親水塗層專利，需比對 coating composition、crosslinking、溶劑與 substrate claims",
+      "abstract_note": "Pebax 7233 導管以 Harland PCX coater 塗覆；含 Norrish I (Irgacure 2959) + Norrish II (benzophenone)。",
+      "value_to_project": "雙光起始劑系統(Type I + Type II)配方參考",
+      "links": {
+        "patents": "https://patents.google.com/patent/WO2009112548A1/en"
+      }
+    },
+    {
+      "id": "35",
+      "title": "Preparation of lubricant and antifouling medical coating on thermoplastic polyurethane",
+      "authors": "Diem Thuy Nguyen et al.",
+      "year": 2021,
+      "venue": "Thesis",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "學位論文",
+      "access": "付費",
+      "tags": ["TPU", "MPC", "通用biomaterial"],
+      "purpose": "直接對 TPU medical coating，若能取得全文對配方最有價值",
+      "abstract_note": null,
+      "value_to_project": "直接針對 TPU medical coating",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=%22Preparation+of+lubricant+and+antifouling+medical+coating+on+thermoplastic+polyurethane%22"
+      }
+    },
+    {
+      "id": "36",
+      "title": "Medical Coating on Thermoplastic Polyurethane by Sequential Deposition of Photo-crosslinkable and Bio-inspired Zwitterionic Phosphocholine Copolymers",
+      "authors": "Yun-Han Chiang et al.",
+      "year": 2022,
+      "venue": "Thesis",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "學位論文",
+      "access": "付費",
+      "tags": ["TPU", "MPC", "UV光固化"],
+      "purpose": "TPU + photo-crosslinkable + zwitterionic phosphocholine，與本案 Plan B 高度相關",
+      "abstract_note": null,
+      "value_to_project": "TPU + photo-crosslinkable MPC，Plan B 高性能配方",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=%22Medical+Coating+on+Thermoplastic+Polyurethane+by+Sequential+Deposition%22"
+      }
+    },
+    {
+      "id": "37",
+      "title": "Deposition of Photoactive Layer on Thermoplastic Polyurethane Tubes for Photo-grafting poly(2-methacryloyloxyethyl phosphorylcholine)",
+      "authors": "Tran Thi Diem Trang et al.",
+      "year": 2021,
+      "venue": "Thesis",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "學位論文",
+      "access": "付費",
+      "tags": ["TPU", "MPC", "photografting", "導管"],
+      "purpose": "TPU tube + photoactive layer + MPC photografting，對導管親水塗層附著最直接",
+      "abstract_note": null,
+      "value_to_project": "TPU tube photoactive layer，對導管附著最直接",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=%22Deposition+of+Photoactive+Layer+on+Thermoplastic+Polyurethane+Tubes%22"
+      }
+    },
+    {
+      "id": "38",
+      "title": "Functional Diblock Copolymer Containing Zwitterionic Phosphocholine and Clickable Benzophenone for Medical Coating on Thermoplastic Polyurethane Catheter",
+      "authors": "Yu Huang et al.",
+      "year": 2022,
+      "venue": "Thesis",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "學位論文",
+      "access": "付費",
+      "tags": ["TPU", "MPC", "benzophenone", "導管"],
+      "purpose": "benzophenone + MPC diblock copolymer，直接對應 photoactive primer / anchor",
+      "abstract_note": null,
+      "value_to_project": "benzophenone + MPC diblock，photoactive primer / anchor 直接對應",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=%22Functional+Diblock+Copolymer+Containing+Zwitterionic+Phosphocholine+and+Clickable+Benzophenone%22"
+      }
+    },
+    {
+      "id": "45",
+      "title": "Photoreactive Polymers Bearing a Zwitterionic Phosphorylcholine Group for Surface Modification of Biomaterials",
+      "authors": "Lin, Fukazawa, Ishihara",
+      "year": 2015,
+      "venue": "ACS Applied Materials & Interfaces",
+      "doi": "10.1021/acsami.5b05193",
+      "pmid": "26202385",
+      "doc_type": "期刊論文",
+      "access": "開放摘要",
+      "tags": ["MPC", "benzophenone", "C-H-insertion", "UV光固化", "通用biomaterial"],
+      "purpose": "photoreactive MPC polymer，支撐抗蛋白/抗細菌沾附與光固定化",
+      "abstract_note": "合成含 benzophenone(MHPBP) 與 MPC 的共聚物(PMH)，UV 照射後 BP 以 C-H 抽氫共價固定於基材；最大吸收 254/289 nm；高親水、抗蛋白吸附。",
+      "value_to_project": "核心機制：BP anchor + MPC 雙功能設計是 Plan B 理論基礎",
+      "links": {
+        "doi": "https://doi.org/10.1021/acsami.5b05193",
+        "pubmed": "https://pubmed.ncbi.nlm.nih.gov/26202385/"
+      }
+    },
+    {
+      "id": "53",
+      "title": "Water-Soluble Photoinitiators in Biomedical Applications",
+      "authors": "Tomal, Ortyl",
+      "year": 2020,
+      "venue": "Polymers",
+      "doi": "10.3390/polym12051073",
+      "pmid": "32392892",
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": ["UV光固化", "benzophenone", "通用biomaterial"],
+      "purpose": "光起始劑選型核心文獻，需抓水溶性、低毒性、光源匹配、黃變與殘留風險",
+      "abstract_note": "綜述生醫用水溶性光起始劑分類與機制；強調高水溶性、低細胞毒性、可見光相容性。Type I 代表 Irgacure 2959；Type II 代表 benzophenone。",
+      "value_to_project": "I2959 為 UV 配方首選光起始劑；BP 適用 primer photografting",
+      "links": {
+        "doi": "https://doi.org/10.3390/polym12051073",
+        "fulltext": "https://www.mdpi.com/2073-4360/12/5/1073"
+      }
+    },
+    {
+      "id": "59",
+      "title": "Photooxidation of poly(N-vinylpyrrolidone) (PVP) in the solid state and in aqueous solution",
+      "authors": "Hassouna, Therias, Mailhot, Gardette",
+      "year": 2009,
+      "venue": "Polymer Degradation and Stability",
+      "doi": "10.1016/j.polymdegradstab.2009.09.007",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["PVP", "UV光固化"],
+      "purpose": "PVP UV 劑量與光氧化/降解風險，避免只追求高 UV dose",
+      "abstract_note": "UV 照射導致 PVP 主鏈氧化裂解，固態與水溶液皆會發生；過高 UV dose 使分子量下降、親水性劣化。",
+      "value_to_project": "UV 劑量不是越高越好，需建立 dose-lubricity 曲線",
+      "links": {
+        "doi": "https://doi.org/10.1016/j.polymdegradstab.2009.09.007"
+      }
+    },
+    {
+      "id": "67",
+      "title": "Coating composition for a urinary catheter",
+      "authors": "Dias et al.",
+      "year": 2012,
+      "venue": "Google Patents (US8133580B2)",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": ["PVP", "導尿管", "UV光固化", "PVC", "isocyanate"],
+      "purpose": "導尿管 coating composition 專利，需看 hydrophilic polymer、supporting polymer、crosslinker 與 claims",
+      "abstract_note": "雙層塗層：內層 polyether primer (Norrish I, Irgacure 2959)，外層 PVP + polyelectrolyte (Norrish II, benzophenone)；總厚度 2-10 μm 最佳；摩擦力 ≤20g。",
+      "value_to_project": "完整雙層 UV 塗層配方與 Harland FTS 測試規格基準",
+      "links": {
+        "patents": "https://patents.google.com/patent/US8133580B2/en"
+      }
+    },
+    {
+      "id": "71",
+      "title": "Photoinitiating behavior of benzophenone derivatives covalently bonded tertiary amine group for UV-curing acrylate systems",
+      "authors": "Cheng, Zhang, Shi",
+      "year": 2012,
+      "venue": "Polymers for Advanced Technologies",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["benzophenone", "UV光固化"],
+      "purpose": "benzophenone derivative / tertiary amine 對 UV acrylate 固化與抽氫機制有參考價值",
+      "abstract_note": null,
+      "value_to_project": "BP + tertiary amine 抽氫機制參考",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=Photoinitiating+behavior+of+benzophenone+derivatives+covalently+bonded+tertiary+amine"
+      }
+    },
+    {
+      "id": "72",
+      "title": "Shrinkage of UV oligomers and monomers",
+      "authors": "Moeck, AG",
+      "year": 2014,
+      "venue": "RadTech Conference",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "會議論文",
+      "access": "開放全文",
+      "tags": ["UV光固化"],
+      "purpose": "UV 固化收縮會影響附著、裂紋與 coating 應力，對耐磨耗有間接影響",
+      "abstract_note": null,
+      "value_to_project": "UV 收縮應力對附著與裂紋的間接影響",
+      "links": {
+        "scholar": "https://scholar.google.com/scholar?q=Shrinkage+of+UV+oligomers+and+monomers+RadTech+2014"
+      }
+    },
+    {
+      "id": "A1",
+      "title": "Preparation and evaluation of a UV-curing hydrophilic semi-IPN coating for medical guidewires",
+      "authors": "Ding, Zhao, Jiang, Jian, Song, Wang",
+      "year": 2021,
+      "venue": "Journal of Coatings Technology and Research",
+      "doi": "10.1007/s11998-020-00455-9",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放摘要",
+      "tags": ["TPU", "PVP", "PEGDA", "PUA", "UV光固化", "導線guidewire"],
+      "purpose": "TPU 基材 UV semi-IPN 配方最直接參考",
+      "abstract_note": "PUA 先固化為 transition layer 增強附著，PVP + PEGDA 滲入並 UV 固化形成 semi-IPN；用於 TPU 鞘覆 nitinol 導線。",
+      "value_to_project": "最直接的 TPU + UV semi-IPN 配方框架；PUA primer 思路可轉用",
+      "links": {
+        "doi": "https://doi.org/10.1007/s11998-020-00455-9"
+      }
+    },
+    {
+      "id": "A2",
+      "title": "A low-friction and high-stability hydrophilic PVP/PEG coated TPU for interventional catheter applications",
+      "authors": "(待補)",
+      "year": 2024,
+      "venue": "Surface and Coatings Technology",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["TPU", "PVP", "PEG", "PDA-polydopamine", "UV光固化", "導管"],
+      "purpose": "PDA 中間層 + PVP/PEG UV 固化的分子量優化參考",
+      "abstract_note": "PDA 弱鹼自聚沉積於 TPU，作黏著中間層進行 PVP/PEG UV 固化；WCA 91.3°→28.3°；摩擦係數從 0.4 降低；I2959 光起始劑；PVP K30/K90、PEG 400/4000/20000。",
+      "value_to_project": "PDA 中間層替代 BP primer 的可行方案；分子量優化數據",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0301679X2400611X"
+      }
+    },
+    {
+      "id": "A3",
+      "title": "Preparation and performance optimization of PVP/PVA coatings with high adhesion and high hydrophilicity for coronary guidewires",
+      "authors": "(待補)",
+      "year": 2025,
+      "venue": "ScienceDirect",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": ["TPU", "PVP", "PVA", "PEGDA", "PDA-polydopamine", "UV光固化", "導線guidewire"],
+      "purpose": "最新正交優化數據；PVA 加入 PVP 體系的附著提升機制",
+      "abstract_note": "因冠狀動脈導線塗層剝落不良事件，優化 PVA/PVP 塗層；以 TPU 為基材，PDA 沉積 + UV 固化；正交實驗優化 PVA/PVP/PEGDA 與光起始劑比例。",
+      "value_to_project": "最新(2025)正交優化；PVA+PVP 附著提升機制",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0300944025005491"
+      }
+    },
+    {
+      "id": "B1",
+      "title": "Influence of a Biocompatible Hydrophilic Needle Surface Coating on a Puncture Biopsy Process for Biomedical Applications",
+      "authors": "Gao, Song, Liu, Jiang, Hao",
+      "year": 2020,
+      "venue": "Coatings (MDPI)",
+      "doi": "10.3390/coatings10020178",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放全文",
+      "tags": ["穿刺針", "活檢針"],
+      "purpose": "唯一直接對穿刺針親水塗層的開放全文；FEM 穿刺力分析",
+      "abstract_note": "建立簡化 FEM 穿刺模型並以體外實驗驗證；比較有/無親水超潤滑塗層的穿刺力差異；降低針與生物軟組織摩擦力。",
+      "value_to_project": "唯一直接對穿刺針的開放全文；FEM 方法論可用於穿刺力評估",
+      "links": {
+        "doi": "https://doi.org/10.3390/coatings10020178",
+        "fulltext": "https://www.mdpi.com/2079-6412/10/2/178"
+      }
+    },
+    {
+      "id": "B2",
+      "title": "Lubricious echogenic coatings (Patent WO2007089761A2)",
+      "authors": "(專利)",
+      "year": 2007,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": ["活檢針", "穿刺針", "PVP"],
+      "purpose": "活檢針親水潤滑 + 回聲雙功能塗層；針型與塗層 claims",
+      "abstract_note": "同時提供親水潤滑與超音波回聲雙功能；適用 biopsy needle/trocar/catheter；先塗親水高分子層再覆回聲結構；針型含骨髓/乳腺/軟組織活檢針(16G/18G)。",
+      "value_to_project": "活檢針親水塗層專利；claims 結構與 durability 要求",
+      "links": {
+        "patents": "https://patents.google.com/patent/WO2007089761A2/en"
+      }
+    },
+    {
+      "id": "D2",
+      "title": "UV cure topcoatings for medical devices (Patent US12037560B2)",
+      "authors": "(專利)",
+      "year": 2024,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": ["benzophenone", "UV光固化", "通用biomaterial"],
+      "purpose": "最新 benzophenone 衍生物 UV topcoat；迴避設計參考",
+      "abstract_note": "4-Methacryloxy-2-hydroxy benzophenone(MHB) 與 HEAA 及 Acrylic Acid 共聚成親水光活性高分子；lubricity <25 gf、durability <50 gf (Harland FTS pinch test)；UV 固化。",
+      "value_to_project": "最新 UV topcoat 專利(2024)；BP 衍生物 + 極性 acrylate 路徑，claims 可作迴避設計參考",
+      "links": {
+        "patents": "https://patents.google.com/patent/US12037560B2/en"
+      }
+    }
+  ]
+}
