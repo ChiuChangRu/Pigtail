@@ -1,277 +1,671 @@
 {
   "meta": {
     "project": "親水塗層文獻資料庫",
-    "scope": "TPU / 穿刺針 / 導管 / 光固化 / 熱固化 / PVP-PEG-MPC",
+    "scope": "TPU / 穿刺針 / 導管 / 光固化 / 熱固化 / PVP-PEG 配方應用導向",
+    "focus_note": "以「配方/塗料應用」為主：市售原料調配、製程參數、塗覆固化條件、商用塗料系統。排除需自行合成單體/聚合物的純學術文獻。",
     "last_updated": "2026-06-01",
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "tag_dictionary": {
-      "substrate": ["TPU", "Pellethane", "PVC", "Pebax", "nitinol", "stainless-steel", "PEEK", "PDMS"],
-      "hydrophilic_polymer": ["PVP", "PEG", "PEGDA", "PVA", "MPC", "PEO", "hyaluronic-acid"],
-      "cure_method": ["UV光固化", "熱固化", "plasma", "self-polymerization"],
-      "anchor_primer": ["benzophenone", "C-H-insertion", "PDA-polydopamine", "PUA", "isocyanate", "photografting"],
-      "application": ["穿刺針", "活檢針", "導尿管", "導管", "導線guidewire", "stent", "通用biomaterial"],
-      "doc_type": ["期刊論文", "專利", "學位論文", "綜述review", "會議論文"],
-      "access": ["開放全文", "開放摘要", "付費", "專利全文"]
+      "substrate": [
+        "TPU",
+        "Pellethane",
+        "PVC",
+        "Pebax",
+        "nylon",
+        "nitinol",
+        "stainless-steel",
+        "PEEK",
+        "silicone"
+      ],
+      "hydrophilic_polymer": [
+        "PVP",
+        "PEG",
+        "PEGDA",
+        "PVA",
+        "PEO",
+        "PAA",
+        "MPC",
+        "hydrogel"
+      ],
+      "cure_method": [
+        "UV光固化",
+        "熱固化",
+        "plasma",
+        "self-polymerization",
+        "EB電子束"
+      ],
+      "anchor_primer": [
+        "benzophenone",
+        "PDA-polydopamine",
+        "PUA",
+        "isocyanate",
+        "photografting",
+        "silane",
+        "plasma-treat"
+      ],
+      "application": [
+        "穿刺針",
+        "活檢針",
+        "外科針",
+        "導尿管",
+        "導管",
+        "導線guidewire",
+        "balloon",
+        "stent",
+        "通用biomaterial"
+      ],
+      "doc_type": [
+        "專利",
+        "期刊論文",
+        "綜述review",
+        "商用產品",
+        "會議論文"
+      ],
+      "access": [
+        "開放全文",
+        "開放摘要",
+        "付費",
+        "專利全文",
+        "產品頁"
+      ]
+    },
+    "stats": {
+      "total": 50,
+      "patents": 20,
+      "patent_ratio": "40%"
     }
   },
   "papers": [
     {
-      "id": "15",
-      "title": "UV cross-linked polyvinylpyrrolidone electrospun fibres as antibacterial surfaces",
-      "authors": "Maciejewska et al.",
-      "year": 2019,
-      "venue": "Science and Technology of Advanced Materials",
-      "doi": "10.1080/14686996.2019.1667737",
-      "pmid": null,
-      "doc_type": "期刊論文",
-      "access": "開放全文",
-      "tags": ["PVP", "UV光固化", "benzophenone", "通用biomaterial"],
-      "purpose": "判斷 PVP 如何透過 UV crosslink 提升耐水洗與表面穩定性",
-      "abstract_note": "以 benzophenone(BP) 為交聯劑對 PVP 電紡纖維 UV 光交聯，模量從 4.1 提升至 7.2 GPa，並成功固定溶菌酶達抗菌效果。",
-      "value_to_project": "BP + PVP UV 交聯機制可直接用於塗層固化設計",
-      "links": {
-        "doi": "https://doi.org/10.1080/14686996.2019.1667737",
-        "fulltext": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6818115/"
-      }
-    },
-    {
-      "id": "23",
-      "title": "Protein Repellent, Surface-Attached Hydrogels Through Spray Coating",
-      "authors": "Bentley, Scherag, Brandstetter, Rühe",
-      "year": 2022,
-      "venue": "Advanced Materials Interfaces",
+      "id": "P01",
+      "title": "Coating composition for a urinary catheter (US8133580B2)",
+      "authors": "Dias et al. / DSM",
+      "year": 2012,
+      "venue": "Google Patents",
       "doi": null,
       "pmid": null,
-      "doc_type": "期刊論文",
-      "access": "付費",
-      "tags": ["UV光固化", "通用biomaterial"],
-      "purpose": "判斷水凝膠親水層如何以 spray coating 固定於表面並抗蛋白吸附",
-      "abstract_note": null,
-      "value_to_project": "spray coating 固定法的參考",
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "導尿管",
+        "UV光固化",
+        "PVC",
+        "isocyanate",
+        "benzophenone"
+      ],
+      "purpose": "完整雙層 UV 塗層配方基準，Harland FTS 測試規格",
+      "abstract_note": "雙層：內層 polyether primer (Norrish I, Irgacure 2959)，外層 PVP+polyelectrolyte (Norrish II, benzophenone)；總厚 2-10μm；摩擦力≤20g。PVC 14Fr 導管實例。",
+      "value_to_project": "最完整的雙層 UV 配方+測試規格基準",
       "links": {
-        "scholar": "https://scholar.google.com/scholar?q=Protein+Repellent+Surface-Attached+Hydrogels+Through+Spray+Coating"
+        "patents": "https://patents.google.com/patent/US8133580B2/en"
       }
     },
     {
-      "id": "24",
-      "title": "Hydrophilic coating comprising a polyelectrolyte",
-      "authors": "Dias et al.",
+      "id": "P02",
+      "title": "Hydrophilic coating comprising a polyelectrolyte (EP1957130B1)",
+      "authors": "Dias et al. / DSM",
       "year": 2013,
       "venue": "Google Patents",
       "doi": null,
       "pmid": null,
       "doc_type": "專利",
       "access": "專利全文",
-      "tags": ["PVP", "導尿管", "isocyanate"],
-      "purpose": "親水塗層專利，需看 claims、polyelectrolyte、binder 與交聯架構",
-      "abstract_note": "polyelectrolyte(ionomer) 提升 dry-out time 與吸水速率。",
-      "value_to_project": "polyelectrolyte 對 dry-out time 的貢獻機制",
+      "tags": [
+        "PVP",
+        "導尿管",
+        "isocyanate",
+        "UV光固化"
+      ],
+      "purpose": "polyelectrolyte 對 dry-out time 與吸水速率的貢獻",
+      "abstract_note": "polyelectrolyte(ionomer) 加入提升 dry-out time 與吸水速率。",
+      "value_to_project": "polyelectrolyte 延長保濕時間的配方機制",
       "links": {
         "patents": "https://patents.google.com/patent/EP1957130B1/en"
       }
     },
     {
-      "id": "32",
-      "title": "Surface-attached hydrogel coatings via C,H-insertion crosslinking for biomedical and bioanalytical applications",
-      "authors": "Prucker, Brandstetter, Rühe",
-      "year": 2018,
-      "venue": "Biointerphases",
-      "doi": null,
-      "pmid": null,
-      "doc_type": "期刊論文",
-      "access": "付費",
-      "tags": ["benzophenone", "C-H-insertion", "UV光固化", "TPU"],
-      "purpose": "C-H insertion / benzophenone 類固定化，對 TPU 低反應表面非常關鍵",
-      "abstract_note": null,
-      "value_to_project": "C-H insertion 機制對 TPU 低反應表面固定最關鍵",
-      "links": {
-        "scholar": "https://scholar.google.com/scholar?q=Surface-attached+hydrogel+coatings+via+C%2CH-insertion+crosslinking"
-      }
-    },
-    {
-      "id": "34",
-      "title": "Hydrophilic coating",
-      "authors": "Rooijmans",
-      "year": 2013,
+      "id": "P03",
+      "title": "Hydrophilic coating (WO2009112548A1)",
+      "authors": "Rooijmans / DSM",
+      "year": 2009,
       "venue": "Google Patents",
       "doi": null,
       "pmid": null,
       "doc_type": "專利",
       "access": "專利全文",
-      "tags": ["PVP", "導管", "UV光固化"],
-      "purpose": "親水塗層專利，需比對 coating composition、crosslinking、溶劑與 substrate claims",
-      "abstract_note": "Pebax 7233 導管以 Harland PCX coater 塗覆；含 Norrish I (Irgacure 2959) + Norrish II (benzophenone)。",
-      "value_to_project": "雙光起始劑系統(Type I + Type II)配方參考",
+      "tags": [
+        "PVP",
+        "導管",
+        "Pebax",
+        "UV光固化",
+        "benzophenone",
+        "isocyanate"
+      ],
+      "purpose": "Pebax 導管雙光起始劑配方 (Norrish I+II)",
+      "abstract_note": "Pebax 7233 導管以 Harland 175-24 PCX coater 塗覆；含 Norrish I (Irgacure 2959) + Norrish II (benzophenone)；光起始劑總量 0.2-10wt%。",
+      "value_to_project": "Pebax 基材雙光起始劑系統配方",
       "links": {
         "patents": "https://patents.google.com/patent/WO2009112548A1/en"
       }
     },
     {
-      "id": "35",
-      "title": "Preparation of lubricant and antifouling medical coating on thermoplastic polyurethane",
-      "authors": "Diem Thuy Nguyen et al.",
-      "year": 2021,
-      "venue": "Thesis",
+      "id": "P06",
+      "title": "Lubricious hydrogel coatings (US5160790 / 單步熱固化)",
+      "authors": "(專利)",
+      "year": 1992,
+      "venue": "USPTO",
       "doi": null,
       "pmid": null,
-      "doc_type": "學位論文",
-      "access": "付費",
-      "tags": ["TPU", "MPC", "通用biomaterial"],
-      "purpose": "直接對 TPU medical coating，若能取得全文對配方最有價值",
-      "abstract_note": null,
-      "value_to_project": "直接針對 TPU medical coating",
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "isocyanate",
+        "熱固化",
+        "導管"
+      ],
+      "purpose": "單步 isocyanate+PVP 熱固化",
+      "abstract_note": "crosslinked PU+PVP 系統；單步製程改善雙層比例控制問題；isocyanate 與基材反應提升附著。",
+      "value_to_project": "單步熱固化路徑(UV設備有限時備案)",
       "links": {
-        "scholar": "https://scholar.google.com/scholar?q=%22Preparation+of+lubricant+and+antifouling+medical+coating+on+thermoplastic+polyurethane%22"
+        "patents": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5160790"
       }
     },
     {
-      "id": "36",
-      "title": "Medical Coating on Thermoplastic Polyurethane by Sequential Deposition of Photo-crosslinkable and Bio-inspired Zwitterionic Phosphocholine Copolymers",
-      "authors": "Yun-Han Chiang et al.",
-      "year": 2022,
-      "venue": "Thesis",
+      "id": "P08",
+      "title": "Lubricious hydrophilic coating for intracorporeal medical device (US6221425B1)",
+      "authors": "(專利)",
+      "year": 2001,
+      "venue": "Google Patents",
       "doi": null,
       "pmid": null,
-      "doc_type": "學位論文",
-      "access": "付費",
-      "tags": ["TPU", "MPC", "UV光固化"],
-      "purpose": "TPU + photo-crosslinkable + zwitterionic phosphocholine，與本案 Plan B 高度相關",
-      "abstract_note": null,
-      "value_to_project": "TPU + photo-crosslinkable MPC，Plan B 高性能配方",
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVA",
+        "PEO",
+        "PEG",
+        "UV光固化",
+        "benzophenone",
+        "導管",
+        "balloon"
+      ],
+      "purpose": "UV底塗+熱固面塗的混合製程實例",
+      "abstract_note": "底塗:HDI trimer+TMPTA+PEG+benzophenone+DMPA，110°F乾燥20s後UV照射(50mW/cm²);面塗:PVA浸塗,55°C烘15min。冠狀擴張導管。",
+      "value_to_project": "UV+熱固混合製程具體配方與參數",
       "links": {
-        "scholar": "https://scholar.google.com/scholar?q=%22Medical+Coating+on+Thermoplastic+Polyurethane+by+Sequential+Deposition%22"
+        "patents": "https://patents.google.com/patent/US6221425B1/en"
       }
     },
     {
-      "id": "37",
-      "title": "Deposition of Photoactive Layer on Thermoplastic Polyurethane Tubes for Photo-grafting poly(2-methacryloyloxyethyl phosphorylcholine)",
-      "authors": "Tran Thi Diem Trang et al.",
-      "year": 2021,
-      "venue": "Thesis",
-      "doi": null,
-      "pmid": null,
-      "doc_type": "學位論文",
-      "access": "付費",
-      "tags": ["TPU", "MPC", "photografting", "導管"],
-      "purpose": "TPU tube + photoactive layer + MPC photografting，對導管親水塗層附著最直接",
-      "abstract_note": null,
-      "value_to_project": "TPU tube photoactive layer，對導管附著最直接",
-      "links": {
-        "scholar": "https://scholar.google.com/scholar?q=%22Deposition+of+Photoactive+Layer+on+Thermoplastic+Polyurethane+Tubes%22"
-      }
-    },
-    {
-      "id": "38",
-      "title": "Functional Diblock Copolymer Containing Zwitterionic Phosphocholine and Clickable Benzophenone for Medical Coating on Thermoplastic Polyurethane Catheter",
-      "authors": "Yu Huang et al.",
-      "year": 2022,
-      "venue": "Thesis",
-      "doi": null,
-      "pmid": null,
-      "doc_type": "學位論文",
-      "access": "付費",
-      "tags": ["TPU", "MPC", "benzophenone", "導管"],
-      "purpose": "benzophenone + MPC diblock copolymer，直接對應 photoactive primer / anchor",
-      "abstract_note": null,
-      "value_to_project": "benzophenone + MPC diblock，photoactive primer / anchor 直接對應",
-      "links": {
-        "scholar": "https://scholar.google.com/scholar?q=%22Functional+Diblock+Copolymer+Containing+Zwitterionic+Phosphocholine+and+Clickable+Benzophenone%22"
-      }
-    },
-    {
-      "id": "45",
-      "title": "Photoreactive Polymers Bearing a Zwitterionic Phosphorylcholine Group for Surface Modification of Biomaterials",
-      "authors": "Lin, Fukazawa, Ishihara",
+      "id": "P12",
+      "title": "Sterilized ready-to-use catheter (US9138510 / 兩層 PVP UV)",
+      "authors": "(專利)",
       "year": 2015,
-      "venue": "ACS Applied Materials & Interfaces",
-      "doi": "10.1021/acsami.5b05193",
-      "pmid": "26202385",
+      "venue": "Justia",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "PVC",
+        "UV光固化",
+        "導尿管"
+      ],
+      "purpose": "市售即用型 PVP 兩層 UV 配方含滅菌",
+      "abstract_note": "5份PVP K90+0.05份ESACURE KIP 150溶於乙醇/GBL;PVC導管dip乾燥;再dip含尿素的PVP液;70°C乾30min,UV(200-300nm)5min;濕態伽瑪滅菌。",
+      "value_to_project": "完整即用型配方:溶劑比例+UV參數+滅菌",
+      "links": {
+        "patents": "https://patents.justia.com/patent/9138510"
+      }
+    },
+    {
+      "id": "P13",
+      "title": "A hydrophilic coating and method (WO1998058990A1)",
+      "authors": "(專利)",
+      "year": 1998,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "PVC",
+        "TPU",
+        "UV光固化"
+      ],
+      "purpose": "TPU primer + PVP 多種配方比較",
+      "abstract_note": "PVC導管dip醫療級TPU+nitrocellulose的THF primer,60°C 15min;再塗PVP K90;比較單塗/雙塗摩擦係數;含HPC(羥丙基纖維素)變體。",
+      "value_to_project": "TPU primer 配方與多版本摩擦比較",
+      "links": {
+        "patents": "https://patents.google.com/patent/WO1998058990A1/en"
+      }
+    },
+    {
+      "id": "P14",
+      "title": "Medical device with hydrophilic coating (US20150038947A1)",
+      "authors": "(專利)",
+      "year": 2015,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "PVC",
+        "UV光固化",
+        "isocyanate",
+        "熱固化"
+      ],
+      "purpose": "表面粗糙度對塗層附著影響+具體浸塗參數",
+      "abstract_note": "PVC導管dip primer(4.9份Plasdone K90+0.1份ESACURE KIP 150/乙醇GBL 85:15),20mm/s約20s,室溫乾1min;比較表面粗糙度;含isocyanate熱固版本。",
+      "value_to_project": "浸塗速度/時間參數+表面粗糙度策略",
+      "links": {
+        "patents": "https://patents.google.com/patent/US20150038947A1/en"
+      }
+    },
+    {
+      "id": "P15",
+      "title": "Hydrophilic coating (US20110144579A1 / 雙層 PU-PVP 熱固)",
+      "authors": "(專利)",
+      "year": 2011,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "isocyanate",
+        "熱固化",
+        "導管",
+        "balloon"
+      ],
+      "purpose": "isocyanate+polyol+PVP 雙層熱固配方",
+      "abstract_note": "第二層 isocyanate+polyol+PVP 熱固成 PU/PVP;PVP 吸濕需先乾燥(220°F數小時)降水分<0.5%避免與isocyanate反應;dip/spray/brush皆可。",
+      "value_to_project": "PVP 乾燥前處理+熱固配方細節",
+      "links": {
+        "patents": "https://patents.google.com/patent/US20110144579A1/en"
+      }
+    },
+    {
+      "id": "P18",
+      "title": "Urinary catheter (US10857324 / C.R.Bard PAA-PEG)",
+      "authors": "C.R.Bard",
+      "year": 2020,
+      "venue": "Justia",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PAA",
+        "PEG",
+        "silicone",
+        "UV光固化",
+        "導尿管"
+      ],
+      "purpose": "PAA/水/PEG浸塗時間+UV silicone面膜參數",
+      "abstract_note": "親水導管dip PAA/水/PEG液(dwell 0.1-10s)→dip含UV固化劑silicone液(多次達目標膜厚)→UV照射0.3-2.0min→直接入包裝免乾燥。",
+      "value_to_project": "商用級浸塗dwell time與UV參數",
+      "links": {
+        "patents": "https://patents.justia.com/patent/10857324"
+      }
+    },
+    {
+      "id": "P24",
+      "title": "Hydrophilic lubricity coating with hybrid top coat (US6610035B2)",
+      "authors": "(專利)",
+      "year": 2003,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "hydrogel",
+        "PEG",
+        "silicone",
+        "導管",
+        "balloon"
+      ],
+      "purpose": "hydrogel底層+疏水面塗防過度吸濕",
+      "abstract_note": "第一層hydrogel+第二層疏水面塗(防hydrogel過早吸濕);面塗含親水surfactant作carrier,入水後帶走面塗;PEG/MPEG分子量100-20000。",
+      "value_to_project": "hybrid top coat 控制吸濕時機設計",
+      "links": {
+        "patents": "https://patents.justia.com/patent/6610035"
+      }
+    },
+    {
+      "id": "P25",
+      "title": "Lubricious echogenic coatings (WO2007089761A2)",
+      "authors": "(專利)",
+      "year": 2007,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "活檢針",
+        "穿刺針",
+        "PVP",
+        "hydrogel"
+      ],
+      "purpose": "活檢針親水潤滑+超音波回聲雙功能",
+      "abstract_note": "親水潤滑+echogenic回聲雙功能;適biopsy needle/trocar/catheter;先塗親水高分子再覆回聲結構(微氣泡/微粒);針型含骨髓/乳腺/軟組織活檢針16G/18G。",
+      "value_to_project": "活檢針親水塗層claims與針型範圍",
+      "links": {
+        "patents": "https://patents.google.com/patent/WO2007089761A2/en"
+      }
+    },
+    {
+      "id": "P26",
+      "title": "UV cure topcoatings for medical devices (US12037560B2)",
+      "authors": "(專利)",
+      "year": 2024,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "benzophenone",
+        "UV光固化",
+        "PAA",
+        "通用biomaterial"
+      ],
+      "purpose": "最新 UV topcoat 專利(2024,迴避設計)",
+      "abstract_note": "MHB(4-Methacryloxy-2-hydroxy benzophenone)與HEAA及AA共聚成親水光活性高分子;lubricity<25gf,durability<50gf(Harland FTS pinch);UV固化;可作topcoat或添加劑。",
+      "value_to_project": "最新UV topcoat專利,claims作迴避設計參考",
+      "links": {
+        "patents": "https://patents.google.com/patent/US12037560B2/en"
+      }
+    },
+    {
+      "id": "C01",
+      "title": "HYDAK UV/Thermal hydrophilic coating (Biocoat)",
+      "authors": "Biocoat Inc.",
+      "year": 2022,
+      "venue": "商用產品/USPTO",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "UV光固化",
+        "熱固化",
+        "導管",
+        "導線guidewire",
+        "stent"
+      ],
+      "purpose": "唯一同時提供UV與熱固的商用塗料",
+      "abstract_note": "HYDAK bi-laminar平台;唯一同時提供UV與熱固系統的供應商;訴求lubricity/durability/低particulate。品牌Hydak直接售塗料給客戶。",
+      "value_to_project": "商用對標:UV vs 熱固雙路線供應商",
+      "links": {
+        "news": "https://www.prnewswire.com/news-releases/biocoat-incs-hydak-uv-hydrophilic-coating-awarded-uspto-patent-301592650.html"
+      }
+    },
+    {
+      "id": "C02",
+      "title": "LUBRITEQ UV-curable hydrophilic coating (Freudenberg Medical)",
+      "authors": "Freudenberg Medical",
+      "year": 2026,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "UV光固化",
+        "hydrogel",
+        "導管",
+        "導線guidewire"
+      ],
+      "purpose": "最新UV單步商用塗料(2026)",
+      "abstract_note": "LUBRITEQ:UV可固化高效親水塗料;合成hydrogel可客製;單步塗覆技術(快速便利);臨床驗證並符法規。亦有聚丙烯cartridge內腔UV-B/UV-C固化案例。",
+      "value_to_project": "最新商用UV單步塗料技術對標",
+      "links": {
+        "product": "https://www.freudenbergmedical.com/technologies/coatings/hydrophilic-coating"
+      }
+    },
+    {
+      "id": "C03",
+      "title": "Serene 親水塗層 (Surmodics)",
+      "authors": "Surmodics Inc.",
+      "year": null,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "導線guidewire",
+        "stent",
+        "通用biomaterial"
+      ],
+      "purpose": "血管介入用商用親水塗層品牌",
+      "abstract_note": "Surmodics親水塗層品牌Serene;用於神經血管/結構心臟/冠狀/週邊血管介入的導管/導線/鞘/支架。",
+      "value_to_project": "商用對標:血管介入塗層市場領導",
+      "links": {
+        "ref": "https://www.marketsandmarkets.com/Market-Reports/hydrophilic-coating-market-22810170.html"
+      }
+    },
+    {
+      "id": "C04",
+      "title": "Hydromer Lubricious Coatings (Hydromer)",
+      "authors": "Hydromer Inc.",
+      "year": null,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "老牌親水塗料供應商(配方+設備+技術支援)",
+      "abstract_note": "Hydromer(1980創立,北卡)FDA註冊ISO13485/9001;提供custom潤滑/抗血栓/抗菌塗料,跨polymer/金屬/玻璃;含塗覆設備與配方+法規支援。",
+      "value_to_project": "商用對標:全方案供應商(含設備)",
+      "links": {
+        "ref": "https://www.grandviewresearch.com/industry-analysis/medical-device-hydrophilic-coatings-market-report"
+      }
+    },
+    {
+      "id": "A1",
+      "title": "UV-curing hydrophilic semi-IPN coating for medical guidewires",
+      "authors": "Ding, Zhao, Jiang, Jian, Song, Wang",
+      "year": 2021,
+      "venue": "J. Coatings Technology and Research",
+      "doi": "10.1007/s11998-020-00455-9",
+      "pmid": null,
       "doc_type": "期刊論文",
       "access": "開放摘要",
-      "tags": ["MPC", "benzophenone", "C-H-insertion", "UV光固化", "通用biomaterial"],
-      "purpose": "photoreactive MPC polymer，支撐抗蛋白/抗細菌沾附與光固定化",
-      "abstract_note": "合成含 benzophenone(MHPBP) 與 MPC 的共聚物(PMH)，UV 照射後 BP 以 C-H 抽氫共價固定於基材；最大吸收 254/289 nm；高親水、抗蛋白吸附。",
-      "value_to_project": "核心機制：BP anchor + MPC 雙功能設計是 Plan B 理論基礎",
+      "tags": [
+        "TPU",
+        "PVP",
+        "PEGDA",
+        "PUA",
+        "UV光固化",
+        "導線guidewire"
+      ],
+      "purpose": "TPU基材UV semi-IPN配方最直接參考",
+      "abstract_note": "PUA固化為transition layer增附著,PVP+PEGDA滲入UV固化成semi-IPN;用於TPU鞘覆nitinol導線。",
+      "value_to_project": "最直接的TPU+UV semi-IPN配方框架",
       "links": {
-        "doi": "https://doi.org/10.1021/acsami.5b05193",
-        "pubmed": "https://pubmed.ncbi.nlm.nih.gov/26202385/"
+        "doi": "https://doi.org/10.1007/s11998-020-00455-9"
       }
     },
     {
-      "id": "53",
+      "id": "A2",
+      "title": "Low-friction high-stability hydrophilic PVP/PEG coated TPU for interventional catheter",
+      "authors": "(待補)",
+      "year": 2024,
+      "venue": "Surface and Coatings Technology",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": [
+        "TPU",
+        "PVP",
+        "PEG",
+        "PDA-polydopamine",
+        "UV光固化",
+        "導管"
+      ],
+      "purpose": "PDA中間層+PVP/PEG UV固化分子量優化",
+      "abstract_note": "PDA弱鹼自聚沉積TPU作黏著中間層,PVP/PEG UV固化;WCA 91.3°→7.4-28.3°;摩擦係數0.4→0.16;I2959;PVP K30/K90,PEG 400/4000/20000;正交優化達grade 0附著。",
+      "value_to_project": "PDA中間層替代BP primer+分子量數據",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0301679X2400611X"
+      }
+    },
+    {
+      "id": "A3",
+      "title": "PVP/PVA coatings with high adhesion for coronary guidewires (TPU)",
+      "authors": "(待補)",
+      "year": 2025,
+      "venue": "ScienceDirect",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": [
+        "TPU",
+        "PVP",
+        "PVA",
+        "PEGDA",
+        "PDA-polydopamine",
+        "UV光固化",
+        "導線guidewire"
+      ],
+      "purpose": "最新正交優化;PVA加入PVP體系附著提升",
+      "abstract_note": "因冠狀導線塗層剝落不良事件優化PVA/PVP;TPU基材,PDA沉積+UV固化;正交實驗優化PVA/PVP/PEGDA與光起始劑比例。",
+      "value_to_project": "最新(2025)正交優化+PVA-PVP附著機制",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0300944025005491"
+      }
+    },
+    {
+      "id": "B1",
+      "title": "Influence of Biocompatible Hydrophilic Needle Surface Coating on Puncture Biopsy",
+      "authors": "Gao, Song, Liu, Jiang, Hao",
+      "year": 2020,
+      "venue": "Coatings (MDPI)",
+      "doi": "10.3390/coatings10020178",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放全文",
+      "tags": [
+        "穿刺針",
+        "活檢針"
+      ],
+      "purpose": "唯一直接對穿刺針親水塗層的開放全文",
+      "abstract_note": "建FEM穿刺模型並體外實驗驗證;比較有/無親水超潤滑塗層穿刺力差異;降低針與軟組織摩擦。",
+      "value_to_project": "穿刺針親水塗層+FEM穿刺力方法論",
+      "links": {
+        "doi": "https://doi.org/10.3390/coatings10020178",
+        "fulltext": "https://www.mdpi.com/2079-6412/10/2/178"
+      }
+    },
+    {
+      "id": "B2",
+      "title": "A novel polymeric coating for enhanced ultrasound visibility (biopsy needle)",
+      "authors": "(PubMed)",
+      "year": null,
+      "venue": "PubMed",
+      "doi": null,
+      "pmid": "16610711",
+      "doc_type": "期刊論文",
+      "access": "開放摘要",
+      "tags": [
+        "活檢針",
+        "穿刺針",
+        "hydrogel"
+      ],
+      "purpose": "活檢針親水基質+起泡劑回聲塗層",
+      "abstract_note": "動態塗層:親水高分子基質+起泡劑;用於針精準進入定位與活檢取樣;in vitro成功;潛在用於血管/心血管/骨科。",
+      "value_to_project": "活檢針親水+回聲塗層實作參考",
+      "links": {
+        "pubmed": "https://pubmed.ncbi.nlm.nih.gov/16610711/"
+      }
+    },
+    {
+      "id": "R1",
       "title": "Water-Soluble Photoinitiators in Biomedical Applications",
       "authors": "Tomal, Ortyl",
       "year": 2020,
-      "venue": "Polymers",
+      "venue": "Polymers (MDPI)",
       "doi": "10.3390/polym12051073",
       "pmid": "32392892",
       "doc_type": "綜述review",
       "access": "開放全文",
-      "tags": ["UV光固化", "benzophenone", "通用biomaterial"],
-      "purpose": "光起始劑選型核心文獻，需抓水溶性、低毒性、光源匹配、黃變與殘留風險",
-      "abstract_note": "綜述生醫用水溶性光起始劑分類與機制；強調高水溶性、低細胞毒性、可見光相容性。Type I 代表 Irgacure 2959；Type II 代表 benzophenone。",
-      "value_to_project": "I2959 為 UV 配方首選光起始劑；BP 適用 primer photografting",
+      "tags": [
+        "UV光固化",
+        "benzophenone"
+      ],
+      "purpose": "光起始劑選型核心(水溶/低毒/光源)",
+      "abstract_note": "綜述生醫水溶性光起始劑分類機制;強調高水溶/低細胞毒/可見光相容;Type I代表I2959;Type II代表benzophenone。",
+      "value_to_project": "I2959為UV配方首選;BP適用primer層",
       "links": {
         "doi": "https://doi.org/10.3390/polym12051073",
         "fulltext": "https://www.mdpi.com/2073-4360/12/5/1073"
       }
     },
     {
-      "id": "59",
-      "title": "Photooxidation of poly(N-vinylpyrrolidone) (PVP) in the solid state and in aqueous solution",
-      "authors": "Hassouna, Therias, Mailhot, Gardette",
+      "id": "R2",
+      "title": "UV Curing for Medical Devices: Role of PEG, PVP, Chitosan (Hydromer)",
+      "authors": "Hydromer",
+      "year": 2025,
+      "venue": "Hydromer 技術文章",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": [
+        "UV光固化",
+        "PEG",
+        "PVP",
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "商用視角整理UV固化親水材料角色",
+      "abstract_note": "整理PEG(塑化/增韌)、PVP、chitosan在UV固化親水塗層的角色;適合醫材;附多篇UV固化參考文獻。",
+      "value_to_project": "商用技術視角的UV固化材料選擇指南",
+      "links": {
+        "article": "https://hydromer.com/uv-curing-for-medical-devices-role-of-peg-pvp-chitosan/"
+      }
+    },
+    {
+      "id": "R3",
+      "title": "PVP UV photooxidation 光降解風險",
+      "authors": "Hassouna et al.",
       "year": 2009,
       "venue": "Polymer Degradation and Stability",
       "doi": "10.1016/j.polymdegradstab.2009.09.007",
       "pmid": null,
       "doc_type": "期刊論文",
       "access": "付費",
-      "tags": ["PVP", "UV光固化"],
-      "purpose": "PVP UV 劑量與光氧化/降解風險，避免只追求高 UV dose",
-      "abstract_note": "UV 照射導致 PVP 主鏈氧化裂解，固態與水溶液皆會發生；過高 UV dose 使分子量下降、親水性劣化。",
-      "value_to_project": "UV 劑量不是越高越好，需建立 dose-lubricity 曲線",
+      "tags": [
+        "PVP",
+        "UV光固化"
+      ],
+      "purpose": "PVP UV劑量上限與光氧化降解",
+      "abstract_note": "UV致PVP主鏈氧化裂解;過高UV dose使分子量下降親水性劣化;需平衡交聯與降解。",
+      "value_to_project": "UV劑量不是越高越好,建dose-lubricity曲線",
       "links": {
         "doi": "https://doi.org/10.1016/j.polymdegradstab.2009.09.007"
       }
     },
     {
-      "id": "67",
-      "title": "Coating composition for a urinary catheter",
-      "authors": "Dias et al.",
-      "year": 2012,
-      "venue": "Google Patents (US8133580B2)",
-      "doi": null,
-      "pmid": null,
-      "doc_type": "專利",
-      "access": "專利全文",
-      "tags": ["PVP", "導尿管", "UV光固化", "PVC", "isocyanate"],
-      "purpose": "導尿管 coating composition 專利，需看 hydrophilic polymer、supporting polymer、crosslinker 與 claims",
-      "abstract_note": "雙層塗層：內層 polyether primer (Norrish I, Irgacure 2959)，外層 PVP + polyelectrolyte (Norrish II, benzophenone)；總厚度 2-10 μm 最佳；摩擦力 ≤20g。",
-      "value_to_project": "完整雙層 UV 塗層配方與 Harland FTS 測試規格基準",
-      "links": {
-        "patents": "https://patents.google.com/patent/US8133580B2/en"
-      }
-    },
-    {
-      "id": "71",
-      "title": "Photoinitiating behavior of benzophenone derivatives covalently bonded tertiary amine group for UV-curing acrylate systems",
-      "authors": "Cheng, Zhang, Shi",
-      "year": 2012,
-      "venue": "Polymers for Advanced Technologies",
-      "doi": null,
-      "pmid": null,
-      "doc_type": "期刊論文",
-      "access": "付費",
-      "tags": ["benzophenone", "UV光固化"],
-      "purpose": "benzophenone derivative / tertiary amine 對 UV acrylate 固化與抽氫機制有參考價值",
-      "abstract_note": null,
-      "value_to_project": "BP + tertiary amine 抽氫機制參考",
-      "links": {
-        "scholar": "https://scholar.google.com/scholar?q=Photoinitiating+behavior+of+benzophenone+derivatives+covalently+bonded+tertiary+amine"
-      }
-    },
-    {
-      "id": "72",
+      "id": "R4",
       "title": "Shrinkage of UV oligomers and monomers",
       "authors": "Moeck, AG",
       "year": 2014,
@@ -280,121 +674,557 @@
       "pmid": null,
       "doc_type": "會議論文",
       "access": "開放全文",
-      "tags": ["UV光固化"],
-      "purpose": "UV 固化收縮會影響附著、裂紋與 coating 應力，對耐磨耗有間接影響",
-      "abstract_note": null,
-      "value_to_project": "UV 收縮應力對附著與裂紋的間接影響",
+      "tags": [
+        "UV光固化"
+      ],
+      "purpose": "UV固化收縮對附著/裂紋影響",
+      "abstract_note": "UV固化收縮影響附著、裂紋與coating應力,對耐磨耗有間接影響。",
+      "value_to_project": "UV收縮應力對附著裂紋的間接影響",
       "links": {
         "scholar": "https://scholar.google.com/scholar?q=Shrinkage+of+UV+oligomers+and+monomers+RadTech+2014"
       }
     },
     {
-      "id": "A1",
-      "title": "Preparation and evaluation of a UV-curing hydrophilic semi-IPN coating for medical guidewires",
-      "authors": "Ding, Zhao, Jiang, Jian, Song, Wang",
-      "year": 2021,
-      "venue": "Journal of Coatings Technology and Research",
-      "doi": "10.1007/s11998-020-00455-9",
+      "id": "R5",
+      "title": "UV cross-linked PVP electrospun fibres as antibacterial surfaces",
+      "authors": "Maciejewska et al.",
+      "year": 2019,
+      "venue": "Sci. Tech. Adv. Materials",
+      "doi": "10.1080/14686996.2019.1667737",
       "pmid": null,
       "doc_type": "期刊論文",
-      "access": "開放摘要",
-      "tags": ["TPU", "PVP", "PEGDA", "PUA", "UV光固化", "導線guidewire"],
-      "purpose": "TPU 基材 UV semi-IPN 配方最直接參考",
-      "abstract_note": "PUA 先固化為 transition layer 增強附著，PVP + PEGDA 滲入並 UV 固化形成 semi-IPN；用於 TPU 鞘覆 nitinol 導線。",
-      "value_to_project": "最直接的 TPU + UV semi-IPN 配方框架；PUA primer 思路可轉用",
+      "access": "開放全文",
+      "tags": [
+        "PVP",
+        "UV光固化",
+        "benzophenone"
+      ],
+      "purpose": "PVP+BP UV交聯提升表面穩定",
+      "abstract_note": "BP為交聯劑對PVP UV光交聯,模量4.1→7.2GPa;固定溶菌酶抗菌。",
+      "value_to_project": "BP+PVP UV交聯機制(市售原料)",
       "links": {
-        "doi": "https://doi.org/10.1007/s11998-020-00455-9"
+        "doi": "https://doi.org/10.1080/14686996.2019.1667737",
+        "fulltext": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6818115/"
       }
     },
     {
-      "id": "A2",
-      "title": "A low-friction and high-stability hydrophilic PVP/PEG coated TPU for interventional catheter applications",
-      "authors": "(待補)",
+      "id": "M1",
+      "title": "Hydrophilic Coating Market Report (MarketsandMarkets)",
+      "authors": "MarketsandMarkets",
       "year": 2024,
-      "venue": "Surface and Coatings Technology",
+      "venue": "市場報告",
       "doi": null,
       "pmid": null,
-      "doc_type": "期刊論文",
-      "access": "付費",
-      "tags": ["TPU", "PVP", "PEG", "PDA-polydopamine", "UV光固化", "導管"],
-      "purpose": "PDA 中間層 + PVP/PEG UV 固化的分子量優化參考",
-      "abstract_note": "PDA 弱鹼自聚沉積於 TPU，作黏著中間層進行 PVP/PEG UV 固化；WCA 91.3°→28.3°；摩擦係數從 0.4 降低；I2959 光起始劑；PVP K30/K90、PEG 400/4000/20000。",
-      "value_to_project": "PDA 中間層替代 BP primer 的可行方案；分子量優化數據",
+      "doc_type": "綜述review",
+      "access": "開放摘要",
+      "tags": [
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "親水塗層市場全景與主要廠商",
+      "abstract_note": "主要廠商:Hydromer/Harland/Surmodics/DSM/Biocoat/Teleflex等;市場2027達225億美元。基材/終端/區域分類。",
+      "value_to_project": "競爭格局與供應商地圖",
       "links": {
-        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0301679X2400611X"
+        "ref": "https://www.marketsandmarkets.com/Market-Reports/hydrophilic-coating-market-22810170.html"
       }
     },
     {
-      "id": "A3",
-      "title": "Preparation and performance optimization of PVP/PVA coatings with high adhesion and high hydrophilicity for coronary guidewires",
+      "id": "M2",
+      "title": "Hydrophilic polymer coatings patent landscape 2026 (PatSnap)",
+      "authors": "PatSnap",
+      "year": 2026,
+      "venue": "專利地圖",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": [
+        "導管",
+        "導線guidewire",
+        "stent",
+        "isocyanate",
+        "plasma-treat",
+        "UV光固化"
+      ],
+      "purpose": "親水塗層專利檢索策略與技術分類",
+      "abstract_note": "PVP/PEG/polyacrylamide常見;附著促進:isocyanate primer/plasma活化/UV交聯;檢索建議跨USPTO/EPO/WIPO;WCA<30°為親水標準。",
+      "value_to_project": "專利檢索策略與技術分類框架",
+      "links": {
+        "blog": "https://www.patsnap.com/resources/blog/articles/hydrophilic-polymer-coatings-for-medical-devices-2026/"
+      }
+    },
+    {
+      "id": "L02",
+      "title": "Hydrophilic coating (US8871869 / 含界面活性劑)",
+      "authors": "DSM",
+      "year": null,
+      "venue": "USPTO",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "導管",
+        "UV光固化"
+      ],
+      "purpose": "含surfactant的親水塗層配方+測試",
+      "abstract_note": "配方含surfactant;固化得親水塗層;濕潤後lubricious;Harland FTS初始lubricity 1cycle≤20g;配wetting fluid含polyelectrolyte。",
+      "value_to_project": "surfactant配方+Harland FTS驗收標準",
+      "links": {
+        "patents": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/8871869"
+      }
+    },
+    {
+      "id": "L04",
+      "title": "Hydrophilic coatings for medical implements (US7015262 / lancing needle)",
+      "authors": "(專利)",
+      "year": null,
+      "venue": "USPTO",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "穿刺針",
+        "hydrogel"
+      ],
+      "purpose": "採血針acrylic hydrogel潤滑+primer",
+      "abstract_note": "acrylic hydrogel(如pHEMA)改善針插入潤滑;塑膠/金屬針需primer或表面前處理。",
+      "value_to_project": "穿刺針hydrogel潤滑+primer需求",
+      "links": {
+        "patents": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7015262"
+      }
+    },
+    {
+      "id": "A4",
+      "title": "PVP/PVA coatings high adhesion for coronary guidewires (TPU, PDA+UV, 詳細數據)",
       "authors": "(待補)",
       "year": 2025,
-      "venue": "ScienceDirect",
+      "venue": "Materials Today Communications",
       "doi": null,
       "pmid": null,
       "doc_type": "期刊論文",
       "access": "付費",
-      "tags": ["TPU", "PVP", "PVA", "PEGDA", "PDA-polydopamine", "UV光固化", "導線guidewire"],
-      "purpose": "最新正交優化數據；PVA 加入 PVP 體系的附著提升機制",
-      "abstract_note": "因冠狀動脈導線塗層剝落不良事件，優化 PVA/PVP 塗層；以 TPU 為基材，PDA 沉積 + UV 固化；正交實驗優化 PVA/PVP/PEGDA 與光起始劑比例。",
-      "value_to_project": "最新(2025)正交優化；PVA+PVP 附著提升機制",
+      "tags": [
+        "TPU",
+        "PVP",
+        "PVA",
+        "PEGDA",
+        "PDA-polydopamine",
+        "UV光固化",
+        "benzophenone",
+        "導線guidewire"
+      ],
+      "purpose": "PDA+PEGDA+BP 協同;正交優化具體數值",
+      "abstract_note": "TPU表面PDA沉積後UV固化PVA/PVP複合層;PEGDA交聯網絡與BP協同提升親水與附著;最低WCA 7.4°,優化配方WCA 12.2°,cross-cut grade 0附著,摩擦係數穩定0.16。",
+      "value_to_project": "PDA+PEGDA+BP協同的具體配方數值",
       "links": {
         "page": "https://www.sciencedirect.com/science/article/abs/pii/S0300944025005491"
       }
     },
     {
-      "id": "B1",
-      "title": "Influence of a Biocompatible Hydrophilic Needle Surface Coating on a Puncture Biopsy Process for Biomedical Applications",
-      "authors": "Gao, Song, Liu, Jiang, Hao",
+      "id": "R6",
+      "title": "Friction behaviour of hydrophilic lubricious coatings (in vitro tribology)",
+      "authors": "(ScienceDirect)",
+      "year": 2015,
+      "venue": "Tribology International",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": [
+        "導管",
+        "PVP",
+        "PVA",
+        "PEG"
+      ],
+      "purpose": "親水塗層體外摩擦測試系統+常用高分子整理",
+      "abstract_note": "建體外tribology系統比較心血管導管外側親水塗層摩擦;常用:acrylic/PVA/PVP/PEG/多醣;含chitosan-脂肪酸衍生物降摩擦(0.53→0.35)。",
+      "value_to_project": "體外摩擦測試方法+親水高分子比較",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/abs/pii/S0301679X15000481"
+      }
+    },
+    {
+      "id": "R7",
+      "title": "Performance Testing of Hydrophilic Coatings on Medical Devices",
+      "authors": "Adhesives & Sealants Industry",
       "year": 2020,
-      "venue": "Coatings (MDPI)",
-      "doi": "10.3390/coatings10020178",
+      "venue": "產業技術文章",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": [
+        "導管",
+        "stent",
+        "通用biomaterial"
+      ],
+      "purpose": "接觸角與摩擦係數關聯;品管測試方法",
+      "abstract_note": "親水塗層接觸角極低或0;pinch test量摩擦係數;接觸角測量與摩擦係數高度相關,可快速作製程品管;比動物臨床測試實用。",
+      "value_to_project": "接觸角↔摩擦係數關聯,品管測試實務",
+      "links": {
+        "article": "https://www.adhesivesmag.com/articles/98095-performance-testing-of-hydrophilic-coatings-on-medical-devices"
+      }
+    },
+    {
+      "id": "R8",
+      "title": "Pinch Test Parameters White Paper + 摩擦測試方法 (Biocoat/ViVitro)",
+      "authors": "Biocoat / ViVitro Labs",
+      "year": 2020,
+      "venue": "技術白皮書",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": [
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "pinch test 參數對結果影響+客製測試",
+      "abstract_note": "非標準摩擦測試方法可比較不同廠商配方與表面處理差異;IDTE系統pinch test;測試參數(夾力/速度/循環數)顯著影響結果。",
+      "value_to_project": "pinch test 參數設定對驗收的影響",
+      "links": {
+        "pdf": "https://vivitrolabs.com/wp-content/uploads/2020/10/Hydrophilic-Coating-Friction-Test.pdf"
+      }
+    },
+    {
+      "id": "R9",
+      "title": "Hydrophilic coating chemistry families: PVP vs PEG 定位 (PatSnap)",
+      "authors": "PatSnap",
+      "year": 2026,
+      "venue": "技術文章",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放全文",
+      "tags": [
+        "PVP",
+        "PEG",
+        "導管",
+        "stent"
+      ],
+      "purpose": "PVP(潤滑) vs PEG(抗沾黏) 化學家族定位",
+      "abstract_note": "PEG最受研究的抗沾黏系統(steric repulsion);PVP優化潤滑(hydration-dependent friction),為導管主流;WCA<30°為親水標準。",
+      "value_to_project": "PVP與PEG的功能定位差異(選材依據)",
+      "links": {
+        "blog": "https://www.patsnap.com/resources/blog/articles/hydrophilic-polymer-coatings-for-medical-devices-2026/"
+      }
+    },
+    {
+      "id": "C06",
+      "title": "DSM ComfortCoat / 親水塗層系統 (dsm-firmenich)",
+      "authors": "DSM-Firmenich",
+      "year": null,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "導線guidewire",
+        "UV光固化",
+        "PVP"
+      ],
+      "purpose": "DSM商用親水塗層(本資料庫多篇專利的母公司)",
+      "abstract_note": "DSM(現dsm-firmenich)為親水塗層市場主要廠商;本資料庫P01-P03等專利多出自DSM;商用UV固化PVP系統。",
+      "value_to_project": "專利↔商用對照:DSM技術落地產品",
+      "links": {
+        "ref": "https://www.grandviewresearch.com/industry-analysis/medical-device-hydrophilic-coatings-market-report"
+      }
+    },
+    {
+      "id": "C07",
+      "title": "Harland Medical 塗覆設備 + 摩擦/厚度測試系統",
+      "authors": "Harland Medical Systems",
+      "year": null,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "導線guidewire",
+        "UV光固化",
+        "通用biomaterial"
+      ],
+      "purpose": "塗覆設備(PCX/RDX-XL)+FTS摩擦/CTS厚度測試",
+      "abstract_note": "Harland提供dip coating+UV固化整合設備(PCX/RDX-XL系列);FTS5000/6000/7000摩擦測試;CTS1100塗層厚度測試;TTS1000 trackability。本資料庫多篇專利用其塗覆機。",
+      "value_to_project": "製程設備+測試儀器供應商(已採購FTS可對接)",
+      "links": {
+        "ref": "http://www.harlandmedical.com/about-us-test-equipment/"
+      }
+    },
+    {
+      "id": "P22",
+      "title": "Hydrophilic lubricant coatings (US6458867B1 / plasma+silane primer)",
+      "authors": "(專利)",
+      "year": 2002,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "silane",
+        "plasma-treat",
+        "導管",
+        "hydrogel"
+      ],
+      "purpose": "plasma+silane primer促進親水層附著",
+      "abstract_note": "雙plasma處理基材接amine基→與PU prepolymer的isocyanate反應;silane(amino)固定親水高分子;提升均勻度與貨架穩定。",
+      "value_to_project": "plasma+silane primer附著促進(TPU適用)",
+      "links": {
+        "patents": "https://patents.google.com/patent/US6458867B1/en"
+      }
+    },
+    {
+      "id": "P05",
+      "title": "Hydrophilic coating (US8287890 / PEO底層+PVP面層雙層)",
+      "authors": "(專利)",
+      "year": 2012,
+      "venue": "USPTO",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PEO",
+        "PVP",
+        "導管",
+        "balloon",
+        "isocyanate",
+        "熱固化"
+      ],
+      "purpose": "PEO耐磨底層+PVP潤滑面層雙層設計",
+      "abstract_note": "第一層isocyanate+polyol+PEO(交聯PU),第二層isocyanate+polyol+PVP;第二層滲入第一層;PVP面層磨耗後靠PEO底層維持潤滑。",
+      "value_to_project": "PEO底層提升耐磨的雙層配方思路",
+      "links": {
+        "patents": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/8287890"
+      }
+    },
+    {
+      "id": "M3",
+      "title": "Medical Device Hydrophilic Coatings Market (Grand View)",
+      "authors": "Grand View Research",
+      "year": 2025,
+      "venue": "市場報告",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "綜述review",
+      "access": "開放摘要",
+      "tags": [
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "市場驅動力與廠商;低VOC法規趨勢",
+      "abstract_note": "驅動力:微創手術量增(心血管/神經血管/泌尿);法規重視生物相容與低VOC配方;OEM外包給專業塗料商。主要廠商Hydromer/DSM/Surmodics/Freudenberg/Biocoat/Harland等。",
+      "value_to_project": "市場趨勢:低VOC配方+OEM外包模式",
+      "links": {
+        "ref": "https://www.grandviewresearch.com/industry-analysis/medical-device-hydrophilic-coatings-market-report"
+      }
+    },
+    {
+      "id": "R10",
+      "title": "Influence of Biocompatible Hydrophilic Coated Needle on Puncture (FEM, 期刊版)",
+      "authors": "Gao et al.",
+      "year": 2020,
+      "venue": "Procedia (ScienceDirect)",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放摘要",
+      "tags": [
+        "穿刺針",
+        "活檢針"
+      ],
+      "purpose": "穿刺針有限元素模型+塗層影響(B1姊妹篇)",
+      "abstract_note": "針活檢取病理診斷;針體表面潤滑度影響針與軟組織摩擦與組織損傷;簡化FEM穿刺模型+體外驗證;比較塗層vs傳統針穿刺過程。",
+      "value_to_project": "穿刺針FEM模型補充(與B1互補)",
+      "links": {
+        "page": "https://www.sciencedirect.com/science/article/pii/S2212827120300688"
+      }
+    },
+    {
+      "id": "C08",
+      "title": "AST Products LubriLAST / 親水塗層 (AST Products)",
+      "authors": "AST Products Inc.",
+      "year": null,
+      "venue": "商用產品",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "通用biomaterial"
+      ],
+      "purpose": "另一商用親水塗料供應商對標",
+      "abstract_note": "AST Products為親水塗層市場廠商之一;提供醫材親水潤滑塗層。",
+      "value_to_project": "商用供應商地圖補充",
+      "links": {
+        "ref": "https://www.marketsandmarkets.com/ResearchInsight/hydrophilic-coating-market.asp"
+      }
+    },
+    {
+      "id": "R11",
+      "title": "TPU wettability hydrophilic stability by plasma-induced graft polymerization",
+      "authors": "(Applied Surface Science)",
+      "year": 2024,
+      "venue": "Applied Surface Science",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "付費",
+      "tags": [
+        "TPU",
+        "PVP",
+        "plasma",
+        "photografting"
+      ],
+      "purpose": "TPU四種親水化方法比較(含plasma接枝)",
+      "abstract_note": "比較4法:PVP塗覆/PVP浸泡/N2-Ar plasma/plasma誘導PVP接枝;TPU-g-PVP(plasma接枝)最佳;WCA 109°→9.2°,80天後仍<20°;表面能72.4mN/m(原TPU 2.8倍)。",
+      "value_to_project": "TPU親水化方法比較;plasma接枝持久性數據",
+      "links": {
+        "ref": "https://ui.adsabs.harvard.edu/abs/2024ApSS..65459509X/abstract"
+      }
+    },
+    {
+      "id": "R12",
+      "title": "Solvent-free UV-curable waterborne PU-acrylate sIPN coatings",
+      "authors": "(Scientific Reports)",
+      "year": 2025,
+      "venue": "Scientific Reports",
+      "doi": null,
       "pmid": null,
       "doc_type": "期刊論文",
       "access": "開放全文",
-      "tags": ["穿刺針", "活檢針"],
-      "purpose": "唯一直接對穿刺針親水塗層的開放全文；FEM 穿刺力分析",
-      "abstract_note": "建立簡化 FEM 穿刺模型並以體外實驗驗證；比較有/無親水超潤滑塗層的穿刺力差異；降低針與生物軟組織摩擦力。",
-      "value_to_project": "唯一直接對穿刺針的開放全文；FEM 方法論可用於穿刺力評估",
+      "tags": [
+        "PUA",
+        "UV光固化",
+        "熱固化"
+      ],
+      "purpose": "無溶劑UV waterborne PU-acrylate semi-IPN",
+      "abstract_note": "無溶劑UV可固化waterborne PU-acrylate(WPUA)以semi-IPN技術;PTHF+IPDI urethane骨架+UDMA引入acrylate;DoE優化抗張強度4.1→8.8MPa;sIPN改善相容性與水阻。",
+      "value_to_project": "無溶劑UV PU-acrylate sIPN(環保配方方向)",
       "links": {
-        "doi": "https://doi.org/10.3390/coatings10020178",
-        "fulltext": "https://www.mdpi.com/2079-6412/10/2/178"
+        "ref": "https://www.nature.com/articles/s41598-025-04739-1"
       }
     },
     {
-      "id": "B2",
-      "title": "Lubricious echogenic coatings (Patent WO2007089761A2)",
-      "authors": "(專利)",
-      "year": 2007,
+      "id": "C09",
+      "title": "Surmodics Serene / Harland Cork 歐洲總部 (產業動態)",
+      "authors": "產業新聞",
+      "year": 2022,
+      "venue": "產業動態",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "商用產品",
+      "access": "產品頁",
+      "tags": [
+        "導管",
+        "導線guidewire",
+        "通用biomaterial"
+      ],
+      "purpose": "產業動態:Harland歐洲據點+Surmodics品牌",
+      "abstract_note": "2022年9月Harland Medical於愛爾蘭Cork設歐洲總部(就近供應設備/材料/塗層技術);Surmodics親水塗層品牌Serene用於血管介入。",
+      "value_to_project": "亞太/歐洲供應鏈據點資訊",
+      "links": {
+        "ref": "https://www.marketsandmarkets.com/Market-Reports/hydrophilic-coating-market-22810170.html"
+      }
+    },
+    {
+      "id": "P28",
+      "title": "Lubricious coating for medical device comprising adhesion-promoting primer (CN107405430A)",
+      "authors": "DSM",
+      "year": null,
       "venue": "Google Patents",
       "doi": null,
       "pmid": null,
       "doc_type": "專利",
       "access": "專利全文",
-      "tags": ["活檢針", "穿刺針", "PVP"],
-      "purpose": "活檢針親水潤滑 + 回聲雙功能塗層；針型與塗層 claims",
-      "abstract_note": "同時提供親水潤滑與超音波回聲雙功能；適用 biopsy needle/trocar/catheter；先塗親水高分子層再覆回聲結構；針型含骨髓/乳腺/軟組織活檢針(16G/18G)。",
-      "value_to_project": "活檢針親水塗層專利；claims 結構與 durability 要求",
+      "tags": [
+        "導管",
+        "UV光固化",
+        "PVP",
+        "isocyanate"
+      ],
+      "purpose": "含附著促進primer的潤滑塗層配方",
+      "abstract_note": "DSM系列;含adhesion-promoting primer的潤滑塗層組合物;提升親水層與基材附著。",
+      "value_to_project": "附著促進primer配方補充(DSM家族)",
       "links": {
-        "patents": "https://patents.google.com/patent/WO2007089761A2/en"
+        "patents": "https://patents.google.com/patent/CN107405430A/en"
       }
     },
     {
-      "id": "D2",
-      "title": "UV cure topcoatings for medical devices (Patent US12037560B2)",
-      "authors": "(專利)",
-      "year": 2024,
+      "id": "P29",
+      "title": "Coating composition (Coloplast / 親水塗層)",
+      "authors": "Coloplast",
+      "year": null,
       "venue": "Google Patents",
       "doi": null,
       "pmid": null,
       "doc_type": "專利",
       "access": "專利全文",
-      "tags": ["benzophenone", "UV光固化", "通用biomaterial"],
-      "purpose": "最新 benzophenone 衍生物 UV topcoat；迴避設計參考",
-      "abstract_note": "4-Methacryloxy-2-hydroxy benzophenone(MHB) 與 HEAA 及 Acrylic Acid 共聚成親水光活性高分子；lubricity <25 gf、durability <50 gf (Harland FTS pinch test)；UV 固化。",
-      "value_to_project": "最新 UV topcoat 專利(2024)；BP 衍生物 + 極性 acrylate 路徑，claims 可作迴避設計參考",
+      "tags": [
+        "PVP",
+        "導尿管",
+        "UV光固化",
+        "photografting"
+      ],
+      "purpose": "Coloplast親水塗層(導尿管大廠)",
+      "abstract_note": "Coloplast塗層組合物;光起始劑/photografting為基礎的親水塗層;用於間歇導尿管。",
+      "value_to_project": "競品導尿管大廠塗層專利",
       "links": {
-        "patents": "https://patents.google.com/patent/US12037560B2/en"
+        "patents": "https://patents.google.com/patent/WO2008071796A2/en"
+      }
+    },
+    {
+      "id": "R13",
+      "title": "Coating formulation for preparing a hydrophilic coating (US8957125)",
+      "authors": "DSM",
+      "year": 2015,
+      "venue": "Google Patents",
+      "doi": null,
+      "pmid": null,
+      "doc_type": "專利",
+      "access": "專利全文",
+      "tags": [
+        "PVP",
+        "導管",
+        "UV光固化",
+        "benzophenone"
+      ],
+      "purpose": "親水塗層配方(本資料庫DSM系列延伸)",
+      "abstract_note": "DSM親水塗層配方;UV固化PVP系統;與US8133580同家族延伸。",
+      "value_to_project": "DSM配方家族延伸版本",
+      "links": {
+        "patents": "https://patents.google.com/patent/US8957125B2/en"
+      }
+    },
+    {
+      "id": "R14",
+      "title": "UV-VIS Curable PEG Hydrogels for Biomedical Applications (multifunctionality)",
+      "authors": "Sabel-Grau et al.",
+      "year": 2022,
+      "venue": "Gels (MDPI)",
+      "doi": "10.3390/gels8030164",
+      "pmid": null,
+      "doc_type": "期刊論文",
+      "access": "開放全文",
+      "tags": [
+        "PEG",
+        "UV光固化",
+        "hydrogel",
+        "通用biomaterial"
+      ],
+      "purpose": "UV-VIS可固化PEG hydrogel多功能化",
+      "abstract_note": "PEG hydrogel在UV-VIS光固化的生醫多功能應用;可見光固化降低UV傷害。",
+      "value_to_project": "PEG hydrogel可見光固化(低能量光源方向)",
+      "links": {
+        "doi": "https://doi.org/10.3390/gels8030164"
       }
     }
   ]

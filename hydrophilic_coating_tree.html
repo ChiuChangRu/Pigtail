@@ -3,548 +3,246 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>親水塗層文獻樹枝圖｜TPU・穿刺針・光固化・熱固化</title>
+<title>親水塗層文獻資料庫｜動態樹枝圖</title>
 <style>
 :root{
-  --bg:#f5f4f0;
-  --card:#ffffff;
-  --border:#d8d4cc;
-  --text:#1c1c1a;
-  --muted:#6b6860;
-  --blue-bg:#e8f0fb; --blue-bd:#3478d4; --blue-tx:#0d4a9e;
-  --green-bg:#e6f4ea; --green-bd:#2e9e58; --green-tx:#145c2e;
-  --amber-bg:#fef3db; --amber-bd:#c9880a; --amber-tx:#7a4f00;
-  --purple-bg:#ede9fb; --purple-bd:#7057d4; --purple-tx:#3a2185;
-  --red-bg:#fceaea; --red-bd:#d94040; --red-tx:#8b1a1a;
-  --teal-bg:#e2f4f1; --teal-bd:#1a9e8a; --teal-tx:#0a5c52;
-  --gray-bg:#f0eee8; --gray-bd:#8a8880; --gray-tx:#3c3b38;
+  --bg:#f5f4f0; --card:#fff; --border:#dcd8d0; --text:#1c1c1a; --muted:#6b6860;
+  --blue-bg:#e8f0fb;--blue-bd:#3478d4;--blue-tx:#0d4a9e;
+  --green-bg:#e6f4ea;--green-bd:#2e9e58;--green-tx:#145c2e;
+  --amber-bg:#fef3db;--amber-bd:#c9880a;--amber-tx:#7a4f00;
+  --purple-bg:#ede9fb;--purple-bd:#7057d4;--purple-tx:#3a2185;
+  --red-bg:#fceaea;--red-bd:#d94040;--red-tx:#8b1a1a;
+  --teal-bg:#e2f4f1;--teal-bd:#1a9e8a;--teal-tx:#0a5c52;
+  --gray-bg:#f0eee8;--gray-bd:#8a8880;--gray-tx:#3c3b38;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.6;padding:32px 24px 64px}
-h1{font-size:22px;font-weight:600;letter-spacing:.3px;margin-bottom:4px}
-.subtitle{color:var(--muted);font-size:13px;margin-bottom:6px}
-.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
-.tag{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid;font-weight:500}
-.tag.blue{background:var(--blue-bg);border-color:var(--blue-bd);color:var(--blue-tx)}
-.tag.green{background:var(--green-bg);border-color:var(--green-bd);color:var(--green-tx)}
-.tag.amber{background:var(--amber-bg);border-color:var(--amber-bd);color:var(--amber-tx)}
-.tag.purple{background:var(--purple-bg);border-color:var(--purple-bd);color:var(--purple-tx)}
-.tag.teal{background:var(--teal-bg);border-color:var(--teal-bd);color:var(--teal-tx)}
+body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.6;padding:28px 20px 60px;max-width:1280px;margin:0 auto}
+h1{font-size:23px;font-weight:600;margin-bottom:4px}
+.subtitle{color:var(--muted);font-size:13px;margin-bottom:18px}
 
-/* ── 樹枝區塊 ── */
-.section{margin-bottom:48px}
-.sec-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-left:2px;border-left:3px solid var(--gray-bd);padding-left:8px}
+/* 統計列 */
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;min-width:90px}
+.stat .num{font-size:20px;font-weight:600}
+.stat .lbl{font-size:11px;color:var(--muted)}
 
-.tree-row{display:grid;grid-template-columns:220px 1fr;gap:0;align-items:start;margin-bottom:20px}
-.root-node{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
-.root-node::after{content:"";position:absolute;right:-24px;top:50%;transform:translateY(-50%);width:24px;height:1.5px;background:var(--border)}
-.branches{display:flex;flex-direction:column;gap:8px;position:relative;padding-left:24px}
-.branches::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1.5px;background:var(--border)}
-.branch{border-radius:10px;padding:10px 13px;border:1px solid;position:relative}
-.branch::before{content:"";position:absolute;left:-24px;top:50%;transform:translateY(-50%);width:24px;height:1px;background:var(--border)}
-.branch.blue{background:var(--blue-bg);border-color:var(--blue-bd)}
-.branch.green{background:var(--green-bg);border-color:var(--green-bd)}
-.branch.amber{background:var(--amber-bg);border-color:var(--amber-bd)}
-.branch.purple{background:var(--purple-bg);border-color:var(--purple-bd)}
-.branch.red{background:var(--red-bg);border-color:var(--red-bd)}
-.branch.teal{background:var(--teal-bg);border-color:var(--teal-bd)}
-.branch.gray{background:var(--gray-bg);border-color:var(--gray-bd)}
+/* 控制列 */
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center}
+.controls input[type=text]{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px}
+.filter-btn{padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);cursor:pointer;font-size:12px;color:var(--text);transition:all .15s}
+.filter-btn:hover{background:var(--gray-bg)}
+.filter-btn.active{background:var(--blue-tx);color:#fff;border-color:var(--blue-tx)}
+.view-toggle{margin-left:auto;display:flex;gap:4px}
 
-.b-title{font-weight:600;font-size:13px;margin-bottom:4px}
-.branch.blue .b-title{color:var(--blue-tx)}
-.branch.green .b-title{color:var(--green-tx)}
-.branch.amber .b-title{color:var(--amber-tx)}
-.branch.purple .b-title{color:var(--purple-tx)}
-.branch.red .b-title{color:var(--red-tx)}
-.branch.teal .b-title{color:var(--teal-tx)}
-.branch.gray .b-title{color:var(--gray-tx)}
+/* 區塊標題 */
+.sec{margin-bottom:14px}
+.sec-head{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin:24px 0 12px;padding-left:9px;border-left:3px solid var(--gray-bd)}
 
-.b-meta{font-size:12px;color:var(--muted);margin-bottom:5px}
-.b-body{font-size:12.5px;color:var(--text);line-height:1.55}
-.b-note{font-size:12px;margin-top:6px;padding:5px 8px;border-radius:6px;background:rgba(0,0,0,0.04)}
-.branch.blue .b-note{color:var(--blue-tx)}
-.branch.green .b-note{color:var(--green-tx)}
-.branch.amber .b-note{color:var(--amber-tx)}
-.branch.purple .b-note{color:var(--purple-tx)}
-.branch.teal .b-note{color:var(--teal-tx)}
+/* 卡片網格 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 15px;border-left-width:4px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.card.blue{border-left-color:var(--blue-bd)}
+.card.green{border-left-color:var(--green-bd)}
+.card.amber{border-left-color:var(--amber-bd)}
+.card.purple{border-left-color:var(--purple-bd)}
+.card.red{border-left-color:var(--red-bd)}
+.card.teal{border-left-color:var(--teal-bd)}
+.card.gray{border-left-color:var(--gray-bd)}
 
-.root-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:4px}
-.root-title{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:3px}
-.root-meta{font-size:11.5px;color:var(--muted)}
-.root-task{display:inline-block;font-size:11px;margin-top:6px;padding:2px 8px;border-radius:999px;background:var(--gray-bg);border:1px solid var(--gray-bd);color:var(--gray-tx)}
+.card-id{font-size:11px;font-weight:700;color:var(--muted)}
+.card-type{display:inline-block;font-size:10px;padding:1px 7px;border-radius:999px;margin-left:6px;font-weight:600}
+.t-專利{background:var(--amber-bg);color:var(--amber-tx)}
+.t-期刊論文{background:var(--blue-bg);color:var(--blue-tx)}
+.t-綜述review{background:var(--purple-bg);color:var(--purple-tx)}
+.t-商用產品{background:var(--green-bg);color:var(--green-tx)}
+.t-會議論文{background:var(--gray-bg);color:var(--gray-tx)}
+.card-title{font-size:14px;font-weight:600;margin:5px 0 4px;line-height:1.4}
+.card-meta{font-size:12px;color:var(--muted);margin-bottom:7px}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.tag{font-size:10.5px;padding:1px 7px;border-radius:999px;background:var(--gray-bg);color:var(--gray-tx)}
+.card-note{font-size:12px;color:var(--text);background:var(--gray-bg);border-radius:6px;padding:7px 9px;margin-bottom:7px;line-height:1.5}
+.card-value{font-size:12px;color:var(--teal-tx);background:var(--teal-bg);border-radius:6px;padding:6px 9px;margin-bottom:8px}
+.card-links{display:flex;flex-wrap:wrap;gap:5px}
+.card-links a{font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--blue-tx);background:#fff}
+.card-links a:hover{background:var(--blue-bg)}
 
-/* links */
-.links{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.links a{font-size:11px;padding:2px 7px;border-radius:5px;border:1px solid var(--border);text-decoration:none;color:var(--blue-tx);background:#fff;transition:background .15s}
-.links a:hover{background:var(--blue-bg)}
+.access-badge{font-size:10px;padding:1px 6px;border-radius:4px;margin-left:4px}
+.a-open{background:var(--green-bg);color:var(--green-tx)}
+.a-patent{background:var(--amber-bg);color:var(--amber-tx)}
+.a-paid{background:var(--gray-bg);color:var(--muted)}
 
-/* ── 新增文獻 highlight ── */
-.new-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:999px;background:#fff3cd;border:1px solid #f0ad4e;color:#7a4f00;margin-left:6px;vertical-align:middle;font-weight:600}
-
-/* divider */
-.divider{border:none;border-top:1px dashed var(--border);margin:32px 0}
-
-/* summary box */
-.summary{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:16px}
-.summary h3{font-size:14px;font-weight:600;margin-bottom:10px}
-.summary table{width:100%;font-size:12.5px;border-collapse:collapse}
-.summary th{background:var(--gray-bg);padding:6px 10px;text-align:left;border:1px solid var(--border);font-weight:600}
-.summary td{padding:6px 10px;border:1px solid var(--border);vertical-align:top}
-.summary tr:nth-child(even) td{background:#fafafa}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.error{background:var(--red-bg);border:1px solid var(--red-bd);color:var(--red-tx);border-radius:10px;padding:16px;margin:20px 0}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+.footer{margin-top:30px;font-size:11px;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
 
-<h1>親水塗層文獻樹枝圖</h1>
-<p class="subtitle">關鍵字：親水塗層 · TPU · 穿刺針 · 光固化 · 熱固化｜整合既有 15 篇 + 新增 6 篇開放文獻</p>
-<div class="tag-row">
-  <span class="tag blue">UV 光固化</span>
-  <span class="tag amber">熱固化 / isocyanate</span>
-  <span class="tag green">TPU 基材</span>
-  <span class="tag purple">穿刺針 / 活檢針</span>
-  <span class="tag teal">PVP / PEG / MPC</span>
-  <span class="tag blue">Benzophenone anchor</span>
-  <span class="tag amber">Semi-IPN / IPN</span>
-</div>
+<h1>親水塗層文獻資料庫</h1>
+<p class="subtitle">動態讀取 papers.json｜TPU・穿刺針・導管・光固化・熱固化｜配方應用導向</p>
 
-<!-- ══════════════════════════════════════
-     SECTION 1：TPU 基材 UV 光固化塗層
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">A｜TPU 基材 UV 光固化塗層</div>
+<div class="stats" id="stats"></div>
 
-<!-- A1 -->
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #A1</div>
-    <div class="root-title">UV-curing semi-IPN hydrophilic coating for medical guidewires</div>
-    <div class="root-meta">Ding et al.｜J. Coatings Tech. Res.｜2021</div>
-    <span class="root-task">TPU + PUA primer + PVP/PEGDA</span>
-    <div class="links">
-      <a href="https://doi.org/10.1007/s11998-020-00455-9" target="_blank">DOI</a>
-      <a href="https://link.springer.com/article/10.1007/s11998-020-00455-9" target="_blank">Springer</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">配方架構</div>
-      <div class="b-body">PUA（polyurethane acrylate）先固化為 transition layer，再讓 PVP + PEGDA 滲入並 UV 固化，形成 semi-IPN</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">基材與問題</div>
-      <div class="b-body">TPU 鞘覆蓋 nitinol 導線；TPU 與親水層表面能差異大，直接塗覆附著不足</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">解決策略</div>
-      <div class="b-body">PUA 作為過渡層（transition layer）增強附著；PVP 提供潤滑；PEGDA 提供交聯骨架</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 最直接參考：TPU + UV semi-IPN 配方框架，PUA primer 思路可轉用於本案 TPU 導管或穿刺針</div>
-    </div>
+<div class="controls">
+  <input type="text" id="search" placeholder="🔍 搜尋標題、標籤、摘要、價值說明...">
+  <div class="view-toggle">
+    <button class="filter-btn active" data-view="application" onclick="setView('application')">依應用分組</button>
+    <button class="filter-btn" data-view="type" onclick="setView('type')">依類型分組</button>
+    <button class="filter-btn" data-view="flat" onclick="setView('flat')">全部平鋪</button>
   </div>
 </div>
 
-<!-- A2 -->
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #A2</div>
-    <div class="root-title">Low-friction, high-stability PVP/PEG coated TPU for interventional catheter</div>
-    <div class="root-meta">ScienceDirect｜Surface & Coatings Technology｜2024</div>
-    <span class="root-task">PDA 中間層 + PVP/PEG UV 固化</span>
-    <div class="links">
-      <a href="https://doi.org/10.1016/j.surfcoat.2024.130XXX" target="_blank">DOI*</a>
-      <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301679X2400611X" target="_blank">ScienceDirect</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">配方架構</div>
-      <div class="b-body">Polydopamine（PDA）在弱鹼環境自聚沉積於 TPU 表面，再以 PDA 作黏著中間層進行 PVP/PEG UV 固化</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">關鍵結果</div>
-      <div class="b-body">水接觸角從 91.3° 降至 28.3°；摩擦係數從 0.4 大幅降低；使用 Irgacure 2959 作光起始劑</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">PVP 分子量考量</div>
-      <div class="b-body">測試 K30（Mn 40,000）與 K90（Mn 130,000），PEG 分子量 400/4000/20,000；逐步優化</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ PDA 中間層替代 benzophenone primer 的可行方案；分子量優化數據直接可參考</div>
-    </div>
-  </div>
-</div>
+<div class="controls" id="tagfilters"></div>
 
-<!-- A3 -->
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #A3</div>
-    <div class="root-title">PVP/PVA coating with high adhesion for coronary guidewires（TPU substrate）</div>
-    <div class="root-meta">ScienceDirect｜2025</div>
-    <span class="root-task">PDA + PVA/PVP/PEGDA UV 固化</span>
-    <div class="links">
-      <a href="https://www.sciencedirect.com/science/article/abs/pii/S0300944025005491" target="_blank">ScienceDirect</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">研究動機</div>
-      <div class="b-body">冠狀動脈導線介入中塗層剝落造成不良事件 → 優化 PVA/PVP 塗層製程與附著力</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">實驗設計</div>
-      <div class="b-body">正交實驗優化 PVA、PVP、PEGDA 用量及光起始劑比例；以 TPU 為基材</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">關鍵發現</div>
-      <div class="b-body">PDA 沉積厚度、PVP 分子量與 PEGDA 濃度三者協同影響塗層附著與潤滑性</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 最新（2025）正交優化數據；PVA 加入 PVP 體系的附著提升機制可直接借鑒</div>
-    </div>
-  </div>
-</div>
-</div>
+<div id="content"><div class="loading">載入文獻資料中...</div></div>
 
-<hr class="divider">
+<div class="footer" id="footer"></div>
 
-<!-- ══════════════════════════════════════
-     SECTION 2：穿刺針 / 活檢針 親水塗層
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">B｜穿刺針 / 活檢針 親水塗層</div>
+<script>
+const COLOR_BY_TYPE = {"專利":"amber","期刊論文":"blue","綜述review":"purple","商用產品":"green","會議論文":"gray"};
+const APP_GROUPS = [
+  {key:"穿刺針", label:"穿刺針 / 活檢針 / 外科針", tags:["穿刺針","活檢針","外科針"]},
+  {key:"TPU", label:"TPU 基材專屬", tags:["TPU"]},
+  {key:"導管", label:"導管 / 導線 / Balloon", tags:["導管","導線guidewire","balloon"]},
+  {key:"導尿管", label:"導尿管", tags:["導尿管"]},
+  {key:"stent", label:"支架 Stent", tags:["stent"]},
+  {key:"通用biomaterial", label:"通用 / 其他", tags:["通用biomaterial","stent"]}
+];
 
-<!-- B1 -->
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #B1</div>
-    <div class="root-title">Influence of Biocompatible Hydrophilic Needle Surface Coating on Puncture Biopsy</div>
-    <div class="root-meta">Gao et al.｜MDPI Coatings｜2020（Open Access）</div>
-    <span class="root-task">穿刺針 / FEM 模擬 / 親水潤滑層</span>
-    <div class="links">
-      <a href="https://doi.org/10.3390/coatings10020178" target="_blank">DOI</a>
-      <a href="https://www.mdpi.com/2079-6412/10/2/178" target="_blank">MDPI 全文</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch purple">
-      <div class="b-title">核心貢獻</div>
-      <div class="b-body">建立簡化有限元素穿刺模型（FEM），並以體外穿刺實驗驗證；比較有/無親水超潤滑塗層的穿刺力差異</div>
-    </div>
-    <div class="branch blue">
-      <div class="b-title">塗層特性</div>
-      <div class="b-body">生物相容性親水超潤滑塗層（biocompatible hydrophilic super-lubrication coating）；降低針與生物軟組織間摩擦力</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">測試方法</div>
-      <div class="b-body">量測摩擦係數；FEM 分析穿刺力 Fx = f(N) 線性關係；in vitro 軟組織穿刺驗證</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 唯一直接對穿刺針親水塗層的開放全文；FEM 方法論可用於本案穿刺力評估</div>
-    </div>
-  </div>
-</div>
+let DATA = null, activeView = "application", activeTag = null, searchTerm = "";
 
-<!-- B2 -->
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #B2</div>
-    <div class="root-title">Lubricious echogenic coatings for biopsy needles（Patent WO2007089761A2）</div>
-    <div class="root-meta">Google Patents｜2007（公開全文）</div>
-    <span class="root-task">活檢針 / 親水潤滑 + 超音波回聲</span>
-    <div class="links">
-      <a href="https://patents.google.com/patent/WO2007089761A2/en" target="_blank">Google Patents</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch purple">
-      <div class="b-title">塗層功能</div>
-      <div class="b-body">同時提供親水潤滑（lubricious）與超音波回聲（echogenic）雙功能；適用於 biopsy needle、trocar、catheter</div>
-    </div>
-    <div class="branch blue">
-      <div class="b-title">塗層架構</div>
-      <div class="b-body">先塗親水高分子層，再覆回聲結構層；或兩者整合為單一塗層；回聲微粒嵌入潤滑層</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">針型範圍</div>
-      <div class="b-body">骨髓活檢針、乳腺定位針、軟組織活檢針（16G/18G，10–20 cm）、BIO-PINCE 儀器用針</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 活檢針親水塗層專利；claims 結構與塗層 durability 要求可參考</div>
-    </div>
-  </div>
-</div>
-</div>
+async function load(){
+  try{
+    const r = await fetch('papers.json?_='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    DATA = await r.json();
+    renderStats();
+    renderTagFilters();
+    render();
+    renderFooter();
+  }catch(e){
+    document.getElementById('content').innerHTML =
+      '<div class="error"><b>無法載入 papers.json</b><br>'+
+      '請確認 papers.json 與本 HTML 在同一資料夾。<br>'+
+      '若在本機直接開啟(file://)，瀏覽器會擋住讀取——請透過 GitHub Pages 或本機伺服器開啟。<br><br>'+
+      '錯誤訊息：'+e.message+'</div>';
+  }
+}
 
-<hr class="divider">
+function renderStats(){
+  const p = DATA.papers;
+  const patents = p.filter(x=>x.doc_type==='專利').length;
+  const open = p.filter(x=>x.access&&(x.access.includes('開放')||x.access.includes('產品頁'))).length;
+  const html = [
+    ['總文獻', p.length],
+    ['專利', patents+' ('+Math.round(patents*100/p.length)+'%)'],
+    ['可取得全文', open],
+    ['更新', DATA.meta.last_updated]
+  ].map(([l,n])=>`<div class="stat"><div class="num">${n}</div><div class="lbl">${l}</div></div>`).join('');
+  document.getElementById('stats').innerHTML = html;
+}
 
-<!-- ══════════════════════════════════════
-     SECTION 3：熱固化 isocyanate / PVP 系統
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">C｜熱固化 isocyanate / PVP 系統（經典基準）</div>
+function renderTagFilters(){
+  const cure = ["UV光固化","熱固化","plasma","photografting"];
+  const html = '<span style="font-size:12px;color:var(--muted)">固化/製程：</span>'+
+    cure.map(t=>`<button class="filter-btn" data-tag="${t}" onclick="toggleTag('${t}')">${t}</button>`).join('')+
+    `<button class="filter-btn" onclick="toggleTag(null)" id="clearTag" style="display:none">✕ 清除篩選</button>`;
+  document.getElementById('tagfilters').innerHTML = html;
+}
 
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">經典 #C1</div>
-    <div class="root-title">Hydrophilic coating（isocyanate + PVP 熱固化）</div>
-    <div class="root-meta">US4666437｜最早雙層熱固化系統</div>
-    <span class="root-task">熱固化 / isocyanate crosslink</span>
-    <div class="links">
-      <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4666437" target="_blank">USPTO PDF</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch amber">
-      <div class="b-title">製程</div>
-      <div class="b-body">第一層：isocyanate（≥2 NCO groups）有機溶劑液乾燥；第二層：PVP 溶液浸塗；含水氣高溫固化形成 urea crosslink</div>
-    </div>
-    <div class="branch red">
-      <div class="b-title">缺點（後代改良起點）</div>
-      <div class="b-body">雙層步驟難以精確控制 primer/PVP 比例；primer 可能部分溶入第二層；需額外烘乾設備與時間</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 熱固化基準：本案若評估 UV vs 熱固化，需了解此基準系統的瓶頸</div>
-    </div>
-  </div>
-</div>
+function toggleTag(t){
+  activeTag = (activeTag===t)?null:t;
+  document.querySelectorAll('#tagfilters .filter-btn[data-tag]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tag===activeTag);
+  });
+  document.getElementById('clearTag').style.display = activeTag?'inline-block':'none';
+  render();
+}
 
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">經典 #C2</div>
-    <div class="root-title">Lubricious hydrogel coatings（US5160790）</div>
-    <div class="root-meta">單步熱固化 crosslinked PVP</div>
-    <span class="root-task">1-step 熱固化 / crosslinked PVP</span>
-    <div class="links">
-      <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5160790" target="_blank">USPTO PDF</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch amber">
-      <div class="b-title">改良點</div>
-      <div class="b-body">單步製程；isocyanate 與 PVP 混合在同一配方，烘烤後交聯固定；解決雙層步驟比例控制問題</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">IPN 結構</div>
-      <div class="b-body">crosslinked 系統比簡單 PVP blend 更緊密固定，耐磨、耐溶劑；PVP 不易遷移</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 單步 isocyanate 熱固化路徑：若 UV 設備有限，此為備用方案參考</div>
-    </div>
-  </div>
-</div>
-</div>
+function setView(v){
+  activeView = v;
+  document.querySelectorAll('.view-toggle .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  render();
+}
 
-<hr class="divider">
+function matchesFilter(p){
+  if(activeTag && !p.tags.includes(activeTag)) return false;
+  if(searchTerm){
+    const hay = (p.title+' '+(p.authors||'')+' '+p.tags.join(' ')+' '+(p.abstract_note||'')+' '+(p.value_to_project||'')+' '+(p.purpose||'')).toLowerCase();
+    if(!hay.includes(searchTerm.toLowerCase())) return false;
+  }
+  return true;
+}
 
-<!-- ══════════════════════════════════════
-     SECTION 4：Benzophenone 固定機制
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">D｜Benzophenone anchor + UV photografting 機制</div>
+function cardHTML(p){
+  const color = COLOR_BY_TYPE[p.doc_type]||'gray';
+  let accessCls='a-paid', accessTxt=p.access||'';
+  if(p.access&&p.access.includes('開放')){accessCls='a-open';}
+  else if(p.access&&p.access.includes('專利')){accessCls='a-patent';}
+  else if(p.access&&p.access.includes('產品')){accessCls='a-open';}
+  const tags = p.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+  let links='';
+  if(p.links){
+    for(const [k,v] of Object.entries(p.links)){
+      const label={doi:'DOI',patents:'專利',pubmed:'PubMed',fulltext:'全文',page:'頁面',article:'文章',ref:'來源',scholar:'Scholar',blog:'文章',news:'新聞',product:'產品頁',pdf:'PDF'}[k]||k;
+      links+=`<a href="${v}" target="_blank" rel="noopener">${label}</a>`;
+    }
+  }
+  return `<div class="card ${color}">
+    <div><span class="card-id">${p.id}</span><span class="card-type t-${p.doc_type}">${p.doc_type}</span><span class="access-badge ${accessCls}">${accessTxt}</span></div>
+    <div class="card-title">${p.title}</div>
+    <div class="card-meta">${p.authors||'—'} · ${p.year||'—'} · ${p.venue||''}</div>
+    <div class="card-tags">${tags}</div>
+    ${p.abstract_note?`<div class="card-note">${p.abstract_note}</div>`:''}
+    ${p.value_to_project?`<div class="card-value">✦ ${p.value_to_project}</div>`:''}
+    <div class="card-links">${links}</div>
+  </div>`;
+}
 
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">既有 #45</div>
-    <div class="root-title">Photoreactive Polymers Bearing Zwitterionic Phosphorylcholine for Surface Modification</div>
-    <div class="root-meta">Lin, Fukazawa, Ishihara｜ACS AMI｜2015</div>
-    <span class="root-task">BP + MPC / C–H insertion</span>
-    <div class="links">
-      <a href="https://doi.org/10.1021/acsami.5b05193" target="_blank">DOI</a>
-      <a href="https://pubmed.ncbi.nlm.nih.gov/26202385/" target="_blank">PubMed</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">機制</div>
-      <div class="b-body">合成含 benzophenone（MHPBP）與 MPC 兩性離子的共聚物（PMH）；UV 照射後 BP 以 C–H 抽氫方式共價固定於基材表面，最大吸收 254 nm / 289 nm</div>
-    </div>
-    <div class="branch purple">
-      <div class="b-title">性能</div>
-      <div class="b-body">高親水性、抗蛋白吸附、抗細菌沾附；適用多種材料表面（包含 TPU）</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 核心機制文獻：BP anchor + MPC 雙功能設計是本案 Plan B 配方最直接的理論基礎</div>
-    </div>
-  </div>
-</div>
+function render(){
+  searchTerm = document.getElementById('search').value;
+  const filtered = DATA.papers.filter(matchesFilter);
+  const el = document.getElementById('content');
+  if(filtered.length===0){el.innerHTML='<div class="empty">沒有符合條件的文獻</div>';return;}
 
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">新增 #D2</div>
-    <div class="root-title">UV cure topcoatings for medical devices（US12037560B2）</div>
-    <div class="root-meta">Google Patents｜2024（公開全文）</div>
-    <span class="root-task">4-Methacryloxy-benzophenone + HEAA/AA UV topcoat</span>
-    <div class="links">
-      <a href="https://patents.google.com/patent/US12037560B2/en" target="_blank">Google Patents</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">光活性單體</div>
-      <div class="b-body">4-Methacryloxy-2-hydroxy benzophenone（MHB）與 HEAA（N-2-hydroxyethyl acrylamide）及 Acrylic Acid 共聚，形成親水光活性高分子</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">性能規格</div>
-      <div class="b-body">lubricity &lt;25 gf；durability &lt;50 gf（Harland FTS pinch test）；可單獨作 topcoat 或與非光活性親水高分子混合</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">固化條件</div>
-      <div class="b-body">UV 固化；光強度（mW/cm²）與 IPA 比例影響潤滑性與耐久性；可配合 basecoat 使用</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 最新 UV topcoat 專利（2024）：benzophenone 衍生物 + 極性 acrylate 共聚物路徑，claims 可作迴避設計參考</div>
-    </div>
-  </div>
-</div>
-</div>
+  if(activeView==='flat'){
+    el.innerHTML = `<div class="grid">${filtered.map(cardHTML).join('')}</div>`;
+    return;
+  }
+  if(activeView==='type'){
+    const order=["專利","期刊論文","綜述review","商用產品","會議論文"];
+    let html='';
+    for(const t of order){
+      const items=filtered.filter(p=>p.doc_type===t);
+      if(items.length===0)continue;
+      html+=`<div class="sec-head">${t}（${items.length}）</div><div class="grid">${items.map(cardHTML).join('')}</div>`;
+    }
+    el.innerHTML=html;
+    return;
+  }
+  // application view
+  let html='', used=new Set();
+  for(const g of APP_GROUPS){
+    const items=filtered.filter(p=>!used.has(p.id)&&g.tags.some(t=>p.tags.includes(t)));
+    items.forEach(p=>used.add(p.id));
+    if(items.length===0)continue;
+    html+=`<div class="sec-head">${g.label}（${items.length}）</div><div class="grid">${items.map(cardHTML).join('')}</div>`;
+  }
+  const rest=filtered.filter(p=>!used.has(p.id));
+  if(rest.length) html+=`<div class="sec-head">其他（${rest.length}）</div><div class="grid">${rest.map(cardHTML).join('')}</div>`;
+  el.innerHTML=html;
+}
 
-<hr class="divider">
+function renderFooter(){
+  document.getElementById('footer').innerHTML =
+    `資料來源：公開文獻、MDPI Open Access、USPTO/Google Patents 全文、商用產品頁｜共 ${DATA.papers.length} 篇｜`+
+    `本頁自動讀取同資料夾的 papers.json，新增文獻只需編輯該檔`;
+}
 
-<!-- ══════════════════════════════════════
-     SECTION 5：光起始劑選型
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">E｜光起始劑選型（水溶性、生醫、UV固化）</div>
-
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">既有 #53</div>
-    <div class="root-title">Water-Soluble Photoinitiators in Biomedical Applications</div>
-    <div class="root-meta">Tomal, Ortyl｜Polymers｜2020（Open Access）</div>
-    <span class="root-task">光起始劑選型 / Type I & II</span>
-    <div class="links">
-      <a href="https://doi.org/10.3390/polym12051073" target="_blank">DOI</a>
-      <a href="https://www.mdpi.com/2073-4360/12/5/1073" target="_blank">MDPI 全文</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch blue">
-      <div class="b-title">Type I（均裂）代表</div>
-      <div class="b-body">Irgacure 2959（I2959）：高水溶性、低毒性、生醫最常用；320–365 nm；殘留風險低</div>
-    </div>
-    <div class="branch green">
-      <div class="b-title">Type II（抽氫）代表</div>
-      <div class="b-body">Benzophenone：需共起始劑（tertiary amine）；用於 C–H insertion 表面固定，非自由基聚合</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">選型準則</div>
-      <div class="b-body">高水溶性（生醫配方）、低細胞毒性（ISO 10993）、可見光相容性（低能量 LED）、避免黃變</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ I2959 為本案 UV 固化配方首選光起始劑；BP 適用於 primer photografting 層</div>
-    </div>
-  </div>
-</div>
-</div>
-
-<hr class="divider">
-
-<!-- ══════════════════════════════════════
-     SECTION 6：PVP 光降解風險
-════════════════════════════════════════ -->
-<div class="section">
-<div class="sec-title">F｜PVP 光降解風險與 UV 劑量視窗</div>
-
-<div class="tree-row">
-  <div class="root-node">
-    <div class="root-label">既有 #59</div>
-    <div class="root-title">Photooxidation of poly(N-vinylpyrrolidone) in solid state and aqueous solution</div>
-    <div class="root-meta">Hassouna et al.｜Polym. Degrad. Stab.｜2009</div>
-    <span class="root-task">PVP 光降解 / UV dose 上限</span>
-    <div class="links">
-      <a href="https://doi.org/10.1016/j.polymdegradstab.2009.09.007" target="_blank">DOI</a>
-    </div>
-  </div>
-  <div class="branches">
-    <div class="branch red">
-      <div class="b-title">降解機制</div>
-      <div class="b-body">UV 照射導致 PVP 主鏈氧化裂解；固態與水溶液中均會發生；過高 UV dose 使 PVP 分子量下降、親水性劣化</div>
-    </div>
-    <div class="branch amber">
-      <div class="b-title">劑量視窗</div>
-      <div class="b-body">存在最佳 UV 劑量範圍：足夠固化但不過度氧化 PVP；須平衡交聯效率與降解風險</div>
-    </div>
-    <div class="branch teal">
-      <div class="b-title">對本案價值</div>
-      <div class="b-note">✦ 設計 UV 固化製程時必讀：UV 劑量不是越高越好，需建立 dose-lubricity 曲線</div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ══════════════════════════════════════
-     SUMMARY TABLE
-════════════════════════════════════════ -->
-<div class="summary">
-<h3>🗂 本次新增 6 篇文獻彙整</h3>
-<table>
-<thead>
-<tr>
-  <th>編號</th>
-  <th>文獻</th>
-  <th>類型</th>
-  <th>主要貢獻</th>
-  <th>連結</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>A1</td>
-  <td>Ding et al. 2021, J.Coat.Tech.Res.</td>
-  <td>開放摘要</td>
-  <td>TPU + PUA primer + PVP/PEGDA UV semi-IPN，最直接的 TPU 導線配方參考</td>
-  <td><a href="https://doi.org/10.1007/s11998-020-00455-9" target="_blank">DOI</a></td>
-</tr>
-<tr>
-  <td>A2</td>
-  <td>ScienceDirect 2024, Surf.Coat.Tech.</td>
-  <td>付費（摘要可見）</td>
-  <td>PDA + PVP/PEG UV 固化；I2959；WCA 91→28°；K30/K90 分子量優化</td>
-  <td><a href="https://www.sciencedirect.com/science/article/abs/pii/S0301679X2400611X" target="_blank">頁面</a></td>
-</tr>
-<tr>
-  <td>A3</td>
-  <td>ScienceDirect 2025</td>
-  <td>付費（摘要可見）</td>
-  <td>冠狀動脈導線 PDA/PVA/PVP/PEGDA 正交優化；最新數據</td>
-  <td><a href="https://www.sciencedirect.com/science/article/abs/pii/S0300944025005491" target="_blank">頁面</a></td>
-</tr>
-<tr>
-  <td>B1</td>
-  <td>Gao et al. 2020, MDPI Coatings</td>
-  <td>開放全文 ✅</td>
-  <td>穿刺針親水塗層 + FEM 穿刺力分析；唯一直接對針的開放文獻</td>
-  <td><a href="https://www.mdpi.com/2079-6412/10/2/178" target="_blank">全文</a></td>
-</tr>
-<tr>
-  <td>B2</td>
-  <td>WO2007089761A2 Patents</td>
-  <td>專利全文 ✅</td>
-  <td>活檢針親水潤滑 + 回聲雙功能塗層；針型與塗層 claims</td>
-  <td><a href="https://patents.google.com/patent/WO2007089761A2/en" target="_blank">專利</a></td>
-</tr>
-<tr>
-  <td>D2</td>
-  <td>US12037560B2（2024）</td>
-  <td>專利全文 ✅</td>
-  <td>benzophenone 衍生物 + HEAA UV topcoat；lubricity &lt;25 gf；最新 UV 塗層專利</td>
-  <td><a href="https://patents.google.com/patent/US12037560B2/en" target="_blank">專利</a></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<p style="margin-top:20px;font-size:11.5px;color:var(--muted)">建立時間：2026-06-01｜資料來源：公開文獻、MDPI Open Access、USPTO/Google Patents 全文｜* 標記為推論</p>
+document.getElementById('search').addEventListener('input', render);
+load();
+</script>
 </body>
 </html>
