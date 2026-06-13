@@ -1,0 +1,60 @@
+{
+  "search_queries": {
+    "coating_materials": [
+      "hydrophilic coating medical device",
+      "PVP polyvinylpyrrolidone lubricious coating catheter",
+      "PEG polyethylene glycol surface coating",
+      "MPC phosphorylcholine coating",
+      "SBMA zwitterionic coating",
+      "UV curable hydrophilic coating TPU",
+      "thermal cure hydrophilic coating substrate"
+    ],
+    "application_devices": [
+      "ureteral stent hydrophilic coating friction",
+      "catheter hydrophilic coating lubricity",
+      "guidewire hydrophilic coating urological",
+      "hydrophilic coating biopsy needle",
+      "hemodialysis catheter surface modification"
+    ],
+    "performance_testing": [
+      "hydrophilic coating friction coefficient measurement",
+      "lubricious coating durability abrasion test",
+      "hydrophilic coating adhesion TPU substrate",
+      "coating thickness uniformity medical device",
+      "hydrophilic coating biocompatibility ISO 10993"
+    ],
+    "process_technology": [
+      "air plasma treatment TPU coating adhesion",
+      "LED UV curing hydrophilic coating",
+      "dip coating hydrophilic polymer medical",
+      "silane coupling agent hydrophilic coating",
+      "GLYMO adhesion promoter polymer coating"
+    ]
+  },
+
+  "relevance_scoring": {
+    "description": "評分依據：產品相關性（0-5）＋研究深度（0-5）= 總分（0-10）",
+    "product_relevance_criteria": {
+      "5": "直接涉及 ureteral stent / catheter / biopsy needle 的 hydrophilic coating",
+      "4": "涉及相同基材（TPU/PEBAX/Nylon）或相同應用（泌尿科/血液透析）",
+      "3": "涉及相同塗層材料（PVP/PEG/MPC）但不同醫療器材",
+      "2": "一般醫療器材表面改質，非 hydrophilic coating 核心",
+      "1": "邊緣相關（coating 概念但不同領域）"
+    },
+    "research_depth_criteria": {
+      "5": "有定量數據：摩擦係數、耐久測試次數、附著力數值",
+      "4": "有完整實驗方法與結果比較",
+      "3": "有實驗但數據不完整",
+      "2": "綜述性論文或 review",
+      "1": "摘要不足判斷，或為會議摘要"
+    },
+    "priority_threshold": 6
+  },
+
+  "bioteque_context": {
+    "substrates": ["TPU", "PEBAX", "Nylon", "polyurethane"],
+    "products": ["ureteral stent", "hemodialysis catheter", "TPU catheter", "biopsy needle"],
+    "current_capabilities": ["air plasma treatment", "LED UV curing", "Harland FTS friction tester"],
+    "coating_systems_of_interest": ["PVP", "PEG", "MPC", "SBMA", "UV-cure", "thermal-cure"]
+  }
+}
