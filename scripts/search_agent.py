@@ -326,6 +326,28 @@ def generate_markdown_report(new_papers: list[dict], all_papers: list[dict]) -> 
 # ══════════════════════════════════════════════════════
 # 主程式
 # ══════════════════════════════════════════════════════
+
+def update_manifest(reports_dir: Path, analyzed_papers: list):
+    """產生 reports/manifest.json，索引頁用來列出所有報告"""
+    manifest_path = reports_dir / "manifest.json"
+    if manifest_path.exists():
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+    else:
+        manifest = []
+    today_entry = {
+        "date": TODAY,
+        "total": len(analyzed_papers),
+        "high": sum(1 for p in analyzed_papers if p.get("total_score", 0) >= 6),
+        "tags": list({t for p in analyzed_papers for t in p.get("tags", [])})[:6]
+    }
+    manifest = [e for e in manifest if e.get("date") != TODAY]
+    manifest.insert(0, today_entry)
+    manifest.sort(key=lambda x: x["date"], reverse=True)
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    print(f"✅ manifest.json 已更新（共 {len(manifest)} 份報告）")
+
 def main():
     print(f"=== 文獻搜尋代理人啟動 {TODAY} ===")
 
@@ -408,6 +430,7 @@ def main():
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(readme_content)
 
+    update_manifest(REPORTS_DIR, analyzed_papers)
     print(f"\n🎉 完成！本日新增 {len(analyzed_papers)} 篇，高相關 {high_count} 篇。")
 
 
