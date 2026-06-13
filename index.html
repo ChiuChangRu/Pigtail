@@ -3,142 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LitDB — 文獻暨專利管理系統</title>
+<title>LitDB — 文獻知識管理系統</title>
 <style>
-:root {
-  --bg: #0f1117; --surface: #181c27; --card: #1e2333; --border: #2a3050;
-  --accent: #4f9cf9; --accent2: #7bcfb8; --warn: #f0a04b;
-  --text: #dde3f0; --muted: #7a85a0;
-  --font-mono: 'JetBrains Mono','Fira Mono',monospace;
-  --font-body: 'Inter','Noto Sans TC',system-ui,sans-serif;
-  --radius: 8px; --transition: 0.18s ease;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+:root{--bg:#0f1117;--surface:#181c27;--card:#1e2333;--border:#2a3050;--accent:#4f9cf9;--accent2:#7bcfb8;--warn:#f0a04b;--danger:#e05c5c;--text:#dde3f0;--muted:#7a85a0;--font-mono:'JetBrains Mono','Fira Mono',monospace;--font-body:'Inter','Noto Sans TC',system-ui,sans-serif;--radius:8px;--tr:0.18s ease}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.6;min-height:100vh}
 
-/* ── Header ── */
-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
-.logo { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
-.logo span { color: var(--accent2); }
-.header-status { margin-left: auto; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
-.dot.connected { background: var(--accent2); box-shadow: 0 0 6px var(--accent2); }
+/* Header */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.logo{font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--accent);letter-spacing:-0.5px}
+.logo span{color:var(--accent2)}
+.header-r{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
 
-/* ── Layout ── */
-.container { max-width: 1280px; margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.panel-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-.panel-body { padding: 16px; }
+/* Tabs */
+.tabs{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px;margin:16px 24px 0}
+.tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:6px;transition:var(--tr)}
+.tab.active{background:var(--card);color:var(--text)}
+.tab .badge{background:var(--border);border-radius:20px;padding:1px 6px;font-size:11px}
 
-/* ── Sidebar ── */
-.sidebar { grid-column: 1; grid-row: 1 / 3; }
-.source-tabs { display: flex; gap: 4px; margin-bottom: 14px; }
-.tab-btn { flex: 1; padding: 6px 8px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: 12px; cursor: pointer; transition: var(--transition); }
-.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-.field-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
-.field-group { margin-bottom: 12px; }
-input[type=text], input[type=number], select, textarea { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--text); padding: 8px 10px; font-size: 13px; font-family: var(--font-body); transition: border-color var(--transition); }
-input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
-select option { background: var(--card); }
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: var(--transition); }
-.btn-primary { background: var(--accent); color: #fff; width: 100%; justify-content: center; }
-.btn-primary:hover { background: #3a8ae8; }
-.btn-primary:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
-.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-.btn-success { background: var(--accent2); color: #0f1117; }
-.btn-warn { background: transparent; color: var(--warn); border: 1px solid var(--warn); }
-.btn-sm { padding: 4px 10px; font-size: 12px; }
-.divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+/* Main */
+.main{max-width:1300px;margin:0 auto;padding:16px 24px}
+.view{display:none}.view.active{display:block}
 
-/* ── Main area ── */
-.main-area { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: 16px; }
-.view-tabs { display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px; }
-.view-tab { flex: 1; padding: 8px; text-align: center; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; border-radius: 6px; transition: var(--transition); }
-.view-tab.active { background: var(--card); color: var(--text); }
-.badge { background: var(--border); border-radius: 20px; padding: 1px 6px; font-size: 11px; font-weight: 600; color: var(--text); }
+/* Shared */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.panel-h{padding:10px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:var(--tr)}
+.btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:#3a8ae8}
+.btn-s{background:var(--card);color:var(--text);border:1px solid var(--border)}.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+.btn-g{background:var(--accent2);color:#0f1117}
+.tag{font-size:11px;padding:2px 7px;border-radius:20px;font-family:var(--font-mono)}
+.tag-blue{background:#1a3a5c;color:var(--accent);border:1px solid #2a5080}
+.tag-green{background:#0f2a20;color:var(--accent2);border:1px solid #1a5040}
+.tag-orange{background:#2a1f00;color:var(--warn);border:1px solid #5a4000}
+.tag-gray{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+input[type=text],textarea,select{background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:13px;font-family:var(--font-body);transition:border-color var(--tr);width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── Result cards ── */
-.results-toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-.count-label { font-size: 12px; color: var(--muted); margin-left: auto; }
-.result-list { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; max-height: calc(100vh - 220px); overflow-y: auto; }
-.result-list::-webkit-scrollbar { width: 6px; }
-.result-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-.result-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; cursor: pointer; transition: border-color var(--transition); }
-.result-card:hover { border-color: var(--accent); }
-.result-card.selected { border-color: var(--accent2); background: #1a2635; }
-.card-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
-.tag { font-size: 11px; padding: 2px 7px; border-radius: 20px; font-family: var(--font-mono); }
-.tag-pubmed { background: #1a3a5c; color: var(--accent); border: 1px solid #2a5080; }
-.tag-patent { background: #2a1f00; color: var(--warn); border: 1px solid #5a4000; }
-.tag-auto { background: #1a2a1a; color: var(--accent2); border: 1px solid #2a5040; }
-.tag-saved { background: #0f2a20; color: var(--accent2); border: 1px solid #1a5040; }
-.tag-year { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
-.tag-score { background: #2a1a00; color: var(--warn); border: 1px solid #5a3a00; }
-.card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
-.card-authors { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-.card-journal { font-size: 11px; color: var(--muted); font-style: italic; }
-.card-abstract { margin-top: 10px; font-size: 13px; color: #b0b8cc; line-height: 1.65; display: none; }
-.card-abstract.show { display: block; }
-.card-abstract-zh { margin-top: 8px; padding: 10px 12px; background: var(--surface); border-left: 3px solid var(--accent2); border-radius: 0 6px 6px 0; font-size: 13px; color: var(--text); line-height: 1.7; }
-.card-highlight { margin-top: 8px; padding: 8px 12px; background: #1a2010; border-left: 3px solid var(--warn); border-radius: 0 6px 6px 0; font-size: 13px; color: #e0c080; }
-.card-actions { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-.note-area { margin-top: 10px; display: none; }
-.note-area.show { display: block; }
-.note-area textarea { height: 80px; resize: vertical; font-size: 13px; }
+/* ═══ VIEW 1: BROWSE ═══ */
+.browse-layout{display:grid;grid-template-columns:280px 1fr;gap:16px}
+.filter-panel .field{margin-bottom:10px}
+.filter-panel label{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag-btn{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:var(--tr)}
+.tag-btn.active{background:var(--accent2);border-color:var(--accent2);color:#0f1117;font-weight:600}
+.paper-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 200px);overflow-y:auto;padding:12px}
+.paper-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;transition:border-color var(--tr)}
+.paper-card:hover{border-color:var(--accent)}
+.paper-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.4}
+.paper-sub{font-size:12px;color:var(--muted)}
+.paper-purpose{font-size:12px;color:var(--accent2);margin-top:6px;font-style:italic}
+.paper-value{margin-top:6px;padding:8px 10px;background:var(--surface);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;font-size:12px;color:#e0c080;display:none}
+.paper-value.show{display:block}
+.paper-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.paper-actions{display:flex;gap:6px;margin-top:8px}
 
-/* ── Auto tab filters ── */
-.auto-filters { padding: 12px 14px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.filter-group { display: flex; align-items: center; gap: 6px; }
-.filter-group label { font-size: 11px; color: var(--muted); white-space: nowrap; }
-.filter-group select, .filter-group input { width: auto; padding: 5px 8px; font-size: 12px; }
-.tag-filter-row { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 14px; border-bottom: 1px solid var(--border); }
-.tag-filter-btn { font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--muted); cursor: pointer; transition: var(--transition); }
-.tag-filter-btn.active { background: var(--accent2); border-color: var(--accent2); color: #0f1117; font-weight: 600; }
+/* ═══ VIEW 2: GRAPH ═══ */
+.graph-container{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);min-height:500px;overflow:hidden}
+.graph-controls{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center}
+.graph-legend{display:flex;gap:12px;flex-wrap:wrap;padding:8px 14px;font-size:11px;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px}
+#graphCanvas{width:100%;height:500px;display:block}
 
-/* ── Score bar ── */
-.score-bar { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-.score-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.score-fill { height: 100%; border-radius: 2px; background: var(--accent2); transition: width 0.3s; }
-.score-fill.high { background: #3fb950; }
-.score-fill.mid { background: var(--warn); }
-.score-fill.low { background: #7a85a0; }
-.score-num { font-size: 11px; font-weight: 700; color: var(--warn); font-family: var(--font-mono); white-space: nowrap; }
+/* ═══ VIEW 3: GAP ═══ */
+.heatmap-wrap{overflow-x:auto;padding:16px}
+table.heatmap{border-collapse:collapse;font-size:12px}
+table.heatmap th{padding:6px 10px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap;text-align:center}
+table.heatmap td{padding:8px 10px;text-align:center;border:1px solid var(--border);min-width:60px;cursor:pointer;transition:var(--tr);font-family:var(--font-mono);font-weight:600}
+table.heatmap td:hover{outline:2px solid var(--accent)}
+.cell-0{background:var(--card);color:var(--border)}.cell-1{background:#1a2a1a;color:var(--accent2)}.cell-2{background:#1a3a1a;color:#5fd080}.cell-3{background:#2a4a1a;color:#80e060}.cell-many{background:#3a5a1a;color:#a0ff60}
+.gap-detail{margin-top:16px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;display:none}
+.gap-detail.show{display:block}
 
-/* ── Spinner / loading ── */
-.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-row { display: flex; align-items: center; gap: 10px; padding: 24px; color: var(--muted); font-size: 13px; justify-content: center; }
-.empty-state { padding: 48px 24px; text-align: center; color: var(--muted); }
-.empty-state .icon { font-size: 36px; margin-bottom: 12px; }
+/* ═══ VIEW 4: AI CHAT ═══ */
+.chat-layout{display:grid;grid-template-columns:1fr 320px;gap:16px;height:calc(100vh - 180px)}
+.chat-panel{display:flex;flex-direction:column}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6}
+.msg-user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+.msg-ai{align-self:flex-start;background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px}
+.msg-ai .ref-card{margin-top:8px;padding:8px;background:var(--surface);border-radius:6px;border-left:3px solid var(--accent2);font-size:11px}
+.msg-ai .ref-card a{color:var(--accent);text-decoration:none}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border)}
+.chat-input-row input{flex:1}
+.chat-context{padding:12px;overflow-y:auto}
+.ctx-item{padding:6px 8px;margin-bottom:4px;background:var(--card);border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;transition:var(--tr)}
+.ctx-item:hover{border-color:var(--accent)}
+.ctx-item.pinned{border-color:var(--accent2);background:#1a2a25}
 
-/* ── Toast ── */
-#toast { position: fixed; bottom: 24px; right: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; font-size: 13px; color: var(--text); opacity: 0; transform: translateY(8px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; z-index: 999; max-width: 320px; }
-#toast.show { opacity: 1; transform: translateY(0); }
-#toast.success { border-color: var(--accent2); }
-#toast.error { border-color: #e05c5c; }
+/* ═══ VIEW 5: ADD ═══ */
+.add-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.add-form .field{margin-bottom:12px}
+.add-form label{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
+.preview-card{padding:16px}
 
-/* ── Library ── */
-.library-toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-.search-inline { flex: 1; min-width: 150px; }
+/* Toast */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-size:13px;color:var(--text);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;max-width:360px}
+#toast.show{opacity:1;transform:translateY(0)}
+#toast.success{border-color:var(--accent2)}#toast.error{border-color:var(--danger)}
 
-/* ── Config modal ── */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500; align-items: center; justify-content: center; }
-.modal-overlay.show { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 480px; max-width: 95vw; }
-.modal h3 { font-size: 16px; margin-bottom: 16px; }
-.modal .close-btn { float: right; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
-.config-note { font-size: 12px; color: var(--muted); background: var(--card); border-radius: 6px; padding: 10px 12px; margin-top: 8px; line-height: 1.6; }
+/* Modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:460px;max-width:95vw}
+.modal h3{font-size:16px;margin-bottom:14px}
+.modal .x{float:right;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
 
-/* ── Google ── */
-.google-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; cursor: pointer; transition: var(--transition); font-family: var(--font-body); }
-.google-btn:hover { border-color: var(--accent2); }
-.google-icon { width: 16px; height: 16px; flex-shrink: 0; }
-
-@media (max-width: 900px) {
-  .container { grid-template-columns: 1fr; }
-  .sidebar, .main-area { grid-column: 1; grid-row: auto; }
-}
+@media(max-width:900px){.browse-layout,.chat-layout,.add-layout{grid-template-columns:1fr}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
@@ -147,193 +120,149 @@ select option { background: var(--card); }
 
 <header>
   <div class="logo">Lit<span>DB</span></div>
-  <span style="font-size:12px;color:var(--muted)">文獻暨專利管理系統</span>
-  <div class="header-status">
-    <div class="dot" id="gStatusDot"></div>
-    <span id="gStatusText">未連接 Google</span>
-    <button class="btn btn-secondary btn-sm" onclick="openConfig()">⚙ 設定</button>
+  <span style="font-size:12px;color:var(--muted)">親水塗層文獻知識管理</span>
+  <div class="header-r">
+    <span id="dbStats">—</span>
+    <button class="btn btn-s" onclick="openSettings()">⚙</button>
+    <button class="btn btn-s" onclick="exportDB()">⬇ 匯出</button>
+    <label class="btn btn-s" style="cursor:pointer">⬆ 匯入<input type="file" accept=".json" style="display:none" onchange="importDB(event)"></label>
   </div>
 </header>
 
-<div class="container">
+<div class="tabs">
+  <div class="tab active" onclick="showView('browse',this)">📚 文庫 <span class="badge" id="browseCount">0</span></div>
+  <div class="tab" onclick="showView('graph',this)">🕸 關係圖</div>
+  <div class="tab" onclick="showView('gap',this)">🔥 缺口分析</div>
+  <div class="tab" onclick="showView('chat',this)">🤖 AI 對話</div>
+  <div class="tab" onclick="showView('add',this)">➕ 新增文獻</div>
+</div>
 
-  <!-- ── Sidebar ── -->
-  <div class="sidebar panel">
-    <div class="panel-header">🔍 搜尋</div>
-    <div class="panel-body">
-      <div class="field-group">
-        <div class="field-label">搜尋來源</div>
-        <div class="source-tabs">
-          <button class="tab-btn active" onclick="setSource('pubmed',this)">PubMed</button>
-          <button class="tab-btn" onclick="setSource('patent',this)">Patents</button>
-          <button class="tab-btn" onclick="setSource('both',this)">兩者</button>
-        </div>
-      </div>
-      <div class="field-group">
-        <div class="field-label">關鍵字</div>
-        <input type="text" id="queryInput" placeholder="例：hydrophilic catheter coating" onkeydown="if(event.key==='Enter')doSearch()">
-      </div>
-      <div class="field-group" id="pubmedOptions">
-        <div class="field-label">PubMed 過濾</div>
-        <select id="pubmedFilter" style="margin-bottom:6px">
-          <option value="">不限文章類型</option>
-          <option value="Review[pt]">Review</option>
-          <option value="Clinical Trial[pt]">Clinical Trial</option>
-          <option value="Journal Article[pt]">Journal Article</option>
-        </select>
-        <div style="display:flex;gap:6px">
-          <div style="flex:1"><div class="field-label">起始年</div><input type="number" id="yearFrom" placeholder="2015" min="1990" max="2030"></div>
-          <div style="flex:1"><div class="field-label">結束年</div><input type="number" id="yearTo" placeholder="2025" min="1990" max="2030"></div>
-        </div>
-      </div>
-      <div class="field-group">
-        <div class="field-label">每次筆數</div>
-        <select id="retmax"><option value="10">10 筆</option><option value="20" selected>20 筆</option><option value="50">50 筆</option></select>
-      </div>
-      <button class="btn btn-primary" id="searchBtn" onclick="doSearch()"><span id="searchBtnIcon">🔎</span> 搜尋</button>
-      <hr class="divider">
-      <div class="field-group">
-        <div class="field-label" style="margin-bottom:8px">Google 整合</div>
-        <button class="google-btn" id="googleSignInBtn" onclick="handleGoogleAuth()">
-          <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          使用 Google 帳號連線
-        </button>
-        <div id="googleUserInfo" style="display:none;margin-top:8px">
-          <div style="font-size:12px;color:var(--accent2);margin-bottom:6px" id="googleUserName"></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button class="btn btn-secondary btn-sm" onclick="saveToSheets()">📊 存至 Sheets</button>
-            <button class="btn btn-secondary btn-sm" onclick="loadFromGoogle()">📂 載入存檔</button>
-            <button class="btn btn-warn btn-sm" onclick="googleSignOut()">登出</button>
-          </div>
-        </div>
-      </div>
-      <hr class="divider">
-      <div class="field-label" style="margin-bottom:8px">本機備份</div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-secondary btn-sm" style="flex:1" onclick="exportLocal()">⬇ 匯出</button>
-        <label class="btn btn-secondary btn-sm" style="flex:1;cursor:pointer;text-align:center">⬆ 匯入<input type="file" accept=".json" style="display:none" onchange="importLocal(event)"></label>
+<div class="main">
+
+<!-- ═══════════════ VIEW: BROWSE ═══════════════ -->
+<div class="view active" id="v-browse">
+  <div class="browse-layout">
+    <div class="filter-panel panel">
+      <div class="panel-h">🔍 篩選</div>
+      <div style="padding:12px">
+        <div class="field"><label>關鍵字</label><input type="text" id="fKw" placeholder="搜尋標題/摘要/用途..." oninput="filterPapers()"></div>
+        <div class="field"><label>文獻類型</label><select id="fType" onchange="filterPapers()"><option value="">全部</option></select></div>
+        <div class="field"><label>基材</label><select id="fSub" onchange="filterPapers()"><option value="">全部</option></select></div>
+        <div class="field"><label>固化方式</label><select id="fCure" onchange="filterPapers()"><option value="">全部</option></select></div>
+        <div class="field"><label>應用</label><select id="fApp" onchange="filterPapers()"><option value="">全部</option></select></div>
+        <div class="field"><label>排序</label><select id="fSort" onchange="filterPapers()"><option value="id">編號</option><option value="year-desc">年份新→舊</option><option value="year-asc">年份舊→新</option><option value="tags">標籤數多→少</option></select></div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:10px 0">
+        <label style="font-size:11px;color:var(--muted);font-weight:600">標籤快篩</label>
+        <div class="tag-cloud" id="tagCloud"></div>
       </div>
     </div>
-  </div>
-
-  <!-- ── Main area ── -->
-  <div class="main-area">
-    <div class="view-tabs">
-      <div class="view-tab active" onclick="switchView('results',this)">搜尋結果</div>
-      <div class="view-tab" onclick="switchView('library',this)">📚 我的文庫 <span id="libCount" class="badge">0</span></div>
-      <div class="view-tab" onclick="switchView('auto',this)">📡 自動文獻 <span id="autoCount" class="badge">0</span></div>
+    <div class="panel" style="display:flex;flex-direction:column">
+      <div class="panel-h"><span id="filterCount">0 篇</span></div>
+      <div class="paper-list" id="paperList"></div>
     </div>
-
-    <!-- 搜尋結果 -->
-    <div id="view-results" class="panel" style="flex:1;display:flex;flex-direction:column">
-      <div class="results-toolbar">
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer">
-          <input type="checkbox" id="selectAll" onchange="toggleSelectAll()"> 全選
-        </label>
-        <button class="btn btn-secondary btn-sm" onclick="addSelectedToLibrary()">+ 加入文庫</button>
-        <span class="count-label" id="resultCount">尚未搜尋</span>
-      </div>
-      <div class="result-list" id="resultList">
-        <div class="empty-state"><div class="icon">🔬</div><p>輸入關鍵字後點擊「搜尋」</p></div>
-      </div>
-    </div>
-
-    <!-- 我的文庫 -->
-    <div id="view-library" class="panel" style="flex:1;display:none;flex-direction:column">
-      <div class="library-toolbar">
-        <input type="text" class="search-inline" id="libSearch" placeholder="篩選文庫..." oninput="renderLibrary()">
-        <button class="btn btn-warn btn-sm" onclick="clearLibrary()">清空</button>
-      </div>
-      <div class="result-list" id="libraryList">
-        <div class="empty-state"><div class="icon">📚</div><p>文庫尚無資料</p></div>
-      </div>
-    </div>
-
-    <!-- 📡 自動文獻 -->
-    <div id="view-auto" class="panel" style="flex:1;display:none;flex-direction:column">
-
-      <!-- 篩選工具列 -->
-      <div class="auto-filters">
-        <div class="filter-group">
-          <label>關鍵字</label>
-          <input type="text" id="autoSearch" placeholder="搜尋標題/摘要..." oninput="applyAutoFilters()" style="width:180px">
-        </div>
-        <div class="filter-group">
-          <label>來源</label>
-          <select id="autoSource" onchange="applyAutoFilters()">
-            <option value="">全部</option>
-            <option value="PubMed">PubMed</option>
-            <option value="USPTO">USPTO</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>最低評分</label>
-          <select id="autoMinScore" onchange="applyAutoFilters()">
-            <option value="0">全部</option>
-            <option value="6" selected>≥ 6（高相關）</option>
-            <option value="3">≥ 3</option>
-            <option value="8">≥ 8（頂尖）</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>排序</label>
-          <select id="autoSort" onchange="applyAutoFilters()">
-            <option value="score">評分高→低</option>
-            <option value="date">日期新→舊</option>
-            <option value="year">年份新→舊</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>日期</label>
-          <input type="text" id="autoDateFrom" placeholder="2026-06-01" oninput="applyAutoFilters()" style="width:110px">
-          <span style="color:var(--muted);font-size:12px">—</span>
-          <input type="text" id="autoDateTo" placeholder="今天" oninput="applyAutoFilters()" style="width:110px">
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="loadAutoPapers(true)">↺ 重新載入</button>
-      </div>
-
-      <!-- 標籤快篩 -->
-      <div class="tag-filter-row" id="tagFilterRow">
-        <span style="font-size:11px;color:var(--muted);margin-right:4px">標籤：</span>
-        <button class="tag-filter-btn active" onclick="toggleTagFilter('__all__',this)">全部</button>
-      </div>
-
-      <div class="results-toolbar">
-        <button class="btn btn-secondary btn-sm" onclick="addAutoSelectedToLibrary()">+ 勾選加入文庫</button>
-        <span class="count-label" id="autoCount2">載入中...</span>
-      </div>
-
-      <div class="result-list" id="autoList">
-        <div class="loading-row"><span class="spinner"></span> 從 Pigtail 載入文獻...</div>
-      </div>
-    </div>
-
   </div>
 </div>
 
-<!-- Config Modal -->
-<div class="modal-overlay" id="configModal">
+<!-- ═══════════════ VIEW: GRAPH ═══════════════ -->
+<div class="view" id="v-graph">
+  <div class="graph-container">
+    <div class="graph-controls">
+      <label style="font-size:11px;color:var(--muted)">節點類型</label>
+      <select id="graphMode" onchange="buildGraph()" style="width:auto;padding:4px 8px;font-size:12px">
+        <option value="tags">標籤共現</option>
+        <option value="authors">作者網絡</option>
+        <option value="papers">文獻相似度</option>
+      </select>
+      <label style="font-size:11px;color:var(--muted);margin-left:12px">最低共現</label>
+      <input type="range" id="graphThreshold" min="1" max="10" value="2" oninput="buildGraph()" style="width:100px">
+      <span id="graphThreshVal" style="font-size:11px;color:var(--muted)">2</span>
+    </div>
+    <canvas id="graphCanvas" width="1200" height="500"></canvas>
+    <div class="graph-legend" id="graphLegend"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW: GAP ═══════════════ -->
+<div class="view" id="v-gap">
+  <div class="panel">
+    <div class="panel-h">基材 × 固化方式 覆蓋度矩陣</div>
+    <div class="heatmap-wrap" id="heatmapWrap"></div>
+  </div>
+  <div class="gap-detail" id="gapDetail"></div>
+  <div class="panel" style="margin-top:16px">
+    <div class="panel-h">應用 × 親水高分子 覆蓋度矩陣</div>
+    <div class="heatmap-wrap" id="heatmapWrap2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW: AI CHAT ═══════════════ -->
+<div class="view" id="v-chat">
+  <div class="chat-layout">
+    <div class="chat-panel panel">
+      <div class="panel-h">🤖 AI 對話（基於文庫摘要）<span style="margin-left:auto;font-size:10px;text-transform:none;font-weight:400">每次約 $0.001-0.003</span></div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg msg-ai">你好！我是你的文獻助理。你可以問我關於資料庫中的文獻問題，例如：<br><br>
+        • 「PDA 路線跟 benzophenone 路線哪個更適合 TPU？」<br>
+        • 「穿刺針親水塗層有哪些參考？」<br>
+        • 「我的資料庫缺什麼方向？」<br><br>
+        <span style="font-size:11px;color:var(--muted)">右側可釘選特定文獻作為對話背景</span></div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="輸入問題..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="btn btn-p" onclick="sendChat()">送出</button>
+        <button class="btn btn-s" onclick="clearChat()">清空</button>
+      </div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column">
+      <div class="panel-h">📌 文獻背景<span style="margin-left:auto;font-size:10px;text-transform:none;font-weight:400" id="pinnedCount">0 已釘選</span></div>
+      <div style="padding:8px;border-bottom:1px solid var(--border)"><input type="text" id="ctxSearch" placeholder="搜尋文獻釘選..." oninput="renderCtx()" style="font-size:12px;padding:6px 8px"></div>
+      <div class="chat-context" id="ctxList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW: ADD ═══════════════ -->
+<div class="view" id="v-add">
+  <div class="add-layout">
+    <div class="panel add-form">
+      <div class="panel-h">➕ 新增文獻</div>
+      <div style="padding:14px">
+        <div class="field"><label>快速方式：貼上標題/摘要，AI 自動填欄位</label>
+          <textarea id="addRaw" rows="5" placeholder="貼上論文標題、摘要、DOI...任何內容，AI 會幫你解析"></textarea>
+          <button class="btn btn-g" style="margin-top:6px;width:100%" onclick="aiParseAdd()">🤖 AI 自動填入</button>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:14px 0">
+        <div class="field"><label>ID（例：P30, A5）</label><input type="text" id="addId" placeholder="自動產生或手動輸入"></div>
+        <div class="field"><label>標題</label><input type="text" id="addTitle"></div>
+        <div class="field"><label>作者</label><input type="text" id="addAuthors"></div>
+        <div class="field"><label>年份</label><input type="text" id="addYear" style="width:100px"></div>
+        <div class="field"><label>文獻類型</label><select id="addDocType"><option>專利</option><option>期刊論文</option><option>綜述review</option><option>商用產品</option><option>會議論文</option></select></div>
+        <div class="field"><label>存取</label><select id="addAccess"><option>專利全文</option><option>開放全文</option><option>開放摘要</option><option>付費</option><option>產品頁</option></select></div>
+        <div class="field"><label>標籤（逗號分隔）</label><input type="text" id="addTags" placeholder="PVP, TPU, UV光固化..."></div>
+        <div class="field"><label>收錄目的</label><input type="text" id="addPurpose"></div>
+        <div class="field"><label>精華摘要</label><textarea id="addAbstract" rows="3"></textarea></div>
+        <div class="field"><label>對專案的價值</label><textarea id="addValue" rows="2"></textarea></div>
+        <div class="field"><label>連結</label><input type="text" id="addLink" placeholder="https://..."></div>
+        <button class="btn btn-p" style="width:100%" onclick="addPaper()">✅ 加入資料庫</button>
+      </div>
+    </div>
+    <div class="panel preview-card" id="addPreview">
+      <div class="panel-h">預覽</div>
+      <div style="padding:14px;font-size:13px;color:var(--muted)">填入資料後會即時預覽</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<!-- Settings Modal -->
+<div class="modal-bg" id="settingsModal">
   <div class="modal">
-    <button class="close-btn" onclick="closeConfig()">×</button>
-    <h3>⚙ 系統設定</h3>
-    <div class="field-group">
-      <div class="field-label">Claude API Proxy URL（翻譯用）</div>
-      <input type="text" id="cfProxyUrl" placeholder="https://your-worker.workers.dev/api">
-      <div class="config-note">填入 Cloudflare Worker URL（同 MedQA 架構）。不填則翻譯功能停用。</div>
-    </div>
-    <div class="field-group" style="margin-top:14px">
-      <div class="field-label">Pigtail papers.json URL</div>
-      <input type="text" id="pigtailUrl" placeholder="https://chiuchangru.github.io/Pigtail/data/papers.json">
-      <div class="config-note">自動文獻分頁的資料來源。預設為 Pigtail GitHub Pages。</div>
-    </div>
-    <div class="field-group" style="margin-top:14px">
-      <div class="field-label">Google Client ID（OAuth2）</div>
-      <input type="text" id="gClientId" placeholder="xxxxx.apps.googleusercontent.com">
-    </div>
-    <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="btn btn-primary" style="flex:1" onclick="saveConfig()">儲存設定</button>
-      <button class="btn btn-secondary" onclick="closeConfig()">取消</button>
-    </div>
+    <button class="x" onclick="closeSettings()">×</button>
+    <h3>⚙ 設定</h3>
+    <div class="field" style="margin-bottom:12px"><label style="font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px">Claude API Proxy URL</label><input type="text" id="cfgProxy" placeholder="https://your-worker.workers.dev/api"><div style="font-size:11px;color:var(--muted);margin-top:4px">同 MedQA 的 Cloudflare Worker。AI 對話和自動填入需要此設定。</div></div>
+    <div class="field" style="margin-bottom:12px"><label style="font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px">papers.json URL（遠端）</label><input type="text" id="cfgDataUrl" placeholder="留空則讀同目錄 papers.json"></div>
+    <button class="btn btn-p" style="width:100%" onclick="saveSettings()">儲存</button>
   </div>
 </div>
 
@@ -341,457 +270,493 @@ select option { background: var(--card); }
 
 <script>
 // ══════════════════════════════════════════════
-// State
+// STATE
 // ══════════════════════════════════════════════
-let searchResults = [];
-let library = JSON.parse(localStorage.getItem('litdb_library') || '[]');
-let autoPapers = [];       // raw from Pigtail
-let autoFiltered = [];     // after filters
-let activeTagFilters = new Set(['__all__']);
-let currentSource = 'pubmed';
-let gAccessToken = null;
-let currentView = 'results';
-const CFG_KEY = 'litdb_config';
-let cfg = JSON.parse(localStorage.getItem(CFG_KEY) || '{}');
-
-const DEFAULT_PIGTAIL_URL = 'https://chiuchangru.github.io/Pigtail/data/papers.json';
+let DB = {meta:{},papers:[]};
+let filtered = [];
+let pinnedIds = new Set();
+let chatHistory = [];
+let activeTags = new Set();
+const CFG_KEY = 'litdb_cfg';
+let cfg = JSON.parse(localStorage.getItem(CFG_KEY)||'{}');
 
 // ══════════════════════════════════════════════
-// Init
+// INIT
 // ══════════════════════════════════════════════
-window.onload = () => {
-  updateLibCount();
-  if (cfg.cfProxyUrl) document.getElementById('cfProxyUrl').value = cfg.cfProxyUrl;
-  if (cfg.pigtailUrl) document.getElementById('pigtailUrl').value = cfg.pigtailUrl;
-  if (cfg.gClientId)  document.getElementById('gClientId').value  = cfg.gClientId;
+window.onload = async () => {
+  if(cfg.proxy) document.getElementById('cfgProxy').value = cfg.proxy;
+  if(cfg.dataUrl) document.getElementById('cfgDataUrl').value = cfg.dataUrl;
+  await loadDB();
 };
 
-function saveConfig() {
-  cfg.cfProxyUrl  = document.getElementById('cfProxyUrl').value.trim();
-  cfg.pigtailUrl  = document.getElementById('pigtailUrl').value.trim();
-  cfg.gClientId   = document.getElementById('gClientId').value.trim();
-  localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
-  closeConfig();
-  toast('設定已儲存', 'success');
-}
+async function loadDB() {
+  // Try localStorage first, then remote, then same-dir
+  const saved = localStorage.getItem('litdb_data');
+  if(saved) { try { DB = JSON.parse(saved); } catch(e){} }
 
-// ══════════════════════════════════════════════
-// UI helpers
-// ══════════════════════════════════════════════
-function toast(msg, type='') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'show ' + type;
-  clearTimeout(el._t); el._t = setTimeout(() => el.className = '', 3000);
-}
-function openConfig()  { document.getElementById('configModal').classList.add('show'); }
-function closeConfig() { document.getElementById('configModal').classList.remove('show'); }
-
-function setSource(src, btn) {
-  currentSource = src;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('pubmedOptions').style.display = src === 'patent' ? 'none' : '';
-}
-
-function switchView(view, el) {
-  currentView = view;
-  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  ['results','library','auto'].forEach(v => {
-    document.getElementById('view-' + v).style.display = v === view ? 'flex' : 'none';
-  });
-  if (view === 'library') renderLibrary();
-  if (view === 'auto')    loadAutoPapers();
-}
-
-function updateLibCount() {
-  document.getElementById('libCount').textContent = library.length;
-}
-
-// ══════════════════════════════════════════════
-// PubMed Search
-// ══════════════════════════════════════════════
-async function doSearch() {
-  const query = document.getElementById('queryInput').value.trim();
-  if (!query) { toast('請輸入關鍵字', 'error'); return; }
-  const btn = document.getElementById('searchBtn');
-  btn.disabled = true;
-  document.getElementById('searchBtnIcon').innerHTML = '<span class="spinner"></span>';
-  searchResults = [];
-  document.getElementById('resultList').innerHTML = '<div class="loading-row"><span class="spinner"></span> 搜尋中...</div>';
-  document.getElementById('resultCount').textContent = '搜尋中...';
-  try {
-    if (currentSource === 'pubmed' || currentSource === 'both') await searchPubMed(query);
-    if (currentSource === 'patent' || currentSource === 'both') searchPatents(query);
-  } finally {
-    btn.disabled = false;
-    document.getElementById('searchBtnIcon').textContent = '🔎';
+  if(!DB.papers.length) {
+    const url = cfg.dataUrl || 'papers.json';
+    try {
+      const r = await fetch(url + '?t=' + Date.now());
+      if(r.ok) DB = await r.json();
+    } catch(e) { console.warn('Failed to load remote:', e); }
   }
+  if(!DB.papers) DB.papers = [];
+  if(!DB.meta) DB.meta = {};
+  onDBLoaded();
 }
 
-async function searchPubMed(query) {
-  const retmax = document.getElementById('retmax').value;
-  const filterType = document.getElementById('pubmedFilter').value;
-  const yearFrom = document.getElementById('yearFrom').value;
-  const yearTo = document.getElementById('yearTo').value;
-  let term = query;
-  if (filterType) term += ` AND ${filterType}`;
-  if (yearFrom && yearTo) term += ` AND ${yearFrom}:${yearTo}[pdat]`;
-  else if (yearFrom) term += ` AND ${yearFrom}:3000[pdat]`;
-  else if (yearTo)   term += ` AND 1900:${yearTo}[pdat]`;
-
-  const sRes = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(term)}&retmax=${retmax}&retmode=json`);
-  const sData = await sRes.json();
-  const ids = sData.esearchresult.idlist;
-  const total = sData.esearchresult.count;
-  if (!ids.length) { renderResults([]); document.getElementById('resultCount').textContent = '無結果'; return; }
-
-  const fRes = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&retmode=xml`);
-  const xml = await fRes.text();
-  const parsed = parsePubMedXML(xml);
-  searchResults = [...searchResults, ...parsed];
-  renderResults(searchResults);
-  document.getElementById('resultCount').textContent = `顯示 ${searchResults.length} / 共 ${total} 筆`;
-  toast(`PubMed 找到 ${total} 筆`, 'success');
+function onDBLoaded() {
+  document.getElementById('dbStats').textContent = `${DB.papers.length} 篇文獻`;
+  document.getElementById('browseCount').textContent = DB.papers.length;
+  buildFilters();
+  filterPapers();
+  renderCtx();
 }
 
-function parsePubMedXML(xml) {
-  const doc = new DOMParser().parseFromString(xml, 'text/xml');
-  return [...doc.querySelectorAll('PubmedArticle')].map(art => {
-    const pmid    = art.querySelector('PMID')?.textContent || '';
-    const title   = art.querySelector('ArticleTitle')?.textContent || '（無標題）';
-    const abstract= [...art.querySelectorAll('AbstractText')].map(a=>a.textContent).join(' ');
-    const journal = art.querySelector('Title')?.textContent || '';
-    const year    = art.querySelector('PubDate Year')?.textContent || '';
-    const authors = [...art.querySelectorAll('Author')].slice(0,3)
-      .map(a=>`${a.querySelector('LastName')?.textContent||''} ${a.querySelector('Initials')?.textContent||''}`.trim())
-      .join(', ') + (art.querySelectorAll('Author').length>3?' et al.':'');
-    return { type:'pubmed', pmid, title, abstract, journal, year, authors, note:'', zhAbstract:'', tags:[] };
-  });
-}
-
-function searchPatents(query) {
-  window.open(`https://patents.google.com/?q=${encodeURIComponent(query)}&hl=zh-TW`, '_blank');
-  toast('Google Patents 已在新分頁開啟', '');
+function saveDB() {
+  localStorage.setItem('litdb_data', JSON.stringify(DB));
+  document.getElementById('dbStats').textContent = `${DB.papers.length} 篇文獻`;
+  document.getElementById('browseCount').textContent = DB.papers.length;
 }
 
 // ══════════════════════════════════════════════
-// Render search results
+// UI Helpers
 // ══════════════════════════════════════════════
-function renderResults(list) {
-  const c = document.getElementById('resultList');
-  if (!list.length) { c.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>無符合結果</p></div>'; return; }
-  c.innerHTML = list.map((item,i) => searchCardHTML(item, i)).join('');
-}
+function toast(m,t=''){const e=document.getElementById('toast');e.textContent=m;e.className='show '+t;clearTimeout(e._t);e._t=setTimeout(()=>e.className='',3000)}
+function showView(id,el){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('v-'+id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');if(id==='graph')buildGraph();if(id==='gap')buildHeatmaps()}
+function openSettings(){document.getElementById('settingsModal').classList.add('show')}
+function closeSettings(){document.getElementById('settingsModal').classList.remove('show')}
+function saveSettings(){cfg.proxy=document.getElementById('cfgProxy').value.trim();cfg.dataUrl=document.getElementById('cfgDataUrl').value.trim();localStorage.setItem(CFG_KEY,JSON.stringify(cfg));closeSettings();toast('已儲存','success')}
+function exportDB(){const b=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`litdb_${new Date().toISOString().slice(0,10)}.json`;a.click();toast('已匯出','success')}
+function importDB(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.papers)DB=d;else if(Array.isArray(d)){DB.papers=d}saveDB();onDBLoaded();toast(`已匯入 ${DB.papers.length} 篇`,'success')}catch(err){toast('匯入失敗','error')}};r.readAsText(f)}
 
-function searchCardHTML(item, i) {
-  const inLib = library.some(l => l.pmid === item.pmid);
-  return `<div class="result-card${item._selected?' selected':''}" id="scard_${i}">
-    <div style="display:flex;align-items:flex-start;gap:10px">
-      <input type="checkbox" class="card-check" ${item._selected?'checked':''} onchange="searchResults[${i}]._selected=this.checked" style="margin-top:3px;flex-shrink:0;accent-color:var(--accent2)">
-      <div style="flex:1;min-width:0">
-        <div class="card-meta">
-          <span class="tag tag-pubmed">${item.type==='patent'?'專利':'PubMed'}</span>
-          ${item.year?`<span class="tag tag-year">${item.year}</span>`:''}
-          ${inLib?'<span class="tag tag-saved">已收藏</span>':''}
-          ${item.pmid&&item.type==='pubmed'?`<a href="https://pubmed.ncbi.nlm.nih.gov/${item.pmid}/" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none">PMID:${item.pmid} ↗</a>`:''}
-        </div>
-        <div class="card-title">${item.title}</div>
-        ${item.authors?`<div class="card-authors">${item.authors}</div>`:''}
-        ${item.journal?`<div class="card-journal">${item.journal}</div>`:''}
-      </div>
-    </div>
-    <div class="card-actions">
-      <button class="btn btn-secondary btn-sm" onclick="toggleEl('sabstract_${i}')">📄 摘要</button>
-      ${item.abstract&&cfg.cfProxyUrl?`<button class="btn btn-secondary btn-sm" onclick="translateCard(${i},'search')">🌐 翻譯</button>`:''}
-      <button class="btn btn-secondary btn-sm" onclick="addSingleToLibrary(${i})">+ 收藏</button>
-    </div>
-    <div class="card-abstract" id="sabstract_${i}">
-      ${item.abstract||'（無摘要）'}
-      ${item.zhAbstract?`<div class="card-abstract-zh"><strong style="font-size:11px;color:var(--accent2)">🌐 中文摘要</strong><br>${item.zhAbstract}</div>`:''}
-    </div>
-  </div>`;
-}
+function allTags(){const s=new Set();DB.papers.forEach(p=>(p.tags||[]).forEach(t=>s.add(t)));return [...s].sort()}
 
 // ══════════════════════════════════════════════
-// 📡 Auto Papers (Pigtail)
+// BROWSE: Filters
 // ══════════════════════════════════════════════
-let autoLoaded = false;
+function buildFilters() {
+  const dict = DB.meta.tag_dictionary || {};
+  const types = dict.doc_type || [...new Set(DB.papers.map(p=>p.doc_type).filter(Boolean))];
+  const subs = dict.substrate || [];
+  const cures = dict.cure_method || [];
+  const apps = dict.application || [];
 
-async function loadAutoPapers(force=false) {
-  if (autoLoaded && !force) { applyAutoFilters(); return; }
-  const url = cfg.pigtailUrl || DEFAULT_PIGTAIL_URL;
-  document.getElementById('autoList').innerHTML = '<div class="loading-row"><span class="spinner"></span> 從 Pigtail 載入...</div>';
-  try {
-    const r = await fetch(url + '?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    autoPapers = await r.json();
-    autoLoaded = true;
-    buildTagFilters();
-    applyAutoFilters();
-    toast(`已載入 ${autoPapers.length} 篇自動文獻`, 'success');
-  } catch(e) {
-    document.getElementById('autoList').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>載入失敗：${e.message}<br><small>請確認 Pigtail GitHub Pages 已開啟，或在設定中調整 URL。</small></p></div>`;
-  }
-}
+  fillSelect('fType', types);
+  fillSelect('fSub', subs);
+  fillSelect('fCure', cures);
+  fillSelect('fApp', apps);
 
-function buildTagFilters() {
+  // Tag cloud
   const tagCounts = {};
-  autoPapers.forEach(p => (p.tags||[]).forEach(t => { tagCounts[t] = (tagCounts[t]||0)+1; }));
-  const sorted = Object.entries(tagCounts).sort((a,b) => b[1]-a[1]);
-  const row = document.getElementById('tagFilterRow');
-  row.innerHTML = `<span style="font-size:11px;color:var(--muted);margin-right:4px">標籤：</span>
-    <button class="tag-filter-btn active" onclick="toggleTagFilter('__all__',this)">全部</button>
-    ${sorted.map(([t,c])=>`<button class="tag-filter-btn" onclick="toggleTagFilter('${t}',this)">${t} <span style="opacity:.6">${c}</span></button>`).join('')}`;
+  DB.papers.forEach(p=>(p.tags||[]).forEach(t=>{tagCounts[t]=(tagCounts[t]||0)+1}));
+  const sorted = Object.entries(tagCounts).sort((a,b)=>b[1]-a[1]).slice(0,30);
+  document.getElementById('tagCloud').innerHTML = sorted.map(([t,c])=>
+    `<button class="tag-btn${activeTags.has(t)?' active':''}" onclick="toggleTag('${t}',this)">${t} ${c}</button>`
+  ).join('');
 }
 
-function toggleTagFilter(tag, btn) {
-  if (tag === '__all__') {
-    activeTagFilters = new Set(['__all__']);
-    document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  } else {
-    activeTagFilters.delete('__all__');
-    document.querySelector('.tag-filter-btn').classList.remove('active');
-    if (activeTagFilters.has(tag)) { activeTagFilters.delete(tag); btn.classList.remove('active'); }
-    else { activeTagFilters.add(tag); btn.classList.add('active'); }
-    if (activeTagFilters.size === 0) {
-      activeTagFilters.add('__all__');
-      document.querySelector('.tag-filter-btn').classList.add('active');
-    }
-  }
-  applyAutoFilters();
+function fillSelect(id, opts) {
+  const el = document.getElementById(id);
+  const cur = el.value;
+  el.innerHTML = '<option value="">全部</option>' + opts.map(o=>`<option>${o}</option>`).join('');
+  el.value = cur;
 }
 
-function applyAutoFilters() {
-  const kw      = document.getElementById('autoSearch').value.toLowerCase();
-  const source  = document.getElementById('autoSource').value;
-  const minScore= parseInt(document.getElementById('autoMinScore').value)||0;
-  const sort    = document.getElementById('autoSort').value;
-  const dateFrom= document.getElementById('autoDateFrom').value.trim();
-  const dateTo  = document.getElementById('autoDateTo').value.trim();
+function toggleTag(t,btn) {
+  if(activeTags.has(t)){activeTags.delete(t);btn.classList.remove('active')}
+  else{activeTags.add(t);btn.classList.add('active')}
+  filterPapers();
+}
 
-  let list = autoPapers.filter(p => {
-    if (source && p.source !== source) return false;
-    if ((p.total_score||0) < minScore) return false;
-    if (dateFrom && (p.fetched_date||'') < dateFrom) return false;
-    if (dateTo   && (p.fetched_date||'') > dateTo)   return false;
-    if (!activeTagFilters.has('__all__')) {
-      if (!(p.tags||[]).some(t => activeTagFilters.has(t))) return false;
-    }
-    if (kw) {
-      const haystack = `${p.title||''} ${p.summary_zh||''} ${p.abstract||''} ${(p.tags||[]).join(' ')}`.toLowerCase();
-      if (!haystack.includes(kw)) return false;
+function filterPapers() {
+  const kw = document.getElementById('fKw').value.toLowerCase();
+  const type = document.getElementById('fType').value;
+  const sub = document.getElementById('fSub').value;
+  const cure = document.getElementById('fCure').value;
+  const app = document.getElementById('fApp').value;
+  const sort = document.getElementById('fSort').value;
+
+  filtered = DB.papers.filter(p => {
+    if(type && p.doc_type !== type) return false;
+    const tags = p.tags || [];
+    if(sub && !tags.includes(sub)) return false;
+    if(cure && !tags.includes(cure)) return false;
+    if(app && !tags.includes(app)) return false;
+    if(activeTags.size && ![...activeTags].every(t=>tags.includes(t))) return false;
+    if(kw) {
+      const hay = `${p.title} ${p.abstract_note} ${p.purpose} ${p.value_to_project} ${tags.join(' ')} ${p.authors}`.toLowerCase();
+      if(!hay.includes(kw)) return false;
     }
     return true;
   });
 
-  if (sort === 'score') list.sort((a,b) => (b.total_score||0)-(a.total_score||0));
-  else if (sort === 'date') list.sort((a,b) => (b.fetched_date||'').localeCompare(a.fetched_date||''));
-  else if (sort === 'year')  list.sort((a,b) => (b.year||'').localeCompare(a.year||''));
+  if(sort==='year-desc') filtered.sort((a,b)=>(b.year||0)-(a.year||0));
+  else if(sort==='year-asc') filtered.sort((a,b)=>(a.year||0)-(b.year||0));
+  else if(sort==='tags') filtered.sort((a,b)=>(b.tags||[]).length-(a.tags||[]).length);
 
-  autoFiltered = list;
-  document.getElementById('autoCount').textContent  = autoPapers.length;
-  document.getElementById('autoCount2').textContent = `顯示 ${list.length} / 共 ${autoPapers.length} 篇`;
-  renderAutoList(list);
+  document.getElementById('filterCount').textContent = `${filtered.length} / ${DB.papers.length} 篇`;
+  renderPapers();
 }
 
-function renderAutoList(list) {
-  const c = document.getElementById('autoList');
-  if (!list.length) { c.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>無符合條件的文獻</p></div>'; return; }
-  c.innerHTML = list.map((p,i) => autoCardHTML(p, i)).join('');
-}
-
-function autoCardHTML(p, i) {
-  const score = p.total_score || 0;
-  const scoreClass = score >= 7 ? 'high' : score >= 4 ? 'mid' : 'low';
-  const inLib = library.some(l => l.pmid === (p.id||p.pmid));
-  const tags = (p.tags||[]).map(t=>`<span class="tag tag-auto">${t}</span>`).join('');
-  return `<div class="result-card${p._sel?' selected':''}" id="acard_${i}">
-    <div style="display:flex;align-items:flex-start;gap:10px">
-      <input type="checkbox" ${p._sel?'checked':''} onchange="autoFiltered[${i}]._sel=this.checked" style="margin-top:3px;flex-shrink:0;accent-color:var(--accent2)">
-      <div style="flex:1;min-width:0">
-        <div class="card-meta">
-          <span class="tag ${p.source==='USPTO'?'tag-patent':'tag-pubmed'}">${p.source||'PubMed'}</span>
-          ${p.year?`<span class="tag tag-year">${p.year}</span>`:''}
-          <span class="tag tag-score">⭐ ${score}/10</span>
-          ${inLib?'<span class="tag tag-saved">已收藏</span>':''}
-          ${p.fetched_date?`<span class="tag tag-year" style="opacity:.6">${p.fetched_date}</span>`:''}
-        </div>
-        <div class="card-title">${p.title||'（無標題）'}</div>
-        ${p.authors?`<div class="card-authors">${p.authors}</div>`:''}
-        <div class="score-bar">
-          <span style="font-size:11px;color:var(--muted)">相關性</span>
-          <div class="score-track"><div class="score-fill ${scoreClass}" style="width:${score*10}%"></div></div>
-          <span class="score-num">${p.product_score||0}+${p.research_score||0}</span>
-        </div>
-        ${tags?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">${tags}</div>`:''}
+function renderPapers() {
+  const c = document.getElementById('paperList');
+  if(!filtered.length){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)">無符合結果</div>';return}
+  c.innerHTML = filtered.map((p,i)=>{
+    const typeColor = p.doc_type==='專利'?'tag-orange':p.doc_type==='商用產品'?'tag-green':'tag-blue';
+    const tags = (p.tags||[]).map(t=>`<span class="tag tag-gray">${t}</span>`).join('');
+    const link = p.links ? Object.values(p.links)[0] : '';
+    return `<div class="paper-card">
+      <div style="display:flex;gap:6px;margin-bottom:4px;flex-wrap:wrap;align-items:center">
+        <span class="tag ${typeColor}">${p.doc_type||''}</span>
+        <span class="tag tag-gray">${p.id}</span>
+        ${p.year?`<span class="tag tag-gray">${p.year}</span>`:''}
+        ${p.access?`<span style="font-size:10px;color:var(--muted)">${p.access}</span>`:''}
       </div>
-    </div>
-    <div class="card-actions">
-      <button class="btn btn-secondary btn-sm" onclick="toggleEl('aabstract_${i}')">📄 詳細</button>
-      <button class="btn btn-secondary btn-sm" onclick="addAutoSingleToLibrary(${i})">+ 收藏</button>
-      ${p.url?`<a href="${p.url}" target="_blank" class="btn btn-secondary btn-sm">↗ 原文</a>`:''}
-    </div>
-    <div class="card-abstract" id="aabstract_${i}">
-      ${p.summary_zh?`<div class="card-abstract-zh"><strong style="font-size:11px;color:var(--accent2)">🌐 中文摘要</strong><br>${p.summary_zh}</div>`:''}
-      ${p.highlight?`<div class="card-highlight">💡 ${p.highlight}</div>`:''}
-      ${p.abstract?`<div style="margin-top:8px;color:var(--muted);font-size:12px">${p.abstract.slice(0,600)}${p.abstract.length>600?'…':''}</div>`:''}
-    </div>
-  </div>`;
-}
-
-// ══════════════════════════════════════════════
-// Library
-// ══════════════════════════════════════════════
-function saveLibrary() { localStorage.setItem('litdb_library', JSON.stringify(library)); updateLibCount(); }
-
-function renderLibrary() {
-  const kw = document.getElementById('libSearch').value.toLowerCase();
-  const list = library.filter(p => !kw || `${p.title} ${p.authors} ${p.note}`.toLowerCase().includes(kw));
-  const c = document.getElementById('libraryList');
-  if (!list.length) { c.innerHTML = '<div class="empty-state"><div class="icon">📚</div><p>文庫尚無資料</p></div>'; return; }
-  c.innerHTML = list.map((item,i) => libCardHTML(item, i)).join('');
-}
-
-function libCardHTML(item, i) {
-  const score = item.total_score;
-  const tags = (item.tags||[]).map(t=>`<span class="tag tag-auto">${t}</span>`).join('');
-  return `<div class="result-card" id="lcard_${i}">
-    <div class="card-meta">
-      <span class="tag ${item.source==='USPTO'?'tag-patent':item.type==='patent'?'tag-patent':'tag-pubmed'}">${item.source||item.type||'PubMed'}</span>
-      ${item.year?`<span class="tag tag-year">${item.year}</span>`:''}
-      ${score!=null?`<span class="tag tag-score">⭐ ${score}/10</span>`:''}
-    </div>
-    <div class="card-title">${item.title}</div>
-    ${item.authors?`<div class="card-authors">${item.authors}</div>`:''}
-    ${tags?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">${tags}</div>`:''}
-    <div class="card-actions">
-      <button class="btn btn-secondary btn-sm" onclick="toggleEl('labstract_${i}')">📄 詳細</button>
-      ${item.url||item.pmid?`<a href="${item.url||'https://pubmed.ncbi.nlm.nih.gov/'+item.pmid+'/'}" target="_blank" class="btn btn-secondary btn-sm">↗ 原文</a>`:''}
-      <button class="btn btn-warn btn-sm" onclick="removeFromLibrary('${item.pmid||item.id}')">✕ 移除</button>
-    </div>
-    <div class="card-abstract" id="labstract_${i}">
-      ${item.summary_zh?`<div class="card-abstract-zh"><strong style="font-size:11px;color:var(--accent2)">🌐 中文摘要</strong><br>${item.summary_zh}</div>`:''}
-      ${item.highlight?`<div class="card-highlight">💡 ${item.highlight}</div>`:''}
-      ${item.abstract?`<div style="margin-top:8px;color:var(--muted);font-size:12px">${(item.abstract||'').slice(0,600)}</div>`:''}
-      <div class="note-area show" style="margin-top:8px">
-        <textarea placeholder="筆記..." oninput="library[${i}].note=this.value">${item.note||''}</textarea>
-        <button class="btn btn-success btn-sm" style="margin-top:4px" onclick="saveLibrary();toast('已儲存','success')">儲存筆記</button>
+      <div class="paper-title">${p.title}</div>
+      ${p.authors?`<div class="paper-sub">${p.authors}</div>`:''}
+      ${p.purpose?`<div class="paper-purpose">📌 ${p.purpose}</div>`:''}
+      <div class="paper-tags">${tags}</div>
+      <div class="paper-actions">
+        <button class="btn btn-s" onclick="toggleValue('pv_${i}')">💡 對專案價值</button>
+        ${link?`<a href="${link}" target="_blank" class="btn btn-s">↗ 原文</a>`:''}
+        <button class="btn btn-s" onclick="pinPaper('${p.id}')">📌 釘選到AI</button>
       </div>
-    </div>
-  </div>`;
+      <div class="paper-value" id="pv_${i}">
+        ${p.value_to_project||'—'}<br>
+        ${p.abstract_note?`<div style="margin-top:6px;color:var(--muted);font-size:11px">${p.abstract_note}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function toggleSelectAll() {
-  const checked = document.getElementById('selectAll').checked;
-  searchResults.forEach(r => r._selected = checked);
-  renderResults(searchResults);
-}
+function toggleValue(id){document.getElementById(id)?.classList.toggle('show')}
+function pinPaper(id){if(pinnedIds.has(id))pinnedIds.delete(id);else pinnedIds.add(id);renderCtx();toast(pinnedIds.has(id)?'已釘選':'已取消','success')}
 
-function addSelectedToLibrary() {
-  const toAdd = searchResults.filter(r => r._selected);
-  if (!toAdd.length) { toast('請先勾選文章', 'error'); return; }
-  let added = 0;
-  toAdd.forEach(item => {
-    if (!library.some(l => l.pmid === item.pmid)) { library.push({...item, _selected:false}); added++; }
+// ══════════════════════════════════════════════
+// GRAPH: Tag Co-occurrence
+// ══════════════════════════════════════════════
+function buildGraph() {
+  const mode = document.getElementById('graphMode').value;
+  const threshold = parseInt(document.getElementById('graphThreshold').value);
+  document.getElementById('graphThreshVal').textContent = threshold;
+  const canvas = document.getElementById('graphCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * (window.devicePixelRatio||1);
+  canvas.height = 500 * (window.devicePixelRatio||1);
+  ctx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
+  const W = canvas.offsetWidth, H = 500;
+
+  // Build co-occurrence
+  const cooc = {};
+  const nodeCounts = {};
+
+  DB.papers.forEach(p => {
+    const items = mode==='tags' ? (p.tags||[]) : mode==='authors' ? (p.authors||'').split(/[;,]/).map(s=>s.trim()).filter(Boolean) : [p.id];
+    items.forEach(a => { nodeCounts[a] = (nodeCounts[a]||0)+1; });
+    for(let i=0;i<items.length;i++) for(let j=i+1;j<items.length;j++) {
+      const key = [items[i],items[j]].sort().join('||');
+      cooc[key] = (cooc[key]||0)+1;
+    }
   });
-  saveLibrary(); toast(`已加入 ${added} 篇`, 'success');
-}
 
-function addSingleToLibrary(i) {
-  const item = searchResults[i];
-  if (library.some(l => l.pmid === item.pmid)) { toast('已在文庫中', ''); return; }
-  library.push({...item, _selected:false}); saveLibrary();
-  renderResults(searchResults); toast('已加入文庫', 'success');
-}
+  const edges = Object.entries(cooc).filter(([,v])=>v>=threshold).map(([k,v])=>{const [a,b]=k.split('||');return {a,b,w:v}});
+  const nodeSet = new Set();
+  edges.forEach(e=>{nodeSet.add(e.a);nodeSet.add(e.b)});
+  const nodes = [...nodeSet].map(id=>({id, count:nodeCounts[id]||1, x:Math.random()*W, y:Math.random()*H, vx:0, vy:0}));
+  const nodeMap = {};
+  nodes.forEach(n=>nodeMap[n.id]=n);
 
-function addAutoSingleToLibrary(i) {
-  const p = autoFiltered[i];
-  const pid = p.id || p.pmid;
-  if (library.some(l => (l.id||l.pmid) === pid)) { toast('已在文庫中', ''); return; }
-  library.push({...p, pmid: pid}); saveLibrary(); toast('已加入文庫', 'success');
-}
+  // Color by tag dictionary category
+  const dict = DB.meta.tag_dictionary||{};
+  const catColors = {substrate:'#4f9cf9',hydrophilic_polymer:'#7bcfb8',cure_method:'#f0a04b',anchor_primer:'#e05c5c',application:'#c090f0',doc_type:'#7a85a0',access:'#7a85a0'};
+  const tagCat = {};
+  Object.entries(dict).forEach(([cat,tags])=>tags.forEach(t=>tagCat[t]=cat));
 
-function addAutoSelectedToLibrary() {
-  const toAdd = autoFiltered.filter(p => p._sel);
-  if (!toAdd.length) { toast('請先勾選文章', 'error'); return; }
-  let added = 0;
-  toAdd.forEach(p => {
-    const pid = p.id||p.pmid;
-    if (!library.some(l => (l.id||l.pmid) === pid)) { library.push({...p, pmid:pid}); added++; }
+  function getColor(id){ return catColors[tagCat[id]]||'#7a85a0'; }
+
+  // Simple force simulation
+  const maxW = Math.max(1,...edges.map(e=>e.w));
+  for(let iter=0;iter<200;iter++){
+    // Repulsion
+    for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
+      let dx=nodes[j].x-nodes[i].x, dy=nodes[j].y-nodes[i].y;
+      const dist=Math.max(Math.sqrt(dx*dx+dy*dy),1);
+      const f=800/(dist*dist);
+      nodes[i].vx-=f*dx/dist; nodes[i].vy-=f*dy/dist;
+      nodes[j].vx+=f*dx/dist; nodes[j].vy+=f*dy/dist;
+    }
+    // Attraction
+    edges.forEach(e=>{
+      const a=nodeMap[e.a],b=nodeMap[e.b];if(!a||!b)return;
+      let dx=b.x-a.x,dy=b.y-a.y;
+      const dist=Math.max(Math.sqrt(dx*dx+dy*dy),1);
+      const f=dist*0.005*e.w;
+      a.vx+=f*dx/dist; a.vy+=f*dy/dist;
+      b.vx-=f*dx/dist; b.vy-=f*dy/dist;
+    });
+    // Center gravity
+    nodes.forEach(n=>{
+      n.vx+=(W/2-n.x)*0.001; n.vy+=(H/2-n.y)*0.001;
+      n.x+=n.vx*0.3; n.y+=n.vy*0.3;
+      n.vx*=0.85; n.vy*=0.85;
+      n.x=Math.max(40,Math.min(W-40,n.x));
+      n.y=Math.max(30,Math.min(H-30,n.y));
+    });
+  }
+
+  // Draw
+  ctx.clearRect(0,0,W,H);
+  // Edges
+  edges.forEach(e=>{
+    const a=nodeMap[e.a],b=nodeMap[e.b];if(!a||!b)return;
+    ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+    ctx.strokeStyle=`rgba(127,140,170,${0.15+0.6*(e.w/maxW)})`;
+    ctx.lineWidth=0.5+2*(e.w/maxW);ctx.stroke();
   });
-  saveLibrary(); toast(`已加入 ${added} 篇`, 'success');
-}
+  // Nodes
+  nodes.forEach(n=>{
+    const r=4+Math.min(n.count*1.5,16);
+    ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);
+    ctx.fillStyle=getColor(n.id);ctx.globalAlpha=0.85;ctx.fill();ctx.globalAlpha=1;
+    ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=0.5;ctx.stroke();
+    ctx.fillStyle='#dde3f0';ctx.font='500 10px Inter,sans-serif';ctx.textAlign='center';
+    ctx.fillText(n.id.length>12?n.id.slice(0,11)+'…':n.id, n.x, n.y-r-4);
+  });
 
-function removeFromLibrary(pid) {
-  library = library.filter(l => (l.pmid||l.id) !== pid);
-  saveLibrary(); renderLibrary();
-}
-
-function clearLibrary() {
-  if (!confirm('確定清空文庫？')) return;
-  library = []; saveLibrary(); renderLibrary();
+  // Legend
+  const legend = document.getElementById('graphLegend');
+  legend.innerHTML = Object.entries(catColors).map(([cat,col])=>
+    `<span><span class="legend-dot" style="background:${col}"></span>${cat}</span>`
+  ).join('');
 }
 
 // ══════════════════════════════════════════════
-// Translate
+// GAP: Heatmaps
 // ══════════════════════════════════════════════
-async function translateCard(i, mode) {
-  const item = searchResults[i];
-  if (!cfg.cfProxyUrl || !item.abstract) return;
-  const el = document.getElementById(`sabstract_${i}`);
+function buildHeatmaps() {
+  const dict = DB.meta.tag_dictionary || {};
+  buildOneHeatmap('heatmapWrap', dict.substrate||[], dict.cure_method||[], '基材','固化');
+  buildOneHeatmap('heatmapWrap2', dict.application||[], dict.hydrophilic_polymer||[], '應用','高分子');
+}
+
+function buildOneHeatmap(wrapperId, rows, cols, rowLabel, colLabel) {
+  const matrix = {};
+  const paperMap = {};
+  rows.forEach(r=>{matrix[r]={};cols.forEach(c=>{matrix[r][c]=0;paperMap[r+'||'+c]=[]})});
+
+  DB.papers.forEach(p=>{
+    const tags = p.tags||[];
+    rows.forEach(r=>{ if(tags.includes(r)) cols.forEach(c=>{ if(tags.includes(c)){matrix[r][c]++;paperMap[r+'||'+c].push(p)} })});
+  });
+
+  let html = `<table class="heatmap"><tr><th>${rowLabel} \\ ${colLabel}</th>${cols.map(c=>`<th>${c}</th>`).join('')}<th>小計</th></tr>`;
+  rows.forEach(r=>{
+    let rowSum = 0;
+    html += `<tr><th style="text-align:left">${r}</th>`;
+    cols.forEach(c=>{
+      const v = matrix[r][c];
+      rowSum += v;
+      const cls = v===0?'cell-0':v===1?'cell-1':v===2?'cell-2':v>=3?'cell-many':'cell-3';
+      html += `<td class="${cls}" onclick="showGapDetail('${r}','${c}')" title="${r} × ${c}: ${v} 篇">${v||'·'}</td>`;
+    });
+    html += `<td style="color:var(--muted)">${rowSum}</td></tr>`;
+  });
+  html += '</table>';
+  document.getElementById(wrapperId).innerHTML = html;
+}
+
+function showGapDetail(r, c) {
+  const tags = DB.papers.filter(p=>(p.tags||[]).includes(r)&&(p.tags||[]).includes(c));
+  const el = document.getElementById('gapDetail');
+  if(!tags.length) {
+    el.innerHTML = `<h4 style="color:var(--warn)">⚠ 缺口：${r} × ${c}</h4><p style="font-size:13px;color:var(--muted);margin-top:8px">資料庫中沒有同時涵蓋「${r}」和「${c}」的文獻。這可能是值得搜尋的方向。</p>
+    <button class="btn btn-p" style="margin-top:8px" onclick="prefillChat('我的文獻資料庫中 ${r} 和 ${c} 的交集是缺口，請建議可能的搜尋關鍵字和研究方向')">🤖 問 AI 建議</button>`;
+  } else {
+    el.innerHTML = `<h4 style="color:var(--accent2)">${r} × ${c}：${tags.length} 篇</h4><div style="margin-top:8px">${tags.map(p=>`<div style="padding:4px 0;font-size:13px"><span class="tag tag-gray">${p.id}</span> ${p.title}</div>`).join('')}</div>`;
+  }
   el.classList.add('show');
+}
+
+// ══════════════════════════════════════════════
+// AI CHAT
+// ══════════════════════════════════════════════
+function renderCtx() {
+  const kw = document.getElementById('ctxSearch').value.toLowerCase();
+  const list = DB.papers.filter(p=>!kw||`${p.title} ${p.id} ${(p.tags||[]).join(' ')}`.toLowerCase().includes(kw));
+  document.getElementById('ctxList').innerHTML = list.map(p=>{
+    const pinned = pinnedIds.has(p.id);
+    return `<div class="ctx-item${pinned?' pinned':''}" onclick="pinPaper('${p.id}')">
+      <span style="color:${pinned?'var(--accent2)':'var(--muted)'}">${pinned?'📌':'○'}</span>
+      <strong>${p.id}</strong> ${(p.title||'').slice(0,40)}${(p.title||'').length>40?'…':''}
+    </div>`;
+  }).join('');
+  document.getElementById('pinnedCount').textContent = `${pinnedIds.size} 已釘選`;
+}
+
+function buildContext() {
+  // Collect pinned papers, send only short fields
+  let papers = DB.papers.filter(p=>pinnedIds.has(p.id));
+  if(!papers.length) papers = DB.papers.slice(0,10); // fallback: first 10
+  return papers.map(p=>`[${p.id}] ${p.title}\n用途:${p.purpose||''}\n價值:${p.value_to_project||''}\n摘要:${(p.abstract_note||'').slice(0,200)}\n標籤:${(p.tags||[]).join(',')}`).join('\n---\n');
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const q = input.value.trim();
+  if(!q) return;
+  if(!cfg.proxy){toast('請先在設定中填入 Claude API Proxy URL','error');return}
+  input.value = '';
+
+  // Show user message
+  appendMsg(q, 'user');
+
+  // Build system prompt with DB context
+  const context = buildContext();
+  const sysPrompt = `你是 Bioteque（邦特生物科技）的 R&D 文獻顧問。以下是使用者的文獻資料庫摘要：
+
+${context}
+
+Bioteque 現有能力：TPU/Pebax 基材、air plasma 前處理、LED UV 固化、Harland FTS 摩擦測試儀。
+產品線：ureteral stent、hemodialysis catheter、TPU catheter、biopsy needle。
+
+回答規則：
+1. 使用繁體中文
+2. 引用文獻時用 [ID] 標註
+3. 不確定的推論標上 *
+4. 回答要具體可執行，不要泛泛而談
+5. 如果問題超出資料庫範圍，說明缺口並建議搜尋方向`;
+
+  chatHistory.push({role:'user',content:q});
+  // Keep last 4 turns
+  if(chatHistory.length>8) chatHistory = chatHistory.slice(-8);
+
+  const messages = [{role:'user',content:sysPrompt+'\\n\\n歷史對話將在下方，請根據以上背景回答：'},...chatHistory];
+
+  const aiDiv = appendMsg('<span class="spinner"></span> 思考中...', 'ai');
+
   try {
-    const r = await fetch(cfg.cfProxyUrl, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:800,
-        messages:[{role:'user',content:`請將以下醫學文獻摘要翻譯成繁體中文，保留專業術語：\n\n${item.abstract.slice(0,1500)}`}] })
+    const r = await fetch(cfg.proxy, {
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1200,messages})
     });
     const data = await r.json();
-    item.zhAbstract = data.content?.[0]?.text || '翻譯失敗';
-    renderResults(searchResults);
-    toast('翻譯完成', 'success');
-  } catch(e) { toast('翻譯失敗：' + e.message, 'error'); }
+    const reply = data.content?.[0]?.text || '回應失敗';
+    chatHistory.push({role:'assistant',content:reply});
+
+    // Format: replace [P01] etc with clickable refs
+    const formatted = reply.replace(/\[([A-Z]\d+)\]/g, (m,id)=>{
+      const p = DB.papers.find(x=>x.id===id);
+      if(!p) return m;
+      const link = p.links?Object.values(p.links)[0]:'';
+      return `<span style="color:var(--accent2);cursor:pointer" title="${p.title}" onclick="highlightPaper('${id}')">[${id}]</span>`;
+    });
+    aiDiv.innerHTML = formatted;
+  } catch(e) {
+    aiDiv.innerHTML = `<span style="color:var(--danger)">錯誤：${e.message}</span>`;
+  }
 }
 
-// ══════════════════════════════════════════════
-// Local export/import
-// ══════════════════════════════════════════════
-function exportLocal() {
-  const blob = new Blob([JSON.stringify(library, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = `litdb_library_${new Date().toISOString().slice(0,10)}.json`; a.click();
+function appendMsg(html, type) {
+  const c = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-' + (type==='user'?'user':'ai');
+  div.innerHTML = html;
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+  return div;
 }
 
-function importLocal(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    try {
-      const data = JSON.parse(ev.target.result);
-      if (!Array.isArray(data)) throw new Error('格式錯誤');
-      let added = 0;
-      data.forEach(p => { if (!library.some(l=>(l.pmid||l.id)===(p.pmid||p.id))) { library.push(p); added++; }});
-      saveLibrary(); toast(`匯入完成，新增 ${added} 篇`, 'success');
-    } catch(err) { toast('匯入失敗：' + err.message, 'error'); }
+function clearChat(){chatHistory=[];document.getElementById('chatMessages').innerHTML='<div class="msg msg-ai">對話已清空。請繼續提問。</div>'}
+function prefillChat(text){showView('chat',document.querySelectorAll('.tab')[3]);document.getElementById('chatInput').value=text;document.getElementById('chatInput').focus()}
+function highlightPaper(id){showView('browse',document.querySelectorAll('.tab')[0]);document.getElementById('fKw').value=id;filterPapers()}
+
+// ══════════════════════════════════════════════
+// ADD: New Paper
+// ══════════════════════════════════════════════
+async function aiParseAdd() {
+  const raw = document.getElementById('addRaw').value.trim();
+  if(!raw){toast('請先貼上內容','error');return}
+  if(!cfg.proxy){toast('請先設定 Claude API Proxy URL','error');return}
+
+  toast('AI 解析中...','');
+
+  const tagDict = DB.meta.tag_dictionary || {};
+  const allValidTags = Object.values(tagDict).flat();
+
+  try {
+    const r = await fetch(cfg.proxy, {
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,
+        messages:[{role:'user',content:`你是醫材親水塗層文獻分析專家。解析以下文獻資訊，回傳純 JSON（不含 markdown fence）：
+
+有效標籤列表：${allValidTags.join(', ')}
+
+請回傳：
+{"title":"","authors":"","year":null,"doc_type":"期刊論文","access":"開放摘要","tags":[],"purpose":"一句話說明為什麼值得收錄","abstract_note":"精華摘要150字","value_to_project":"對 Bioteque TPU catheter/ureteral stent 專案的具體價值"}
+
+輸入內容：
+${raw.slice(0,2000)}`}]})
+    });
+    const data = await r.json();
+    let text = data.content?.[0]?.text||'';
+    text = text.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(text);
+
+    // Auto-generate ID
+    const prefix = parsed.doc_type==='專利'?'P':parsed.doc_type==='商用產品'?'C':parsed.doc_type==='綜述review'?'R':'A';
+    const maxNum = DB.papers.filter(p=>p.id.startsWith(prefix)).map(p=>parseInt(p.id.slice(1))||0).reduce((a,b)=>Math.max(a,b),0);
+    document.getElementById('addId').value = prefix + String(maxNum+1).padStart(2,'0');
+
+    document.getElementById('addTitle').value = parsed.title||'';
+    document.getElementById('addAuthors').value = parsed.authors||'';
+    document.getElementById('addYear').value = parsed.year||'';
+    document.getElementById('addDocType').value = parsed.doc_type||'期刊論文';
+    document.getElementById('addAccess').value = parsed.access||'開放摘要';
+    document.getElementById('addTags').value = (parsed.tags||[]).join(', ');
+    document.getElementById('addPurpose').value = parsed.purpose||'';
+    document.getElementById('addAbstract').value = parsed.abstract_note||'';
+    document.getElementById('addValue').value = parsed.value_to_project||'';
+
+    toast('AI 已填入，請檢查後確認','success');
+  } catch(e) {
+    toast('解析失敗：'+e.message,'error');
+  }
+}
+
+function addPaper() {
+  const id = document.getElementById('addId').value.trim();
+  const title = document.getElementById('addTitle').value.trim();
+  if(!id||!title){toast('ID 和標題為必填','error');return}
+  if(DB.papers.some(p=>p.id===id)){toast(`ID ${id} 已存在`,'error');return}
+
+  const paper = {
+    id,
+    title,
+    authors: document.getElementById('addAuthors').value.trim(),
+    year: parseInt(document.getElementById('addYear').value)||null,
+    venue: '',
+    doi: null, pmid: null,
+    doc_type: document.getElementById('addDocType').value,
+    access: document.getElementById('addAccess').value,
+    tags: document.getElementById('addTags').value.split(/[,，]/).map(s=>s.trim()).filter(Boolean),
+    purpose: document.getElementById('addPurpose').value.trim(),
+    abstract_note: document.getElementById('addAbstract').value.trim(),
+    value_to_project: document.getElementById('addValue').value.trim(),
+    links: {}
   };
-  reader.readAsText(file);
+  const link = document.getElementById('addLink').value.trim();
+  if(link) paper.links = {ref: link};
+
+  DB.papers.push(paper);
+  saveDB();
+  onDBLoaded();
+
+  // Clear form
+  ['addId','addTitle','addAuthors','addYear','addTags','addPurpose','addAbstract','addValue','addLink','addRaw'].forEach(id=>document.getElementById(id).value='');
+  toast(`已新增 ${paper.id}: ${paper.title.slice(0,30)}...`,'success');
 }
-
-// ══════════════════════════════════════════════
-// Google（保留原有架構，簡化版）
-// ══════════════════════════════════════════════
-function loadGoogleSDK() { /* 原有邏輯保留 */ }
-function handleGoogleAuth() { toast('請在設定中填入 Google Client ID 後重試', ''); }
-function googleSignOut() { gAccessToken = null; document.getElementById('googleUserInfo').style.display='none'; document.getElementById('googleSignInBtn').style.display='flex'; document.getElementById('gStatusDot').classList.remove('connected'); document.getElementById('gStatusText').textContent='未連接 Google'; }
-function saveToSheets() { toast('請先完成 Google 連線', ''); }
-function loadFromGoogle() { toast('請先完成 Google 連線', ''); }
-
-// ══════════════════════════════════════════════
-// Util
-// ══════════════════════════════════════════════
-function toggleEl(id) { document.getElementById(id)?.classList.toggle('show'); }
 </script>
 </body>
 </html>
