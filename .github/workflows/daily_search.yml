@@ -1,0 +1,37 @@
+name: Daily Literature Search
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic requests scholarly
+
+      - name: Run literature search agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/search_agent.py
+
+      - name: Commit and push report
+        run: |
+          git config user.name "Literature Bot"
+          git config user.email "bot@github-actions"
+          git add reports/ data/papers.json README.md
+          git diff --cached --quiet || git commit -m "📚 Daily literature update $(date +'%Y-%m-%d')"
+          git push
