@@ -595,10 +595,27 @@ function renderCtx() {
   document.getElementById('pinnedCount').textContent = `${pinnedIds.size} 已釘選`;
 }
 
-function buildContext() {
-  // Collect pinned papers, send only short fields
+
+function retrieveRelevantPapers(question, topK = 10){
+  const qWords = question.toLowerCase().split(/[\s,，。;；()（）]+/).filter(w=>w.length>1);
+  const scored = DB.papers.map(p=>{
+    const text=[p.title||'',p.purpose||'',p.abstract_note||'',p.value_to_project||'',...((p.tags)||[])].join(' ').toLowerCase();
+    let score=0;
+    qWords.forEach(w=>{
+      const hit=(text.match(new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'))||[]).length;
+      score+=hit;
+    });
+    return {paper:p,score};
+  });
+  return scored.filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,topK).map(x=>x.paper);
+}
+
+function buildContext(question='') {
   let papers = DB.papers.filter(p=>pinnedIds.has(p.id));
-  if(!papers.length) papers = DB.papers.slice(0,10); // fallback: first 10
+  if(!papers.length){
+    if(question) papers = retrieveRelevantPapers(question,10);
+    if(!papers.length) papers = DB.papers.slice(0,10);
+  }
   return papers.map(p=>`[${p.id}] ${p.title}\n用途:${p.purpose||''}\n價值:${p.value_to_project||''}\n摘要:${(p.abstract_note||'').slice(0,200)}\n標籤:${(p.tags||[]).join(',')}`).join('\n---\n');
 }
 
@@ -613,7 +630,7 @@ async function sendChat() {
   appendMsg(q, 'user');
 
   // Build system prompt with DB context
-  const context = buildContext();
+  const context = buildContext(q);
   const sysPrompt = `你是 Bioteque（邦特生物科技）的 R&D 文獻顧問。以下是使用者的文獻資料庫摘要：
 
 ${context}
